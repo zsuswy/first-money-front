@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+#footer .aui-bar-tab-item {
+    color: #757575;
+}
+
+#footer .active {
+    color: #00bbd4;
+}
+
+#footer {
+    z-index: 1000;
+}
+
+.no-padding {
+    padding: 0 0 !important;
+}
+
+.list-price {
+    font-size: .7rem;
+    line-height: .7rem;
+    color: #f1c40f;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.list-old-price {
+    text-decoration: line-through;
+    font-size: .4rem;
+    line-height: .7rem;
+    vertical-align: middle;
+}

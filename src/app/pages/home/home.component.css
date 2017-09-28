@@ -1,0 +1,100 @@
+.aui-card-list-header, .aui-card-list-footer {
+    padding: 0.1rem 0.1rem;
+}
+
+.aui-card-list-footer {
+    display: inline-block;
+    font-size: .7rem !important;
+}
+
+.twoLine {
+    height: .96rem !important;
+    -webkit-box-align: start !important;
+}
+
+.adv-scroll .aui-card-list-footer {
+    margin-bottom: .13333rem;
+    font-size: .6rem;
+    color: #333;
+    line-height: 1rem !important;
+    max-height: 2rem !important;;
+    min-height: 2rem !important;
+    font-weight: 700;
+    display: -webkit-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: end;
+    -webkit-line-clamp: 2;
+}
+
+.price {
+    float: left;
+    font-size: .6rem;
+    color: #ffa800;
+    line-height: .6rem;
+    font-weight: 700;
+    padding: 0.1rem 0.1rem;
+}
+
+.swiper-container {
+    padding: 10px 10px;
+    margin-bottom: 10px;
+}
+
+.header-right-mark {
+    font-size: .5rem;
+    line-height: 1rem;
+    vertical-align: top;
+}
+
+.color1 {
+    color: crimson
+
+}
+
+.color2 {
+    color: #ffa800;
+}
+
+.header-text {
+    font-size: 1rem;
+    weight: 700;
+}
+
+.header-container {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.aui-slide-page-line {
+    height: 2px !important;
+}
+
+.aui-slide-page-active {
+    background: #ffa800 !important;
+}
+
+.class-badge {
+    position: absolute;
+    background-color: white;
+    right: 5px;
+    bottom: 2rem;
+    font-size: .5rem;
+    padding: 2px 1px;
+    border-radius: 3px;
+    border: 1px solid #03a9f4;
+    margin-right: 5px;
+    color: #03a9f4;
+}
+
+.list-header {
+    color: black;
+    font-weight: 700;
+    font-size: .8rem;
+}
+
+.list-co-header {
+    font-size: .5rem;
+}

@@ -1,0 +1,49 @@
+.tab-header {
+    padding: .4rem;
+}
+
+.tab-header-active {
+    border-bottom: solid 2px #03a9f4;
+}
+
+.class-badge {
+    position: absolute;
+    background-color: white;
+    right: 5px;
+    bottom: 2rem;
+    font-size: .3rem;
+    padding: 0px 1px;
+    border-radius: 3px;
+    border: 1px solid #03a9f4;
+    margin-right: 5px;
+    color: #03a9f4;
+}
+
+.list-header {
+    color: black;
+    font-weight: 700;
+    font-size: .8rem;
+}
+
+.list-co-header {
+    font-size: .5rem;
+}
+
+.nav-container {
+    position: relative;
+    float: left;
+    border-right: solid 1px #bdc3c7;
+}
+
+.nav-btn {
+    text-align: center;
+    border-bottom: solid 1px #eeeeee;
+    font-size: .8rem;
+    padding: .5rem 0rem
+}
+
+.nav-btn.active {
+    font-weight: 700;
+    border-left: 2px solid #1abc9c;
+    background-color: white;
+}

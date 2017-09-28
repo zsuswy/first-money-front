@@ -1,0 +1,39 @@
+<section class="aui-chat">
+    <div class="aui-chat-header">2016年7月13日</div>
+    <div *ngFor="let num of numbers;let i=index">
+        <div class="aui-chat-item aui-chat-left" id="survey{{i}}">
+            <div class="aui-chat-media">
+                <img src="assets/image/demo2.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <!--<div class="aui-chat-name">AUI <span class="aui-label aui-label-warning">2.0</span></div>-->
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    <div>这是第{{i}}套题目</div>
+                    <!--<img src="assets/image/l1.png"/>-->
+                </div>
+            </div>
+        </div>
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="assets/image/liulangnan.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <!--<div class="aui-chat-name">流浪男</div>-->
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    <div (click)="scrollTo(num)" class="option">以前拍摄的牛背山星空以前拍摄的牛背山星空</div>
+                    <div (click)="scrollTo(num)" class="option">以前拍摄的牛背山星空</div>
+                    <div (click)="scrollTo(num)" class="option">以前拍摄的牛背山星空asdfasdfasdfasdfasdfasdfasdfadfasdf</div>
+                    <div (click)="scrollTo(num)" class="option">以前拍摄的牛背山星空</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="aui-chat-item aui-chat-left">
+
+        <div style="height: 30rem;">&nbsp;</div>
+    </div>
+</section>

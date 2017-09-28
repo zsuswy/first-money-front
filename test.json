@@ -1,0 +1,26 @@
+[
+  {
+    "question_id": 1,
+    "user_selection": "选项1-－－－－－－－－",
+    "score": [
+      {
+        "dimension_id": 1,
+        "score": 15.4,
+        "children": [
+          {
+            "dimension_id": 2,
+            "score": 15.4
+          }
+        ]
+      },
+      {
+        "dimension_id": 5,
+        "score": 20
+      },
+      {
+        "dimension_id": 6,
+        "score": 34
+      }
+    ]
+  }
+]

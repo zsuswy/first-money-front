@@ -1,0 +1,167 @@
+<div id="aui-slide2" #auislide2>
+    <div class="aui-slide-wrap">
+        <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+            <div class="aui-content" style="width:100%;height:100%">
+                <a routerLink="/survey-detail-initial">
+                    <img src="assets/image/s-1.png" style="width: 100%;height:auto">
+                </a>
+            </div>
+        </div>
+        <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
+            <div class="aui-content">
+                <a routerLink="/survey-detail-initial">
+                    <img src="assets/image/s-2.png" style="width: 100%;height:auto">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="aui-slide-page-wrap"><!--分页容器--></div>
+</div>
+
+<section class="aui-content aui-margin-b-10">
+    <div class="aui-grid">
+        <div class="aui-row">
+            <div class="aui-col-xs-3">
+                <i class="aui-iconfont aui-icon-recovery aui-text-info"></i>
+                <div class="aui-grid-label">性格</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <i class="aui-iconfont aui-icon-mobile aui-text-warning"></i>
+                <div class="aui-grid-label">情感</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <i class="aui-iconfont aui-icon-cert aui-text-warning"></i>
+                <div class="aui-grid-label">职场</div>
+            </div>
+            <div class="aui-col-xs-3">
+                <i class="aui-iconfont aui-icon-map aui-text-info"></i>
+                <div class="aui-grid-label">健康</div>
+            </div>
+            <!--<div class="aui-hr aui-clearfix"></div>-->
+            <!--<div class="aui-col-xs-3">-->
+            <!--<i class="aui-iconfont aui-icon-gear aui-text-danger"></i>-->
+            <!--<div class="aui-grid-label">人际</div>-->
+            <!--</div>-->
+            <!--<div class="aui-col-xs-3">-->
+            <!--<div class="aui-badge" style="left:50%">抢红包</div>-->
+            <!--<i class="aui-iconfont aui-icon-calendar aui-text-danger"></i>-->
+            <!--<div class="aui-grid-label">亲子</div>-->
+            <!--</div>-->
+            <!--<div class="aui-col-xs-3">-->
+            <!--<i class="aui-iconfont aui-icon-location aui-text-warning"></i>-->
+            <!--<div class="aui-grid-label">能力</div>-->
+            <!--</div>-->
+            <!--<div class="aui-col-xs-3">-->
+            <!--<i class="aui-iconfont aui-icon-video aui-text-primary"></i>-->
+            <!--<div class="aui-grid-label">趣味</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+</section>
+
+<div class="aui-content" style="background-color: white;margin-bottom: 10px">
+    <div class="header-container">
+        <div>
+            <span class="header-text color1">热卖</span>
+            <span class="header-text">爆款</span>
+            <span class="header-right-mark color1">HOT</span>
+        </div>
+        <div style="font-size: .15rem;color:darkgrey">不容错过的精彩小测试</div>
+    </div>
+    <div class="hot-swiper-container swiper-container">
+        <div class="swiper-wrapper">
+            <div *ngFor="let survey of hotList" class="swiper-slide">
+                <div class="aui-card-list adv-scroll">
+                    <a routerLink="/survey-detail-initial/{{survey.id}}">
+                        <div class="aui-card-list-content">
+                            <img src="{{survey.image}}" style="width: 90px;height:90px"/>
+                        </div>
+                        <div class="aui-card-list-footer twoLine">
+                            {{survey.title}}
+                        </div>
+                        <div class="price">
+                            ¥{{survey.price}}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="aui-content" style="background-color: white;margin-bottom: 10px">
+    <div class="header-container">
+        <div>
+            <span class="header-text color2">新品</span>
+            <span class="header-text">首发</span>
+            <span class="header-right-mark color2">NEW</span>
+        </div>
+        <div style="font-size: .15rem;color:darkgrey">不容错过的精彩小测试</div>
+    </div>
+    <div class="new-swiper-container swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let survey of hotList">
+                <div class="aui-card-list adv-scroll">
+                    <a routerLink="/survey-detail-initial/{{survey.id}}">
+                        <div class="aui-card-list-content">
+                            <img src="{{survey.image}}"/>
+                        </div>
+                        <div class="aui-card-list-footer twoLine">
+                            {{survey.title}}
+                        </div>
+                        <div class="price">
+                            ¥{{survey.price}}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="aui-content" id="destination" #destination>
+    <ul class="aui-list aui-media-list">
+        <li class="aui-list-item aui-list-item-middle">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media" style="width: 3rem;">
+                    <img src="assets/image/demo5.png" class="aui-img-round aui-list-img-sm">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-text">
+                        <div class="aui-list-item-title aui-font-size-16" style="font-weight: 700">测评精选</div>
+                        <div class="aui-list-item-right">
+                            <a href="http://www.baidu.com">
+                                查看更多 </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item" *ngFor="let survey of superList">
+            <a routerLink="/survey-detail-initial/{{survey.id}}">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text list-header">
+                            {{survey.title}}
+                        </div>
+                        <div class="aui-list-item-text list-co-header">
+                            <span [innerHTML]="survey.description"></span>
+                        </div>
+                        <div class="aui-info aui-padded-b-0">
+                            <div class="aui-info-item aui-font-size-12">
+                                <span class="list-price">¥{{survey.price}}</span>
+                                <span class="list-old-price">¥{{survey.orgPrice}}</span>
+                            </div>
+                            <div class="aui-info-item aui-font-size-12">{{survey.testedCnt}}人已测</div>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-media">
+                        <span class="class-badge">情感</span>
+                        <img src="{{survey.image}}">
+                    </div>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+</div>
+<div style="height: 1.3rem;"></div>
