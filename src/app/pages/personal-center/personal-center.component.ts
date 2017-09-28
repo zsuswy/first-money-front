@@ -7,11 +7,6 @@ import {slideInDownAnimation} from '../../animations';
 })
 
 export class PersonalCenterPageComponent {
-    @HostBinding('@routeAnimation')
-    routeAnimation = true;
-    @HostBinding('style.display')
-    display = 'block';
-    @HostBinding('style.position')
-    position = 'absolute';
+
 
 }

@@ -5,25 +5,25 @@
 </section>
 <section class="aui-grid">
     <h6 class="aui-content aui-text-center aui-padded-t-10">
-        专业爱情测试
+        {{survey.title}}
     </h6>
-    <div class="aui-text-center" style="font-size: .3rem">你的态度，决定了你在爱情里的样子</div>
+    <div class="aui-text-center" style="font-size: .6rem;padding:0rem 1rem">{{survey.shortDescription}}</div>
     <div class="aui-text-center aui-padded-t-5 aui-padded-b-5">
-        <span class="list-price" style="font-size: 1rem">¥9.9</span>
-        <span class="list-old-price">¥66.00</span>
+        <span class="list-price" style="font-size: 1rem">¥{{survey.price}}</span>
+        <span class="list-old-price">¥{{survey.orgPrice}}</span>
     </div>
     <div class="aui-text-center">
         <a class="aui-btn aui-btn-warning">立即购买</a>
     </div>
     <div class="aui-row" style="border-bottom: solid 1px lightgray;">
         <div class="aui-col-xs-4">
-            <p class="aui-text-center">44道精选题目</p>
+            <p class="aui-text-center">{{survey.questionCnt}}道精选题目</p>
         </div>
         <div class="aui-col-xs-4">
-            <p class="aui-text-center">8页专业报告</p>
+            <p class="aui-text-center">专业报告</p>
         </div>
         <div class="aui-col-xs-4">
-            <p class="aui-text-center">2130人测试</p>
+            <p class="aui-text-center">{{survey.testedCnt}}人测试</p>
         </div>
     </div>
 </section>
@@ -33,9 +33,7 @@
         <h6 class="aui-text-center aui-padded-t-15 aui-padded-b-10">
             <span style="padding-bottom: .2rem;border-bottom: solid 5px #1abc9c">测评介绍</span>
         </h6>
-        <p>
-            选拔性测评是一种以选拔优秀人才为目的的素质测评，它有五个特点：整个测评特别强调测评的区分功用；测评标准的刚性最强；测评过程特别强调客观性；测评指标具有选择性；选拔性测评的结果或是分数或是等级。
-            开发性测评是以开发人员素质为目的的测评，它为人力资源开发提供了科学性与可行性依据。开发性测评具有勘探性、配合性、促进性等特点。
+        <p [innerHTML]="getHtml()">
         </p>
         <section class="aui-content-padded">
             <div class="aui-card-list">

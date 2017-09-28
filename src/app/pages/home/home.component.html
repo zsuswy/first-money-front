@@ -74,7 +74,7 @@
                 <div class="aui-card-list adv-scroll">
                     <a routerLink="/survey-detail-initial/{{survey.id}}">
                         <div class="aui-card-list-content">
-                            <img src="{{survey.image}}" style="width: 90px;height:90px"/>
+                            <img src="{{survey.image}}"/>
                         </div>
                         <div class="aui-card-list-footer twoLine">
                             {{survey.title}}
@@ -144,7 +144,7 @@
                             {{survey.title}}
                         </div>
                         <div class="aui-list-item-text list-co-header">
-                            <span [innerHTML]="survey.description"></span>
+                            {{survey.shortDescription}}
                         </div>
                         <div class="aui-info aui-padded-b-0">
                             <div class="aui-info-item aui-font-size-12">

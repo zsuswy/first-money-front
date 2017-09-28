@@ -5,6 +5,7 @@ export class Survey {
     constructor(public id?: number,
                 public title?: string,
                 public description?: string,
+                public shortDescription?: string,
                 public createBy?: string,
                 public createTime?: Date,
                 public classId?: number,

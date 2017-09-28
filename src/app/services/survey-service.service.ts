@@ -43,4 +43,80 @@ export class SurveyService {
         listSearchVo.params = {'isSuper': 1};
         return this.getSurveyList(listSearchVo);
     }
+
+    getSurvey(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/get?id=' + id);
+    }
+
+    createSurvey(survey: Survey): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/create', survey);
+    }
+
+    updateSurvey(survey: Survey): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/update', survey);
+    }
+
+    getSurveyQuestionList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
+        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/list', listSearchVo);
+    }
+
+    getSurveyQuestion(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/get?id=' + id);
+    }
+
+    createSurveyQuestion(surveyQuestion: SurveyQuestion): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/create', surveyQuestion);
+    }
+
+    updateSurveyQuestion(surveyQuestion: SurveyQuestion): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/update', surveyQuestion);
+    }
+
+    deleteSurveyQuestion(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/delete?id=' + id);
+    }
+
+    getSurveyClassList(enabled: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyClass/list?enabled=' + enabled);
+    }
+
+    getSurveyDimensionList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
+        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/list', listSearchVo);
+    }
+
+    getSurveyDimension(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/get?id=' + id);
+    }
+
+    createSurveyDimension(surveyDimension: SurveyDimension): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/create', surveyDimension);
+    }
+
+    updateSurveyDimension(surveyDimension: SurveyDimension): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/update', surveyDimension);
+    }
+
+    deleteSurveyDimension(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/delete?id=' + id);
+    }
+
+    getSurveyDimensionScoreTextList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
+        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/list', listSearchVo);
+    }
+
+    getSurveyDimensionScoreText(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/get?id=' + id);
+    }
+
+    createSurveyDimensionScoreText(surveyDimensionScoreText: SurveyDimensionScoreText): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/create', surveyDimensionScoreText);
+    }
+
+    updateSurveyDimensionScoreText(surveyDimensionScoreText: SurveyDimensionScoreText): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/update', surveyDimensionScoreText);
+    }
+
+    deleteSurveyDimensionScoreText(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/delete?id=' + id);
+    }
 }

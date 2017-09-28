@@ -1,26 +1,32 @@
-import {Component, HostBinding} from '@angular/core';
-import {slideInDownAnimation} from '../../animations';
+import {Component, OnInit} from '@angular/core';
 import {SurveyService} from '../../services/survey-service.service';
+import {Survey} from '../../model/Survey';
+import {ActivatedRoute} from '@angular/router';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-    templateUrl: './survey-detail-initial.component.html',
-    animations: [slideInDownAnimation]
+    templateUrl: './survey-detail-initial.component.html'
 })
-export class SurveyDetailInitialComponent {
-    @HostBinding('@routeAnimation')
-    routeAnimation = true;
+export class SurveyDetailInitialComponent implements OnInit {
+    survey = new Survey();
+    surveyId: number;
 
-    @HostBinding('style.display')
-    display = 'block';
+    constructor(private surveyService: SurveyService, private route: ActivatedRoute, private domSanitizer: DomSanitizer) {
 
-    @HostBinding('style.position')
-    position = 'absolute';
-
-    public visible: boolean;
-    public show2: boolean;
-
-    constructor(surveyService: SurveyService) {
-        this.visible = false;
-        this.show2 = false;
     }
+
+    ngOnInit(): void {
+        this.route.paramMap.subscribe(params => {
+            this.surveyId = Number(params.get("id"));
+
+            this.surveyService.getSurvey(this.surveyId).subscribe(resp => {
+                this.survey = resp.data;
+            })
+        });
+    }
+
+    getHtml() {
+        return this.domSanitizer.bypassSecurityTrustHtml(this.survey.description);
+    }
+
 }
