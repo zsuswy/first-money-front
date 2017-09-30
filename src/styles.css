@@ -29,3 +29,7 @@
     line-height: .7rem;
     vertical-align: middle;
 }
+
+a {
+    text-decoration: none !important;
+}

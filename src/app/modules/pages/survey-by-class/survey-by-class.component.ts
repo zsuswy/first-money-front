@@ -1,5 +1,5 @@
 import {Component, HostBinding} from '@angular/core';
-import {slideInDownAnimation} from '../../animations';
+import {slideInDownAnimation} from '../../../animations';
 
 @Component({
     templateUrl: './survey-by-class.component.html',

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SurveyService} from '../../services/survey-service.service';
-import {Survey} from '../../model/Survey';
+import {SurveyService} from '../../../services/survey-service.service';
+import {Survey} from '../../../model/Survey';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -28,5 +28,6 @@ export class SurveyDetailInitialComponent implements OnInit {
     getHtml() {
         return this.domSanitizer.bypassSecurityTrustHtml(this.survey.description);
     }
+
 
 }

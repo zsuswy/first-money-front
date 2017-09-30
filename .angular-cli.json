@@ -22,11 +22,19 @@
         "styles.css",
         "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
         "../node_modules/froala-editor/css/froala_style.min.css",
-        "../node_modules/font-awesome/css/font-awesome.css"
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "assets/css/aui.css",
+        "assets/css/aui-slide.css",
+        "assets/css/swiper.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+        "assets/script/aui-slide.js",
+        "assets/script/aui-tab.js",
+        "assets/script/aui-toast.js",
+        "assets/script/swiper.min.js",
+        "assets/script/survey-scroll.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

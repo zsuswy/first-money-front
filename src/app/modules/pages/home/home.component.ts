@@ -1,8 +1,8 @@
 import {Component, HostBinding, AfterViewInit, ElementRef, ViewChild, OnInit, NgZone} from '@angular/core';
-import {slideInDownAnimation} from '../../animations';
+import {slideInDownAnimation} from '../../../animations';
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
-import {SurveyService} from '../../services/survey-service.service';
-import {Survey} from '../../model/Survey';
+import {SurveyService} from '../../../services/survey-service.service';
+import {Survey} from '../../../model/Survey';
 
 declare var auiSlide: any;
 declare var Swiper: any;

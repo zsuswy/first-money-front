@@ -18,7 +18,7 @@
     <div class="aui-slide-page-wrap"><!--分页容器--></div>
 </div>
 
-<section class="aui-content aui-margin-b-10">
+<section class="aui-content aui-margin-b-5">
     <div class="aui-grid">
         <div class="aui-row">
             <div class="aui-col-xs-3">
@@ -59,7 +59,7 @@
     </div>
 </section>
 
-<div class="aui-content" style="background-color: white;margin-bottom: 10px">
+<div class="aui-content" style="background-color: white;margin-bottom: 5px">
     <div class="header-container">
         <div>
             <span class="header-text color1">热卖</span>
@@ -72,7 +72,7 @@
         <div class="swiper-wrapper">
             <div *ngFor="let survey of hotList" class="swiper-slide">
                 <div class="aui-card-list adv-scroll">
-                    <a routerLink="/survey-detail-initial/{{survey.id}}">
+                    <a routerLink="/pages/survey-detail-initial/{{survey.id}}">
                         <div class="aui-card-list-content">
                             <img src="{{survey.image}}"/>
                         </div>
@@ -88,7 +88,7 @@
         </div>
     </div>
 </div>
-<div class="aui-content" style="background-color: white;margin-bottom: 10px">
+<div class="aui-content" style="background-color: white;margin-bottom: 5px">
     <div class="header-container">
         <div>
             <span class="header-text color2">新品</span>
@@ -101,7 +101,7 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let survey of hotList">
                 <div class="aui-card-list adv-scroll">
-                    <a routerLink="/survey-detail-initial/{{survey.id}}">
+                    <a routerLink="/pages/survey-detail-initial/{{survey.id}}">
                         <div class="aui-card-list-content">
                             <img src="{{survey.image}}"/>
                         </div>
@@ -129,7 +129,7 @@
                     <div class="aui-list-item-text">
                         <div class="aui-list-item-title aui-font-size-16" style="font-weight: 700">测评精选</div>
                         <div class="aui-list-item-right">
-                            <a href="http://www.baidu.com">
+                            <a href="">
                                 查看更多 </a>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
             </div>
         </li>
         <li class="aui-list-item" *ngFor="let survey of superList">
-            <a routerLink="/survey-detail-initial/{{survey.id}}">
+            <a routerLink="/pages/survey-detail-initial/{{survey.id}}">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
                         <div class="aui-list-item-text list-header">

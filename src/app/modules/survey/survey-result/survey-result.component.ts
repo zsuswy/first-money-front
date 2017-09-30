@@ -1,5 +1,5 @@
 import {Component, HostBinding} from '@angular/core';
-import {slideInDownAnimation} from '../../animations';
+import {slideInDownAnimation} from '../../../animations';
 import * as shape from 'd3-shape';
 
 @Component({
