@@ -25,6 +25,12 @@ export class SurveyDetailInitialComponent implements OnInit {
         });
     }
 
+    /**
+     * 支付
+     * */
+    pay() {
+    }
+
     getHtml() {
         return this.domSanitizer.bypassSecurityTrustHtml(this.survey.description);
     }

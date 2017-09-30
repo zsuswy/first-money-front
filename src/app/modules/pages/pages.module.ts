@@ -5,12 +5,14 @@ import {SurveysByClassPageComponent} from './survey-by-class/survey-by-class.com
 import {SurveyDetailInitialComponent} from './survey-detail-initial/survey-detail-initial.component';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {PagesRoutingModule} from './pages.routing';
+import {SurveyPayComponent} from './survey-pay/survey-pay.component';
 
 @NgModule({
     declarations: [
         HomePageComponent,
         SurveysByClassPageComponent,
         SurveyDetailInitialComponent,
+        SurveyPayComponent
     ],
     imports: [
         PagesRoutingModule,

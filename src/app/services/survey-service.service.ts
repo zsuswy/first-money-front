@@ -119,4 +119,8 @@ export class SurveyService {
     deleteSurveyDimensionScoreText(id: number): Observable<ResponseResult> {
         return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/delete?id=' + id);
     }
+
+    createOrder(){
+
+    }
 }

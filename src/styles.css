@@ -33,3 +33,7 @@
 a {
     text-decoration: none !important;
 }
+
+.swiper-slide {
+    width: 5.5rem;
+}
