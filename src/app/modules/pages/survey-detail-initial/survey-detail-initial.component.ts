@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Order} from '../../../model/Order';
 import {User} from '../../../model/User';
+import {OrderVo} from '../../../model/OrderVo';
+import {ListSearchVo} from '../../../model/common/ListSearchVo';
 
 @Component({
     templateUrl: './survey-detail-initial.component.html'
@@ -29,6 +31,11 @@ export class SurveyDetailInitialComponent implements OnInit {
      * */
     payAmount: number;
 
+    /**
+     * 是否有之前的订单
+     * */
+    hasOldOrder = false;
+
     constructor(private surveyService: SurveyService, private route: ActivatedRoute,
                 private router: Router, private domSanitizer: DomSanitizer) {
         this.user = new User();
@@ -44,10 +51,19 @@ export class SurveyDetailInitialComponent implements OnInit {
 
                 this.balancePay = this.survey.price > this.survey.price ? this.user.balance : this.survey.price;
                 this.payAmount = this.survey.price - this.balancePay;
-            })
+            });
         });
 
-// TODO: 根据用户ID获取订单号
+        // 查询是存在已经有的订单
+        let listSearchVo = new ListSearchVo();
+        listSearchVo.page = null;
+        listSearchVo.params = {userId: 3, surveyId: this.surveyId, status: 0};
+
+        this.surveyService.getUserSurvey(listSearchVo).subscribe(resp => {
+            if (resp.data != null) {
+                this.hasOldOrder = true;
+            }
+        });
 
     }
 
@@ -55,24 +71,36 @@ export class SurveyDetailInitialComponent implements OnInit {
      * 支付
      * */
     pay() {
-        // TODO: 跳转到支付页面，判断是否需要创建订单。
+        if (!this.hasOldOrder) {
+            // 创建订单后跳转；
+            this.createNewOrder().subscribe(resp => {
+                if (resp.success) {
+                    this.navigateToPayPage();
+                }
+            });
+        } else {
+            this.navigateToPayPage();
+        }
+    }
+
+    navigateToPayPage() {
+        this.router.navigate(['/pages/pay', this.surveyId]);
+    }
+
+    createNewOrder() {
         let order = new Order();
         order.payAmount = this.payAmount;
         order.balancePayAmount = this.balancePay;
         order.totalAmount = this.survey.price;
         order.userId = 3; // TODO: hardcoded
         order.creatTime = new Date();
+        order.businessId = this.surveyId;
+        order.orderStatus = 0;
         order.payType = 2;
 
-        this.surveyService.createOrder(order).subscribe(resp => {
-            if (resp.success) {
-                this.router.navigate(['/survey/survey-do', {userSurveyId: 12}]);
-            } else {
+        let orderVo = new OrderVo(order, {});
 
-            }
-        });
-
-        this.router.navigate(['/pages/pay', {surveyId: this.surveyId}]);
+        return this.surveyService.createOrder(orderVo);
     }
 
     getHtml() {

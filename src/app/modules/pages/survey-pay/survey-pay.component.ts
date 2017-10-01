@@ -55,9 +55,10 @@ export class SurveyPayComponent implements OnInit {
 
             this.surveyService.getSurvey(this.surveyId).subscribe(resp => {
                 this.survey = resp.data;
+
                 this.balancePay = this.survey.price > this.survey.price ? this.user.balance : this.survey.price;
                 this.payAmount = this.survey.price - this.balancePay;
-            });
+            })
         });
 
         // TODO: 获取用户id
@@ -67,22 +68,9 @@ export class SurveyPayComponent implements OnInit {
      * 确定支付
      * */
     payConfirmed() {
-
-        let order = new Order();
-        order.payAmount = this.payAmount;
-        order.balancePayAmount = this.balancePay;
-        order.totalAmount = this.survey.price;
-        order.userId = 3; // TODO: hardcoded
-        order.creatTime = new Date();
-        order.payType = 2;
-
-        let orderVo = new OrderVo(order, {});
-
-        this.surveyService.createOrder(orderVo).subscribe(resp => {
+        this.surveyService.confirmPay({}).subscribe(resp => {
             if (resp.success) {
-                this.router.navigate(['/survey/survey-do', {userSurveyId: 12}]);
-            } else {
-
+                this.router.navigate(['/survey/survey-do', 12]);
             }
         });
     }

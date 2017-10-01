@@ -13,6 +13,7 @@ export class Order {
                 public finishTime?: Date,
                 public userId?: number,
                 public payType?: number,
+                public businessId?: number,
                 public totalAmount?: number,
                 public balancePayAmount?: number) {
     }
