@@ -20,11 +20,11 @@ export const routes: Routes = [
         component: SurveysByClassPageComponent
     },
     {
-        path: 'survey-detail-initial/:id',
+        path: 'survey-detail-initial/:surveyId',
         component: SurveyDetailInitialComponent
     },
     {
-        path: 'pay/:id',
+        path: 'pay/:surveyId',
         component: SurveyPayComponent
     }
 ];

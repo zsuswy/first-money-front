@@ -11,6 +11,8 @@ import {SurveyQuestion} from '../model/SurveyQuestion';
 import {ListResponseResult} from '../model/common/ListResponseResult';
 import {SurveyDimension} from '../model/SurveyDimension';
 import {SurveyDimensionScoreText} from '../model/SurveyDimensionScoreText';
+import {Order} from '../model/Order';
+import {OrderVo} from "app/model/OrderVo";
 
 @Injectable()
 export class SurveyService {
@@ -120,7 +122,11 @@ export class SurveyService {
         return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/delete?id=' + id);
     }
 
-    createOrder(){
+    createOrder(orderVo: OrderVo): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/create', orderVo);
+    }
 
+    getOrderList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
+        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/order/list', listSearchVo);
     }
 }

@@ -16,7 +16,7 @@ export const routes: Routes = [
         component: PersonalCenterPageComponent
     },
     {
-        path: 'survey-do',
+        path: 'survey-do/:userSurveyId',
         component: SurveyDoComponent
     },
     {
