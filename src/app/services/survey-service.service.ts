@@ -135,7 +135,7 @@ export class SurveyService {
         return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/list', listSearchVo);
     }
 
-    confirmPay(params: any): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/confirmPay', params);
+    confirmOrder(params: any): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/confirmOrder', params);
     }
 }

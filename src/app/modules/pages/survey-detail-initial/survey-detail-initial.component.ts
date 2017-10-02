@@ -15,6 +15,10 @@ export class SurveyDetailInitialComponent implements OnInit {
     survey = new Survey();
     surveyId: number;
 
+    /**
+     * 已存在的或者新创建的 userSurveyId
+     * */
+    userSurveyId: number;
 
     /**
      * 当前用户
@@ -57,11 +61,13 @@ export class SurveyDetailInitialComponent implements OnInit {
         // 查询是存在已经有的订单
         let listSearchVo = new ListSearchVo();
         listSearchVo.page = null;
-        listSearchVo.params = {userId: 3, surveyId: this.surveyId, status: 0};
+        listSearchVo.params = {userId: 1, surveyId: this.surveyId, status: 55};
 
         this.surveyService.getUserSurvey(listSearchVo).subscribe(resp => {
-            if (resp.data != null) {
+            console.log(resp.data);
+            if (resp.data != null && resp.data.list.length > 0) {
                 this.hasOldOrder = true;
+                this.userSurveyId = resp.data.list[0].id;
             }
         });
 
@@ -70,11 +76,12 @@ export class SurveyDetailInitialComponent implements OnInit {
     /**
      * 支付
      * */
-    pay() {
+    buy() {
         if (!this.hasOldOrder) {
-            // 创建订单后跳转；
+            // 之前没有创建订单，那么创建新的订单，创建订单后跳转到支付页面；
             this.createNewOrder().subscribe(resp => {
                 if (resp.success) {
+                    this.userSurveyId = resp.data.userSurveyId;
                     this.navigateToPayPage();
                 }
             });
@@ -83,8 +90,11 @@ export class SurveyDetailInitialComponent implements OnInit {
         }
     }
 
+    /**
+     * 跳转到支付页面
+     * */
     navigateToPayPage() {
-        this.router.navigate(['/pages/pay', this.surveyId]);
+        this.router.navigate(['/pages/pay', this.userSurveyId]);
     }
 
     createNewOrder() {
@@ -92,9 +102,9 @@ export class SurveyDetailInitialComponent implements OnInit {
         order.payAmount = this.payAmount;
         order.balancePayAmount = this.balancePay;
         order.totalAmount = this.survey.price;
-        order.userId = 3; // TODO: hardcoded
-        order.creatTime = new Date();
+        order.userId = 1; // TODO: hardcoded
         order.businessId = this.surveyId;
+        order.creatTime = new Date();
         order.orderStatus = 0;
         order.payType = 2;
 
@@ -106,6 +116,4 @@ export class SurveyDetailInitialComponent implements OnInit {
     getHtml() {
         return this.domSanitizer.bypassSecurityTrustHtml(this.survey.description);
     }
-
-
 }

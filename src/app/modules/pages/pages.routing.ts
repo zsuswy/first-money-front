@@ -24,7 +24,7 @@ export const routes: Routes = [
         component: SurveyDetailInitialComponent
     },
     {
-        path: 'pay/:surveyId',
+        path: 'pay/:userSurveyId',
         component: SurveyPayComponent
     }
 ];

@@ -5,6 +5,7 @@ import {Survey} from '../../../model/Survey';
 import {User} from '../../../model/User';
 import {Order} from '../../../model/Order';
 import {OrderVo} from '../../../model/OrderVo';
+import {UserSurvey} from '../../../model/UserSurvey';
 
 @Component({
     selector: 'app-survey-pay',
@@ -17,6 +18,12 @@ export class SurveyPayComponent implements OnInit {
      * */
     surveyId: number;
 
+
+    /**
+     * 当前用户测评id
+     * */
+    userSurveyId: number;
+
     /**
      * 已有订单号
      * */
@@ -26,6 +33,8 @@ export class SurveyPayComponent implements OnInit {
      * 当前问卷
      * */
     survey: Survey;
+
+    userSurvey: UserSurvey;
 
     /**
      * 当前用户
@@ -51,26 +60,43 @@ export class SurveyPayComponent implements OnInit {
     ngOnInit() {
         // 获取参数
         this.route.paramMap.subscribe(params => {
-            this.surveyId = Number(params.get("surveyId"));
+            this.userSurveyId = Number(params.get('userSurveyId'));
+            console.log('this.userSurveyId: ' + this.userSurveyId);
+            this.surveyService.getUserSurvey({
+                params: {'userSurveyId': this.userSurveyId},
+                page: null
+            }).subscribe(resp => {
+                this.userSurvey = resp.data.list[0];
+                this.surveyId = this.userSurvey.surveyId;
+                this.orderId = this.userSurvey.orderId;
 
-            this.surveyService.getSurvey(this.surveyId).subscribe(resp => {
-                this.survey = resp.data;
+                if (this.userSurvey.status > 0) {
+                    this.router.navigate(['/survey/survey-do', this.userSurvey.id]);
+                }
 
-                this.balancePay = this.survey.price > this.survey.price ? this.user.balance : this.survey.price;
-                this.payAmount = this.survey.price - this.balancePay;
-            })
+                console.log('this.userSurvey: ');
+                console.log(resp.data.list[0]);
+
+                this.surveyService.getSurvey(this.surveyId).subscribe(resp => {
+                    console.log('this.survey: ');
+                    console.log(this.survey);
+                    this.survey = resp.data;
+                    this.balancePay = this.survey.price > this.survey.price ? this.user.balance : this.survey.price;
+                    this.payAmount = this.survey.price - this.balancePay;
+                })
+            });
         });
-
-        // TODO: 获取用户id
     }
 
     /**
      * 确定支付
      * */
     payConfirmed() {
-        this.surveyService.confirmPay({}).subscribe(resp => {
+        this.surveyService.confirmOrder({'orderId': this.orderId}).subscribe(resp => {
             if (resp.success) {
-                this.router.navigate(['/survey/survey-do', 12]);
+                let userSurvey = resp.data;
+                console.log(['/survey/survey-do', userSurvey.id]);
+                this.router.navigate(['/survey/survey-do', userSurvey.id]);
             }
         });
     }
