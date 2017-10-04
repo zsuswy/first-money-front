@@ -36,3 +36,11 @@
     margin-bottom: 5px;
     background-color: white;
 }
+
+.aui-chat .aui-chat-right .aui-chat-inner {
+    min-width: 10rem !important;
+}
+
+.selected-option {
+    background-color: lightgoldenrodyellow;
+}

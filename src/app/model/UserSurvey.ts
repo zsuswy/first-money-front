@@ -12,6 +12,11 @@ export class UserSurvey {
                 public answer?: string,
                 public result?: string,
                 public className?: string,
-                public isNeedSex?: number) {
+                public isNeedSex?: number,
+                public price?: number,
+                public orgPrice?: number,
+                public title?: string,
+                public shortDescription?: string,
+                public image?: string,) {
     }
 }

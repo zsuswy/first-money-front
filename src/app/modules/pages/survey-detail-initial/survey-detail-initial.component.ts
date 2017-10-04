@@ -61,9 +61,9 @@ export class SurveyDetailInitialComponent implements OnInit {
         // 查询是存在已经有的订单
         let listSearchVo = new ListSearchVo();
         listSearchVo.page = null;
-        listSearchVo.params = {userId: 1, surveyId: this.surveyId, status: 55};
+        listSearchVo.params = {userId: 1, surveyId: this.surveyId, status: 0};
 
-        this.surveyService.getUserSurvey(listSearchVo).subscribe(resp => {
+        this.surveyService.getUserSurveyList(listSearchVo).subscribe(resp => {
             console.log(resp.data);
             if (resp.data != null && resp.data.list.length > 0) {
                 this.hasOldOrder = true;

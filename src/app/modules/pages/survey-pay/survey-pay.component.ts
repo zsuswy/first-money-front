@@ -62,10 +62,12 @@ export class SurveyPayComponent implements OnInit {
         this.route.paramMap.subscribe(params => {
             this.userSurveyId = Number(params.get('userSurveyId'));
             console.log('this.userSurveyId: ' + this.userSurveyId);
-            this.surveyService.getUserSurvey({
-                params: {'userSurveyId': this.userSurveyId},
+            this.surveyService.getUserSurveyList({
+                params: {'userSurveyId': this.userSurveyId, 'status': 0},
                 page: null
             }).subscribe(resp => {
+                // TODO:异常处理
+
                 this.userSurvey = resp.data.list[0];
                 this.surveyId = this.userSurvey.surveyId;
                 this.orderId = this.userSurvey.orderId;

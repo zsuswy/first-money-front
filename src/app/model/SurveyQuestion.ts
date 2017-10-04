@@ -10,6 +10,7 @@ export class SurveyQuestion {
                 public sex?: number,
                 public title?: string,
                 public type?: string,
-                public questionContent?: string) {
+                public questionContent?: string,
+                public selectedOption?: string) {
     }
 }

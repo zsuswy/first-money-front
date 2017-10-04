@@ -13,6 +13,7 @@ import {SurveyDimension} from '../model/SurveyDimension';
 import {SurveyDimensionScoreText} from '../model/SurveyDimensionScoreText';
 import {Order} from '../model/Order';
 import {OrderVo} from "app/model/OrderVo";
+import {UserSurvey} from '../model/UserSurvey';
 
 @Injectable()
 export class SurveyService {
@@ -131,9 +132,22 @@ export class SurveyService {
         return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/order/list', listSearchVo);
     }
 
-    getUserSurvey(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
+    getUserSurveyList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
         return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/list', listSearchVo);
     }
+
+    getUserSurveyListWithDetail(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
+        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/detailList', listSearchVo);
+    }
+
+    getUserSurvey(id: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/get?id=' + id);
+    }
+
+    updateUserSurvey(userSurvey: UserSurvey): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/update', userSurvey);
+    }
+
 
     confirmOrder(params: any): Observable<ResponseResult> {
         return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/confirmOrder', params);
