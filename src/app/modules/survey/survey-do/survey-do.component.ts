@@ -11,6 +11,10 @@ import {SurveyQuestionOption} from '../../../model/SurveyQuestionOption';
 import {Survey} from '../../../model/Survey';
 import {SurveyType} from '../../../model/SurveyType';
 import {ResponseResult} from '../../../model/common/ResponseResult';
+import {SurveyDimensionScoreText} from '../../../model/SurveyDimensionScoreText';
+import {SurveyResultDimensionScore} from '../../../model/SurveyResultDimensionScore';
+import 'rxjs/add/observable/forkJoin';
+import {SurveyDimension} from '../../../model/SurveyDimension';
 
 declare var _j_scrollTo: any;
 
@@ -40,6 +44,9 @@ export class SurveyDoComponent implements OnInit {
 
     // 已经做完的题目列表
     activeQuestionList: SurveyQuestion[] = [];
+
+    // 是否已经完成全部答题
+    userFinished: boolean = false;
 
     constructor(private surveyService: SurveyService, private route: ActivatedRoute, private router: Router) {
         // 获取 UserSurvey
@@ -184,7 +191,9 @@ export class SurveyDoComponent implements OnInit {
             this.activeQuestionList.push(nextQuestion);
             this.scrollTo(nextQuestion.id);
         } else {
-            this.scrollTo(this.activeQuestionList[this.activeQuestionList.length - 1].id);
+            // 结束
+            this.userFinished = true;
+            this.scrollTo('end');
         }
 
         this.saveAnswer().subscribe(resp => {
@@ -192,9 +201,80 @@ export class SurveyDoComponent implements OnInit {
         });
     }
 
-    finishAnswer() {
+    /**
+     * 计算测评结果
+     * */
+    completeSurvey() {
+        Observable.forkJoin(
+            this.surveyService.getSurveyDimensionScoreTextList({
+                page: null,
+                params: {'surveyId': this.userSurvey.surveyId}
+            }),
+            this.surveyService.getSurveyDimensionList({
+                page: null,
+                params: {'surveyId': this.userSurvey.surveyId}
+            }))
+            .subscribe(respList => {
+                let dimensionScoreTextList: SurveyDimensionScoreText[] = respList[0].data.list;
+                let dimensionList: SurveyDimension[] = respList[1].data.list;
+                console.log(dimensionScoreTextList);
+                console.log(dimensionList);
+                console.log(this.surveyAnswerList);
+                // 计算的结果
+                let resultList: SurveyResultDimensionScore[] = [];
+
+                // 初始化结果列表
+                for (let i = 0; i < dimensionList.length; i++) {
+                    let scoreItem = new SurveyResultDimensionScore();
+                    scoreItem.dimensionId = dimensionList[i].id;
+                    scoreItem.dimensionName = dimensionList[i].dimensionName;
+
+                    resultList.push(scoreItem);
+                }
+
+                // 进行计算
+                for (let i = 0; i < this.surveyAnswerList.length; i++) {
+                    for (let j = 0; j < this.surveyAnswerList[i].scoreList.length; j++) {
+                        let scoreInfo = this.surveyAnswerList[i].scoreList[j];
+
+                        if (scoreInfo.score != null) {
+                            // 如果选项得分落在得分卡的范围
+                            if (dimensionScoreTextList.find(item => item.dimensionId == scoreInfo.dimensionId) != null) {
+
+                                let resultItem = resultList.find(item => item.dimensionId == scoreInfo.dimensionId);
+                                if (resultItem.score == null) {
+                                    resultItem.score = 0;
+                                }
+
+                                resultItem.score += Number(scoreInfo.score);
+                            }
+                        }
+                    }
+                }
+
+                // 填充得分卡数据到结果
+                for (let i = 0; i < resultList.length; i++) {
+                    let resultListItem = resultList[i];
+                    let matchScoreText = dimensionScoreTextList.find(st => st.dimensionId == resultListItem.dimensionId
+                        && resultListItem.score <= st.scoreMax && resultListItem.score >= st.scoreMin);
+                    if (matchScoreText != null) {
+                        resultListItem.comment = matchScoreText.resultComment;
+                        resultListItem.title = matchScoreText.resultTitle;
+                    }
+                }
+
+                this.userSurvey.result = JSON.stringify(resultList);
+                this.userSurvey.status = 2;
+
+                // 保存
+                this.surveyService.updateUserSurvey(this.userSurvey).subscribe(resp => {
+                    console.log(resp);
+                });
+                console.log(resultList);
+            });
 
     }
+
 
     /**
      * 保存答题结果

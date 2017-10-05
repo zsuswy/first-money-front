@@ -6,6 +6,7 @@ export class SurveyDimensionScoreText {
                 public dimensionId?: number,
                 public scoreMax?: number,
                 public scoreMin?: number,
+                public surveyId?: number,
                 public resultTitle?: string,
                 public resultComment?: string) {
 

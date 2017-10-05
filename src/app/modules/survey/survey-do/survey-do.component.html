@@ -30,6 +30,35 @@
             </div>
         </div>
     </div>
+    <div *ngIf="userFinished">
+        <div class="aui-chat-item aui-chat-left" id="questionend">
+            <div class="aui-chat-media">
+                <img src="assets/image/demo2.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <!--<div class="aui-chat-name">AUI <span class="aui-label aui-label-warning">2.0</span></div>-->
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    <div>您已经完成测评，是否提交？</div>
+                    <!--<img src="assets/image/l1.png"/>-->
+                </div>
+            </div>
+        </div>
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="assets/image/liulangnan.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <!--<div class="aui-chat-name">流浪男</div>-->
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    <div class="option"
+                         (click)="completeSurvey()">确定提交
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="aui-chat-item aui-chat-left">
