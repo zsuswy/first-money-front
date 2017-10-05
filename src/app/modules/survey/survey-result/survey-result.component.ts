@@ -1,6 +1,9 @@
 import {Component, HostBinding} from '@angular/core';
 import {slideInDownAnimation} from '../../../animations';
 import * as shape from 'd3-shape';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SurveyService} from '../../../services/survey-service.service';
+import {UserSurvey} from '../../../model/UserSurvey';
 
 @Component({
     templateUrl: './survey-result.component.html',
@@ -14,8 +17,8 @@ export class SurveyResultComponent {
     @HostBinding('style.position')
     position = 'absolute';
 
-    public visible: boolean;
-    public show2: boolean;
+    userSurveyId: number;
+    userSurvey: UserSurvey;
 
     view: any[] = [700, 400];
 
@@ -117,7 +120,7 @@ export class SurveyResultComponent {
                 },
                 {
                     "name": "态度",
-                    "value":52
+                    "value": 52
                 },
                 {
                     "name": "运气",
@@ -140,11 +143,22 @@ export class SurveyResultComponent {
     };
 
 
-    constructor() {
-        this.visible = false;
-        this.show2 = false;
+    constructor(private surveyService: SurveyService, private route: ActivatedRoute, private router: Router) {
+        route.paramMap.subscribe(params => {
+            this.userSurveyId = Number(params.get('userSurveyId'));
+
+            this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
+                this.userSurvey = resp.data;
+            });
+        });
     }
 
+    getResult() {
+        if (this.userSurvey == null) {
+            return null;
+        }
+        return JSON.parse(this.userSurvey.result);
+    }
 
     onSelect(event) {
         console.log(event);

@@ -268,6 +268,7 @@ export class SurveyDoComponent implements OnInit {
 
                 // 保存
                 this.surveyService.updateUserSurvey(this.userSurvey).subscribe(resp => {
+                    this.router.navigate(['/survey/survey-result', this.userSurvey.id]);
                     console.log(resp);
                 });
                 console.log(resultList);

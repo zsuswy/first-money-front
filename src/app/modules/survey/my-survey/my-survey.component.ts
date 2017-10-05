@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild} fr
 import {slideInDownAnimation} from '../../../animations';
 import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class MySurveyPageComponent implements OnInit {
 
     toDoCnt: number;
 
-    constructor(private surveyService: SurveyService) {
+    constructor(private surveyService: SurveyService, private router: Router) {
 
     }
 
@@ -53,5 +54,14 @@ export class MySurveyPageComponent implements OnInit {
         return this.userSurveyList.filter(s => {
             return s.status == this.currentTab;
         })
+    }
+
+    surveyClick(userSurvey: UserSurvey) {
+        if (userSurvey.status == 1) {
+            this.router.navigate(['/survey/survey-do/', userSurvey.id]);
+        }
+        else if (userSurvey.status == 2) {
+            this.router.navigate(['/pages/survey-detail-initial/', userSurvey.surveyId]);
+        }
     }
 }

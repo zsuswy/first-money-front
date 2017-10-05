@@ -29,6 +29,23 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     superList: Array<Survey>;
 
     constructor(private surveyService: SurveyService, lc: NgZone) {
+        this.surveyService.getSurveyHotList().subscribe(resp => {
+            if (resp.success) {
+                this.hotList = resp.data.list;
+            }
+            this.createHorizonalSwiper('.hot-swiper-container');
+        });
+        this.surveyService.getSurveyNewList().subscribe(resp => {
+            if (resp.success) {
+                this.newList = resp.data.list;
+            }
+            this.createHorizonalSwiper('.new-swiper-container');
+        });
+        this.surveyService.getSurveySuperList().subscribe(resp => {
+            if (resp.success) {
+                this.superList = resp.data.list;
+            }
+        });
         // 检测是否滚动到底部
         // window.onscroll = () => {
         //     let status = "not reached";
@@ -69,23 +86,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     };
 
     ngOnInit() {
-        this.surveyService.getSurveyHotList().subscribe(resp => {
-            if (resp.success) {
-                this.hotList = resp.data.list;
-            }
-            this.createHorizonalSwiper('.hot-swiper-container');
-        });
-        this.surveyService.getSurveyNewList().subscribe(resp => {
-            if (resp.success) {
-                this.newList = resp.data.list;
-            }
-            this.createHorizonalSwiper('.new-swiper-container');
-        });
-        this.surveyService.getSurveySuperList().subscribe(resp => {
-            if (resp.success) {
-                this.superList = resp.data.list;
-            }
-        });
     }
 
     createHorizonalSwiper(selector: string) {
@@ -99,7 +99,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
             });
         }, 1);
     }
-
 
     ngAfterViewInit(): void {
         let slide = new auiSlide({

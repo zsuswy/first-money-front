@@ -20,7 +20,7 @@ export const routes: Routes = [
         component: SurveyDoComponent
     },
     {
-        path: 'survey-result',
+        path: 'survey-result/:userSurveyId',
         component: SurveyResultComponent
     }
 ];

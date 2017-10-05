@@ -15,7 +15,7 @@
 <div class="aui-content">
     <ul class="aui-list aui-media-list aui-margin-b-5" *ngFor="let userSurvey of getList()">
         <li class="aui-list-item">
-            <a routerLink="/survey/survey-do/{{userSurvey.id}}">
+            <a (click)="surveyClick(userSurvey)">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
                         <div class="aui-list-item-text list-header">
@@ -46,7 +46,7 @@
                         <span class="">完成时间 2017-01-02</span>
                     </div>
                     <div class="aui-info-item aui-font-size-12">
-                        <a>查看报告</a>
+                        <a routerLink="/survey/survey-result/{{userSurvey.id}}">查看报告</a>
                     </div>
                 </div>
             </div>

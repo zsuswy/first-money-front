@@ -1,0 +1,6 @@
+<div *ngIf="result">
+    <div *ngFor="let scoreText of result">
+        <h1>{{scoreText.title}}</h1>
+        <div [innerHTML]="scoreText.comment"></div>
+    </div>
+</div>
