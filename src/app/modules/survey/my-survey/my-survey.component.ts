@@ -37,7 +37,7 @@ export class MySurveyPageComponent extends WxBase implements OnInit {
 
     ngOnInit(): void {
         this.currentTab = 1;
-        this.surveyService.getUserSurveyListWithDetail({page: null, params: {}})
+        this.surveyService.getUserSurveyListWithDetail({page: null, params: {'userId': this.userId}})
             .subscribe(resp => {
                 if (resp.data != null) {
                     this.userSurveyList = resp.data.list;

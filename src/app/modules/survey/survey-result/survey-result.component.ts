@@ -6,6 +6,7 @@ import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
 import {WxService} from '../../../services/wx-service.service';
 import {WxBase} from '../../WxBase';
+import {Cookie} from '../../../util/Cookie';
 
 @Component({
     templateUrl: './survey-result.component.html',

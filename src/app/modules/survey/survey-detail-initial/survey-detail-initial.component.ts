@@ -17,6 +17,8 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit, Afte
     survey = new Survey();
     surveyId: number;
 
+    fromUserId: number;
+
     /**
      * 已存在的或者新创建的 userSurveyId
      * */
@@ -52,18 +54,20 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit, Afte
     }
 
     ngAfterViewInit(): void {
-        this.registerWxShare('详情页分享', this.survey.shortDescription, null, null);
     }
 
     ngOnInit(): void {
         this.route.paramMap.subscribe(params => {
             this.surveyId = Number(params.get("surveyId"));
+            this.fromUserId = Number(params.get("fromUserId"));
 
             this.surveyService.getSurvey(this.surveyId).subscribe(resp => {
                 this.survey = resp.data;
 
                 this.balancePay = this.survey.price > this.survey.price ? this.user.balance : this.survey.price;
                 this.payAmount = this.survey.price - this.balancePay;
+
+                this.registerWxShare(this.survey.title, this.survey.shortDescription, this.survey.image);
             });
         });
 
@@ -111,13 +115,13 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit, Afte
         order.payAmount = this.payAmount;
         order.balancePayAmount = this.balancePay;
         order.totalAmount = this.survey.price;
-        order.userId = 1; // TODO: hardcoded
+        order.userId = this.userId;
         order.businessId = this.surveyId;
         order.creatTime = new Date();
         order.orderStatus = 0;
         order.payType = 2;
 
-        let orderVo = new OrderVo(order, {});
+        let orderVo = new OrderVo(order, {fromUserId: this.fromUserId});
 
         return this.surveyService.createOrder(orderVo);
     }

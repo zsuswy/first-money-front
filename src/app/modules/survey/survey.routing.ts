@@ -28,6 +28,10 @@ export const routes: Routes = [
         component: SurveyDetailInitialComponent
     },
     {
+        path: 'survey-detail-initial/:surveyId/:fromUserId',
+        component: SurveyDetailInitialComponent
+    },
+    {
         path: 'pay/:userSurveyId',
         component: SurveyPayComponent
     },
