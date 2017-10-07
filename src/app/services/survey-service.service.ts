@@ -149,8 +149,12 @@ export class SurveyService {
         return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/update', userSurvey);
     }
 
-
     confirmOrder(params: any): Observable<ResponseResult> {
         return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/confirmOrder', params);
     }
+
+    getUser(userId: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/user/get?id=' + userId);
+    }
+
 }

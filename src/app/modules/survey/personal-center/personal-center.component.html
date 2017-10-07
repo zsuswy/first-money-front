@@ -6,15 +6,15 @@
 <section class="aui-content aui-grid aui-margin-b-15">
     <div class="aui-row">
         <div class="aui-col-xs-4 aui-border-r">
-            <span class="aui-text-warning">0.00<small> 元</small></span>
+            <span class="aui-text-warning">{{userInfo.balance}}<small> 元</small></span>
             <div class="aui-gird-lable aui-font-size-12">余额</div>
         </div>
         <div class="aui-col-xs-4 aui-border-r">
-            <span class="aui-text-danger">0.00<small> 个</small></span>
-            <div class="aui-gird-lable aui-font-size-12">优惠</div>
+            <span class="aui-text-danger">0<small> 个</small></span>
+            <div class="aui-gird-lable aui-font-size-12">我的测评</div>
         </div>
         <div class="aui-col-xs-4">
-            <span class="aui-text-success">0.00<small> 分</small></span>
+            <span class="aui-text-success">{{userInfo.score}}<small> 分</small></span>
             <div class="aui-gird-lable aui-font-size-12">积分</div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                 <i class="aui-iconfont aui-icon-location aui-text-info"></i>
             </div>
             <div class="aui-list-item-inner aui-list-item-arrow">
-                <div class="aui-list-item-title">收货地址</div>
+                <div class="aui-list-item-title">积分详情</div>
             </div>
         </li>
         <li class="aui-list-item">
@@ -42,7 +42,7 @@
                 <i class="aui-iconfont aui-icon-image aui-text-info"></i>
             </div>
             <div class="aui-list-item-inner aui-list-item-arrow">
-                <div class="aui-list-item-title">美食相册</div>
+                <div class="aui-list-item-title">我的分享</div>
             </div>
         </li>
     </ul>
@@ -52,8 +52,8 @@
                 <i class="aui-iconfont aui-icon-cart aui-text-info"></i>
             </div>
             <div class="aui-list-item-inner aui-list-item-arrow">
-                <div class="aui-list-item-title">积分商城</div>
-                <div class="aui-list-item-right">0元好物在这里</div>
+                <div class="aui-list-item-title">未支付订单</div>
+                <div class="aui-list-item-right"></div>
             </div>
         </li>
         <li class="aui-list-item">
@@ -61,8 +61,8 @@
                 <i class="aui-iconfont aui-icon-cert aui-text-warning"></i>
             </div>
             <div class="aui-list-item-inner aui-list-item-arrow">
-                <div class="aui-list-item-title">会员卡</div>
-                <div class="aui-list-item-right">未开通</div>
+                <div class="aui-list-item-title">成为代理商</div>
+                <div class="aui-list-item-right"></div>
             </div>
         </li>
     </ul>

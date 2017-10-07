@@ -116,6 +116,7 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit, Afte
         order.balancePayAmount = this.balancePay;
         order.totalAmount = this.survey.price;
         order.userId = this.userId;
+        order.wxOpenId = this.wxOpenId;
         order.businessId = this.surveyId;
         order.creatTime = new Date();
         order.orderStatus = 0;
