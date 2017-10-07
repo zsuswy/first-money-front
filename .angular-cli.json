@@ -34,7 +34,8 @@
         "assets/script/aui-tab.js",
         "assets/script/aui-toast.js",
         "assets/script/swiper.min.js",
-        "assets/script/survey-scroll.js"
+        "assets/script/survey-scroll.js",
+        "assets/script/jweixin-1.2.0.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -3,6 +3,8 @@ import {slideInDownAnimation} from '../../../animations';
 import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
 import {Router} from '@angular/router';
+import {WxService} from '../../../services/wx-service.service';
+import {WxBase} from '../../WxBase';
 
 
 @Component({
@@ -10,7 +12,7 @@ import {Router} from '@angular/router';
     animations: [slideInDownAnimation],
     styleUrls: ['./my-survey.component.css']
 })
-export class MySurveyPageComponent implements OnInit {
+export class MySurveyPageComponent extends WxBase implements OnInit {
     @HostBinding('@routeAnimation')
     routeAnimation = true;
     @HostBinding('style.display')
@@ -27,8 +29,10 @@ export class MySurveyPageComponent implements OnInit {
 
     toDoCnt: number;
 
-    constructor(private surveyService: SurveyService, private router: Router) {
-
+    constructor(protected surveyService: SurveyService,
+                protected router: Router,
+                protected wxService: WxService) {
+        super(wxService, router);
     }
 
     ngOnInit(): void {
@@ -58,10 +62,10 @@ export class MySurveyPageComponent implements OnInit {
 
     surveyClick(userSurvey: UserSurvey) {
         if (userSurvey.status == 1) {
-            this.router.navigate(['/survey/survey-do/', userSurvey.id]);
+            this.router.navigate(['/survey-do/', userSurvey.id]);
         }
         else if (userSurvey.status == 2) {
-            this.router.navigate(['/pages/survey-detail-initial/', userSurvey.surveyId]);
+            this.router.navigate(['/survey-detail-initial/', userSurvey.surveyId]);
         }
     }
 }

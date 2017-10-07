@@ -15,6 +15,8 @@ import {SurveyDimensionScoreText} from '../../../model/SurveyDimensionScoreText'
 import {SurveyResultDimensionScore} from '../../../model/SurveyResultDimensionScore';
 import 'rxjs/add/observable/forkJoin';
 import {SurveyDimension} from '../../../model/SurveyDimension';
+import {WxService} from '../../../services/wx-service.service';
+import {WxBase} from '../../WxBase';
 
 declare var _j_scrollTo: any;
 
@@ -22,7 +24,7 @@ declare var _j_scrollTo: any;
     templateUrl: './survey-do.component.html',
     styleUrls: ['./survey-do.component.css']
 })
-export class SurveyDoComponent implements OnInit {
+export class SurveyDoComponent extends WxBase implements OnInit {
 
     // 当前用户的性别
     defaultUserSex: 1;
@@ -48,7 +50,11 @@ export class SurveyDoComponent implements OnInit {
     // 是否已经完成全部答题
     userFinished: boolean = false;
 
-    constructor(private surveyService: SurveyService, private route: ActivatedRoute, private router: Router) {
+    constructor(protected surveyService: SurveyService,
+                protected route: ActivatedRoute,
+                protected router: Router,
+                protected wxService: WxService) {
+        super(wxService, router);
         // 获取 UserSurvey
         route.paramMap.subscribe(params => {
                 this.userSurveyId = Number(params.get('userSurveyId'));
@@ -268,7 +274,7 @@ export class SurveyDoComponent implements OnInit {
 
                 // 保存
                 this.surveyService.updateUserSurvey(this.userSurvey).subscribe(resp => {
-                    this.router.navigate(['/survey/survey-result', this.userSurvey.id]);
+                    this.router.navigate(['/survey-result', this.userSurvey.id]);
                     console.log(resp);
                 });
                 console.log(resultList);

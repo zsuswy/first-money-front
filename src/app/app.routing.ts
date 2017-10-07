@@ -6,22 +6,12 @@ import {SurveyService} from './services/survey-service.service';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'pages',
-        pathMatch: 'full',
-    },
-    {
-        path: '',
         component: HomeLayoutComponent,
         children: [
             {
-                path: 'survey',
+                path: '',
                 loadChildren: './modules/survey/survey.module#SurveyModule'
-            },
-            {
-                path: 'pages',
-                loadChildren: './modules/pages/pages.module#PagesModule'
-            }
-        ]
+            }]
     }
 ];
 

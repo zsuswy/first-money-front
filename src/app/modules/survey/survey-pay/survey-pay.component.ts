@@ -73,7 +73,7 @@ export class SurveyPayComponent implements OnInit {
                 this.orderId = this.userSurvey.orderId;
 
                 if (this.userSurvey.status > 0) {
-                    this.router.navigate(['/survey/survey-do', this.userSurvey.id]);
+                    this.router.navigate(['/survey-do', this.userSurvey.id]);
                 }
 
                 console.log('this.userSurvey: ');
@@ -97,8 +97,8 @@ export class SurveyPayComponent implements OnInit {
         this.surveyService.confirmOrder({'orderId': this.orderId}).subscribe(resp => {
             if (resp.success) {
                 let userSurvey = resp.data;
-                console.log(['/survey/survey-do', userSurvey.id]);
-                this.router.navigate(['/survey/survey-do', userSurvey.id]);
+                console.log(['/survey-do', userSurvey.id]);
+                this.router.navigate(['/survey-do', userSurvey.id]);
             }
         });
     }

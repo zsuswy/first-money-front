@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -7,11 +7,13 @@ import {Order} from '../../../model/Order';
 import {User} from '../../../model/User';
 import {OrderVo} from '../../../model/OrderVo';
 import {ListSearchVo} from '../../../model/common/ListSearchVo';
+import {WxService} from '../../../services/wx-service.service';
+import {WxBase} from '../../WxBase';
 
 @Component({
     templateUrl: './survey-detail-initial.component.html'
 })
-export class SurveyDetailInitialComponent implements OnInit {
+export class SurveyDetailInitialComponent extends WxBase implements OnInit, AfterViewInit {
     survey = new Survey();
     surveyId: number;
 
@@ -40,10 +42,17 @@ export class SurveyDetailInitialComponent implements OnInit {
      * */
     hasOldOrder = false;
 
-    constructor(private surveyService: SurveyService, private route: ActivatedRoute,
-                private router: Router, private domSanitizer: DomSanitizer) {
+    constructor(private surveyService: SurveyService,
+                private route: ActivatedRoute,
+                protected router: Router,
+                private domSanitizer: DomSanitizer,
+                protected wxService: WxService) {
+        super(wxService, router);
         this.user = new User();
+    }
 
+    ngAfterViewInit(): void {
+        this.registerWxShare('详情页分享', this.survey.shortDescription, null, null);
     }
 
     ngOnInit(): void {
@@ -94,7 +103,7 @@ export class SurveyDetailInitialComponent implements OnInit {
      * 跳转到支付页面
      * */
     navigateToPayPage() {
-        this.router.navigate(['/pages/pay', this.userSurveyId]);
+        this.router.navigate(['/pay', this.userSurveyId]);
     }
 
     createNewOrder() {
@@ -115,5 +124,13 @@ export class SurveyDetailInitialComponent implements OnInit {
 
     getHtml() {
         return this.domSanitizer.bypassSecurityTrustHtml(this.survey.description);
+    }
+
+    protected OnWxShareSuccess() {
+        alert('from child success');
+    }
+
+    protected OnWxShareCancel() {
+        alert('from child cancel');
     }
 }

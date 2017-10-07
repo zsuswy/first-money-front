@@ -3,6 +3,7 @@ import {slideInDownAnimation} from '../../../animations';
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
+import {ActivatedRoute, Router} from '@angular/router';
 
 declare var auiSlide: any;
 declare var Swiper: any;
@@ -28,7 +29,7 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     // 精选列表
     superList: Array<Survey>;
 
-    constructor(private surveyService: SurveyService, lc: NgZone) {
+    constructor(private surveyService: SurveyService, lc: NgZone, private router: Router, private route: ActivatedRoute) {
         this.surveyService.getSurveyHotList().subscribe(resp => {
             if (resp.success) {
                 this.hotList = resp.data.list;
@@ -86,6 +87,9 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     };
 
     ngOnInit() {
+        console.log(this.router.url);
+        console.log(window.location.href)
+
     }
 
     createHorizonalSwiper(selector: string) {

@@ -4,12 +4,14 @@ import * as shape from 'd3-shape';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
+import {WxService} from '../../../services/wx-service.service';
+import {WxBase} from '../../WxBase';
 
 @Component({
     templateUrl: './survey-result.component.html',
     animations: [slideInDownAnimation]
 })
-export class SurveyResultComponent {
+export class SurveyResultComponent extends WxBase {
     @HostBinding('@routeAnimation')
     routeAnimation = true;
     @HostBinding('style.display')
@@ -143,7 +145,11 @@ export class SurveyResultComponent {
     };
 
 
-    constructor(private surveyService: SurveyService, private route: ActivatedRoute, private router: Router) {
+    constructor(protected surveyService: SurveyService,
+                protected route: ActivatedRoute,
+                protected router: Router,
+                protected wxService: WxService) {
+        super(wxService, router);
         route.paramMap.subscribe(params => {
             this.userSurveyId = Number(params.get('userSurveyId'));
 

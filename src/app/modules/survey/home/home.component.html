@@ -72,7 +72,7 @@
         <div class="swiper-wrapper">
             <div *ngFor="let survey of hotList" class="swiper-slide">
                 <div class="aui-card-list adv-scroll">
-                    <a routerLink="/pages/survey-detail-initial/{{survey.id}}">
+                    <a routerLink="/survey-detail-initial/{{survey.id}}">
                         <div class="aui-card-list-content">
                             <img src="{{survey.image}}"/>
                         </div>
@@ -101,7 +101,7 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let survey of hotList">
                 <div class="aui-card-list adv-scroll">
-                    <a routerLink="/pages/survey-detail-initial/{{survey.id}}">
+                    <a routerLink="/survey-detail-initial/{{survey.id}}">
                         <div class="aui-card-list-content">
                             <img src="{{survey.image}}"/>
                         </div>
@@ -137,7 +137,7 @@
             </div>
         </li>
         <li class="aui-list-item" *ngFor="let survey of superList">
-            <a routerLink="/pages/survey-detail-initial/{{survey.id}}">
+            <a routerLink="/survey-detail-initial/{{survey.id}}">
                 <div class="aui-media-list-item-inner">
                     <div class="aui-list-item-inner">
                         <div class="aui-list-item-text list-header">
