@@ -131,8 +131,16 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit, Afte
         return this.domSanitizer.bypassSecurityTrustHtml(this.survey.description);
     }
 
+    test() {
+        this.surveyService.shareSurvey(this.surveyId).subscribe(resp => {
+
+        });
+    }
+
     protected OnWxShareSuccess() {
-        alert('from child success');
+        this.surveyService.shareSurvey(this.surveyId).subscribe(resp => {
+
+        });
     }
 
     protected OnWxShareCancel() {

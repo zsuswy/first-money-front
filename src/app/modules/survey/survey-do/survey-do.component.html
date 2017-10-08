@@ -1,5 +1,34 @@
 <section class="aui-chat">
     <div class="aui-chat-header">2016年7月13日</div>
+    <div *ngIf="isNeedSex == 1">
+        <div class="aui-chat-item aui-chat-left" id="question_sex">
+            <div class="aui-chat-media">
+                <img src="assets/image/demo2.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <!--<div class="aui-chat-name">AUI <span class="aui-label aui-label-warning">2.0</span></div>-->
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    <div>本测试区分性别，您的性别是？</div>
+                    <!--<img src="assets/image/l1.png"/>-->
+                </div>
+            </div>
+        </div>
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="assets/image/liulangnan.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <!--<div class="aui-chat-name">流浪男</div>-->
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    <div class="option {{userSelectedSex == 1 ? 'selected-option':''}}" (click)="selectSex(1)">男</div>
+                    <div class="option {{userSelectedSex == 2 ? 'selected-option':''}}" (click)="selectSex(2)">女</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div *ngFor="let question of activeQuestionList;let i=index">
         <div class="aui-chat-item aui-chat-left" id="question{{question.id}}">
             <div class="aui-chat-media">

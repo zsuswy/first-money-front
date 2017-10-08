@@ -3,48 +3,48 @@
         <img style="width: 100%;" src="assets/image/apicloud-bg.png">
     </div>
 </section>
-<section class="aui-grid">
-    <h6 class="aui-content aui-text-center aui-padded-t-10">
+<section class="aui-grid aui-margin-b-10">
+    <div class="aui-content aui-text-center aui-padded-10 aui-font-size-16">
         {{survey.title}}
-    </h6>
-    <div class="aui-text-center" style="font-size: .6rem;padding:0rem 1rem">{{survey.shortDescription}}</div>
+    </div>
+    <p class="aui-text-center" style="font-size: .6rem;padding:0rem 1rem">{{survey.shortDescription}}</p>
     <div class="aui-text-center aui-padded-t-5 aui-padded-b-5">
         <span class="list-price" style="font-size: 1rem">¥{{survey.price}}</span>
         <span class="list-old-price">¥{{survey.orgPrice}}</span>
     </div>
     <div class="aui-text-center">
         <a class="aui-btn aui-btn-warning" (click)="buy()">立即购买</a>
+        <a class="aui-btn aui-btn-warning" (click)="test()">测试</a>
     </div>
     <div class="aui-row" style="border-bottom: solid 1px lightgray;">
-        <div class="aui-col-xs-4">
+        <div class="aui-col-xs-6">
             <p class="aui-text-center">{{survey.questionCnt}}道精选题目</p>
         </div>
-        <div class="aui-col-xs-4">
-            <p class="aui-text-center">专业报告</p>
-        </div>
-        <div class="aui-col-xs-4">
+        <div class="aui-col-xs-6">
             <p class="aui-text-center">{{survey.testedCnt}}人测试</p>
         </div>
     </div>
 </section>
-<div style="height: 10px">&nbsp;</div>
+<section class="aui-grid aui-margin-b-10">
+    <div class="aui-content-padded">
+        <div class="aui-text-center aui-padded-t-15 aui-margin-b-10">
+            <span style="padding-bottom: .2rem;border-bottom: solid 3px #1abc9c">&nbsp;测评介绍&nbsp;</span>
+        </div>
+        <div [innerHTML]="getHtml()">
+        </div>
+    </div>
+</section>
 <section class="aui-grid">
     <div class="aui-content-padded">
-        <h6 class="aui-text-center aui-padded-t-15 aui-padded-b-10">
-            <span style="padding-bottom: .2rem;border-bottom: solid 5px #1abc9c">测评介绍</span>
-        </h6>
-        <p [innerHTML]="getHtml()">
-        </p>
-        <section class="aui-content-padded">
-            <div class="aui-card-list">
-                <div class="aui-text-center">
-                    测评说明
-                </div>
-                <p class="aui-card-list-content">
-                    测评由专业人士打造，其结果仅做参考用，不作为临床诊断的依据。
-                </p>
-            </div>
-        </section>
+
+        <div class="aui-card-list">
+            <p class="aui-text-center aui-margin-b-10">
+                <span style="padding-bottom: .2rem;border-bottom: solid 3px lightsalmon">&nbsp;测评说明&nbsp;</span>
+            </p>
+            <p>
+                测评由专业人士打造，其结果仅做参考用，不作为临床诊断的依据。
+            </p>
+        </div>
     </div>
 </section>
 

@@ -25,9 +25,11 @@ declare var _j_scrollTo: any;
     styleUrls: ['./survey-do.component.css']
 })
 export class SurveyDoComponent extends WxBase implements OnInit {
-
     // 当前用户的性别
-    defaultUserSex: 1;
+    userSelectedSex = 0;
+
+    // 是否区分性别
+    isNeedSex = 0;
 
     // 从参数获取
     userSurveyId: number;
@@ -61,6 +63,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
                     // 获取答题数据
                     this.userSurvey = resp.data;
+                    this.userSelectedSex = this.userSurvey.selectedSex;
                     if (this.userSurvey.answer != null) {
                         this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
                     } else {
@@ -71,7 +74,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
 
                     this.surveyService.getSurvey(this.userSurvey.surveyId).subscribe(resp => {
                         this.survey = resp.data;
-
+                        this.isNeedSex = this.survey.isNeedSex;
                         // 获取问题列表数据
                         this.surveyService.getSurveyQuestionList({
                             page: null,
@@ -79,9 +82,11 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                         }).subscribe(resp => {
                             this.surveyQuestionList = resp.data.list;
 
-                            // 初始化数据
-                            this.start();
-
+                            // 如果区分性别，需要选择性别后才开始
+                            if (!this.isNeedSex || this.userSelectedSex > 0) {
+                                // 初始化数据
+                                this.start();
+                            }
                         });
                     });
                 });
@@ -119,7 +124,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
 
         // 获取下一题的 Seq
         if (selectOption == null) {
-            nextQuestionSeq = 1;
+            nextQuestionSeq = 1; // TODO:优化-可以选取最小的SEQ，不写死
         }
         else if (this.survey.surveyType == SurveyType.JumpByOptionSetting) {
             nextQuestionSeq = selectOption.jumpTo;
@@ -135,20 +140,15 @@ export class SurveyDoComponent extends WxBase implements OnInit {
         if (this.activeQuestionList.find(q => q.seq == nextQuestionSeq) != null) {
             return null;
         }
-        console.log(selectOption);
-        console.log(this.surveyQuestionList);
-        console.log(nextQuestionSeq);
-
 
         let nextQuestion = null;
         // 如果有重复序号的题目存在，根据性别筛选
-        if (this.surveyQuestionList.filter(item => item.id == questionId).length > 1) {
-            nextQuestion = this.surveyQuestionList.find(item => item.id == questionId && item.sex == this.defaultUserSex);
+        if (this.surveyQuestionList.filter(item => item.seq == nextQuestionSeq).length > 1) {
+            nextQuestion = this.surveyQuestionList.find(item => item.seq == nextQuestionSeq && item.sex == this.userSelectedSex);
         }
         else {
             nextQuestion = this.surveyQuestionList.find(item => item.seq == nextQuestionSeq);
         }
-        console.log(nextQuestion);
 
         return nextQuestion;
     }
@@ -159,7 +159,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     goToNext(questionId?: number, option?: string) {
         // 第一次答题
         if (questionId == null && option == null) {
-            this.activeQuestionList.push(this.surveyQuestionList[0]);
+            this.activeQuestionList.push(this.calculateNextQuestion());
             return;
         }
 
@@ -319,5 +319,15 @@ export class SurveyDoComponent extends WxBase implements OnInit {
             return '';
         }
         return ans.userSelection == option ? 'selected-option' : '';
+    }
+
+    selectSex(selectedSex: number) {
+        if (this.userSelectedSex > 0)
+            return;
+
+        this.userSelectedSex = selectedSex;
+        this.userSurvey.selectedSex = selectedSex;
+        this.saveAnswer();
+        this.start();
     }
 }

@@ -7,31 +7,40 @@ declare let wx: any;
 export class WxBase {
     public userId: number;
     public wxOpenId: string;
+    public debug = false;
 
     constructor(protected wxService: WxService, protected router: Router) {
-        let userId;
-        let wxOpenId;
-        // 获取微信用户信息，从Cookie里面获取后放入sessionStorage里面。
-        if (sessionStorage.getItem('userId') == '-1') {
-            userId = Cookie.getCookie('userId');
-            wxOpenId = Cookie.getCookie('wxOpenId');
-
-            sessionStorage.setItem('userId', userId);
-            sessionStorage.setItem('wxOpenId', wxOpenId);
-        } // 如果sessionStorage过期，那么重新获取
-        else if (sessionStorage.getItem('userId') == null) {
-            sessionStorage.setItem('userId', '-1');
-
-            window.location.href = `http://quiz.ronmob.com/qz/wx/getUserInfo?retUrl=${encodeURI(router.url)}`;
+        if (this.debug) {
+            localStorage.setItem('userId', '11');
+            localStorage.setItem('wxOpenId', 'oBCXTsiLb08hNJoc3Zi6vwFGQLoo');
+            this.userId = Number(localStorage.getItem('userId'));
+            this.wxOpenId = localStorage.getItem('wxOpenId');
         }
+        else {
+            let userId;
+            let wxOpenId;
+            // 获取微信用户信息，从Cookie里面获取后放入sessionStorage里面。
+            if (localStorage.getItem('userId') == '-1') {
+                userId = Cookie.getCookie('userId');
+                wxOpenId = Cookie.getCookie('wxOpenId');
 
-        this.userId = Number(sessionStorage.getItem('userId'));
-        this.wxOpenId = sessionStorage.getItem('wxOpenId');
+                localStorage.setItem('userId', userId);
+                localStorage.setItem('wxOpenId', wxOpenId);
+            } // 如果sessionStorage过期，那么重新获取
+            else if (localStorage.getItem('userId') == null) {
+                localStorage.setItem('userId', '-1');
 
-        // 注册微信分享配置
-        if (sessionStorage.getItem('wx_config_' + router.url) == null) {
-            this.configWxShare();
-            sessionStorage.setItem('wx_config_' + router.url, '1');
+                window.location.href = `http://quiz.ronmob.com/qz/wx/getUserInfo?retUrl=${encodeURI(router.url)}`;
+            }
+
+            this.userId = Number(localStorage.getItem('userId'));
+            this.wxOpenId = localStorage.getItem('wxOpenId');
+
+            // 注册微信分享配置
+            if (sessionStorage.getItem('wx_config_' + router.url) == null) {
+                this.configWxShare();
+                sessionStorage.setItem('wx_config_' + router.url, '1');
+            }
         }
     }
 

@@ -25,9 +25,10 @@
 
 .list-old-price {
     text-decoration: line-through;
-    font-size: .4rem;
+    font-size: .7rem;
     line-height: .7rem;
     vertical-align: middle;
+    color: darkgrey;
 }
 
 a {

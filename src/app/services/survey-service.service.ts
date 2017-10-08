@@ -157,4 +157,7 @@ export class SurveyService {
         return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/user/get?id=' + userId);
     }
 
+    shareSurvey(surveyId: number) {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/user/share', {'surveyId': surveyId});
+    }
 }

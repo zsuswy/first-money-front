@@ -1,207 +1,42 @@
 <div class="aui-row">
     <div style="position: absolute;top:0rem;left:0;width:4rem;bottom: 0;overflow: scroll">
-        <div class="aui-row nav-btn active">
+        <div class="aui-row nav-btn {{-1 == selectedClassId?'active':''}}" (click)="ShowTab(-1)">
             全部
         </div>
-        <div class="aui-row nav-btn">性格</div>
-        <div class="aui-row nav-btn">情感</div>
-        <div class="aui-row nav-btn">职场</div>
-        <div class="aui-row nav-btn">健康</div>
-        <div class="aui-row nav-btn">人际</div>
-        <div class="aui-row nav-btn">夫妻</div>
-        <div class="aui-row nav-btn">趣味</div>
+        <div *ngFor="let cls of surveyClassList" (click)="ShowTab(cls.id)"
+             class="aui-row nav-btn {{cls.id == selectedClassId?'active':''}}">
+            {{cls.className}}
+        </div>
     </div>
     <div style="width:100%">
         <!--<div style="position: absolute;top:0rem;left:3rem;right:0;height:2rem;overflow: scroll">-->
-            <!--<div>查看更多</div>-->
+        <!--<div>查看更多</div>-->
         <!--</div>-->
         <div style="position: absolute;top:0rem;left:4rem;right:0;bottom: 1rem;overflow: scroll">
             <ul class="aui-list aui-media-list">
-                <li class="aui-list-item">
-                    <a href="http://www.baidu.com">
+                <li class="aui-list-item" *ngFor="let survey of surveyList">
+                    <a routerLink="/survey-detail-initial/{{survey.id}}">
                         <div class="aui-media-list-item-inner">
                             <div class="aui-list-item-inner">
                                 <div class="aui-list-item-text list-header">
-                                    你在爱情中有哪些不为认知的弱点？
+                                    {{survey.title}}
                                 </div>
                                 <div class="aui-list-item-text list-co-header">
-                                    如果谈及中国在技术领域的短板，那么大家可能想到的是发动机
+                                    {{survey.shortDescription}}
                                 </div>
                                 <div class="aui-info aui-padded-b-0">
                                     <div class="aui-info-item aui-font-size-12">
-                                        <span class="list-price">¥9.9</span>
-                                        <span class="list-old-price">¥9.9</span>
+                                        <span class="list-price">¥{{survey.price}}</span>
+                                        <span class="list-old-price">¥{{survey.orgPrice}}</span>
                                     </div>
-                                    <div class="aui-info-item aui-font-size-12">1369人已测</div>
+                                    <div class="aui-info-item aui-font-size-12">{{survey.testedCnt}}人已测</div>
                                 </div>
                             </div>
                             <div class="aui-list-item-media">
-                                <span class="class-badge">情感</span>
-                                <img src="assets/image/demo1.png">
+                                <img src="{{survey.image}}">
                             </div>
                         </div>
                     </a>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                谁在用苹果手机？赶紧看，央视已报道
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                谁在用苹果手机？赶紧看，央视已报道
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                谁在用苹果手机？赶紧看，央视已报道
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                如果谈及中国在技术领域的短板，那么大家可能想到的是发动机
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                如果谈及中国在技术领域的短板，那么大家可能想到的是发动机
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                如果谈及中国在技术领域的短板，那么大家可能想到的是发动机
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
-                </li>
-                <li class="aui-list-item">
-                    <div class="aui-media-list-item-inner">
-                        <div class="aui-list-item-inner">
-                            <div class="aui-list-item-text list-header">
-                                测试出你性格最真实的一面
-                            </div>
-                            <div class="aui-list-item-text list-co-header">
-                                如果谈及中国在技术领域的短板，那么大家可能想到的是发动机
-                            </div>
-                            <div class="aui-info aui-padded-b-0">
-                                <div class="aui-info-item aui-font-size-12">
-                                    <span class="list-price">¥9.9</span>
-                                    <span class="list-old-price">¥9.9</span>
-                                </div>
-                                <div class="aui-info-item aui-font-size-12">1369人已测</div>
-                            </div>
-                        </div>
-                        <div class="aui-list-item-media">
-                            <span class="class-badge">情感</span>
-                            <img src="assets/image/demo1.png">
-                        </div>
-                    </div>
                 </li>
             </ul>
         </div>

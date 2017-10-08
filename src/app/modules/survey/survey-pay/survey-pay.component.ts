@@ -6,13 +6,16 @@ import {User} from '../../../model/User';
 import {Order} from '../../../model/Order';
 import {OrderVo} from '../../../model/OrderVo';
 import {UserSurvey} from '../../../model/UserSurvey';
+import {Observable} from 'rxjs/Observable';
+import {WxBase} from '../../WxBase';
+import {WxService} from '../../../services/wx-service.service';
 
 @Component({
     selector: 'app-survey-pay',
     templateUrl: './survey-pay.component.html',
     styleUrls: ['./survey-pay.component.css']
 })
-export class SurveyPayComponent implements OnInit {
+export class SurveyPayComponent extends WxBase implements OnInit {
     /**
      * 当前测评id
      * */
@@ -52,7 +55,11 @@ export class SurveyPayComponent implements OnInit {
     payAmount: number;
 
 
-    constructor(private surveyService: SurveyService, private route: ActivatedRoute, private router: Router) {
+    constructor(private surveyService: SurveyService,
+                private route: ActivatedRoute,
+                protected router: Router,
+                protected wxService: WxService) {
+        super(wxService, router)
         this.survey = new Survey();
         this.user = new User();
     }
@@ -61,7 +68,7 @@ export class SurveyPayComponent implements OnInit {
         // 获取参数
         this.route.paramMap.subscribe(params => {
             this.userSurveyId = Number(params.get('userSurveyId'));
-            console.log('this.userSurveyId: ' + this.userSurveyId);
+
             this.surveyService.getUserSurveyList({
                 params: {'userSurveyId': this.userSurveyId, 'status': 0},
                 page: null
@@ -79,13 +86,15 @@ export class SurveyPayComponent implements OnInit {
                 console.log('this.userSurvey: ');
                 console.log(resp.data.list[0]);
 
-                this.surveyService.getSurvey(this.surveyId).subscribe(resp => {
-                    console.log('this.survey: ');
-                    console.log(this.survey);
-                    this.survey = resp.data;
-                    this.balancePay = this.survey.price > this.survey.price ? this.user.balance : this.survey.price;
-                    this.payAmount = this.survey.price - this.balancePay;
-                })
+                Observable.forkJoin(this.surveyService.getSurvey(this.surveyId),
+                    this.surveyService.getUser(this.userId))
+                    .subscribe(respList => {
+                        this.survey = respList[0].data;
+                        this.user = respList[1].data;
+
+                        this.balancePay = this.survey.price > this.user.balance ? this.user.balance : this.survey.price;
+                        this.payAmount = this.survey.price - this.balancePay;
+                    });
             });
         });
     }

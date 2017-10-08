@@ -24,6 +24,10 @@ export const routes: Routes = [
         component: SurveysByClassPageComponent
     },
     {
+        path: 'surveyClasses/:classId',
+        component: SurveysByClassPageComponent
+    },
+    {
         path: 'survey-detail-initial/:surveyId',
         component: SurveyDetailInitialComponent
     },
