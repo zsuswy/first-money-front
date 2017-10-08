@@ -39,8 +39,6 @@ export class SurveysByClassPageComponent implements OnInit {
         this.surveyService.getSurveyList({page: null, params: params}).subscribe(resp => {
             this.surveyList = resp.data.list;
         });
-
-        localStorage.clear();
     }
 
     ngOnInit(): void {
