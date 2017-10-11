@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Survey} from '../../../model/Survey';
 import {User} from '../../../model/User';
 import {Order} from '../../../model/Order';
-import {OrderVo} from '../../../model/OrderVo';
 import {UserSurvey} from '../../../model/UserSurvey';
 import {Observable} from 'rxjs/Observable';
 import {WxBase} from '../../WxBase';

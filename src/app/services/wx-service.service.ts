@@ -15,9 +15,13 @@ export class WxService {
     // SERVICE_HOST_PREFIX = 'http://localhost:9999';
 
     constructor(private http: HttpClient) {
-    };
+    }
 
     createJsapiSignature(url: String): Observable<ResponseResult> {
         return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/wx/createJsapiSignature?url=' + url);
+    }
+
+    getPayInfo(surveyId: number): Observable<ResponseResult> {
+        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/wx/createOrder', {"surveyId": surveyId});
     }
 }

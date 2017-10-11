@@ -13,8 +13,9 @@ export class Order {
                 public finishTime?: Date,
                 public userId?: number,
                 public payType?: number,
-                public businessId?: number,
+                public surveyId?: number,
                 public totalAmount?: number,
-                public balancePayAmount?: number) {
+                public balancePayAmount?: number,
+                public fromUserId?: number) {
     }
 }
