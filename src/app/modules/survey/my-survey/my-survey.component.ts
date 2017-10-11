@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {slideInDownAnimation} from '../../../animations';
 import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
@@ -42,7 +42,9 @@ export class MySurveyPageComponent extends WxBase implements OnInit {
 
     getList() {
         if (this.currentTab == 3) {
-            return this.userSurveyList;
+            return this.userSurveyList.filter(s => {
+                return s.status == 0;
+            });
         }
         return this.userSurveyList.filter(s => {
             return s.status == this.currentTab;
@@ -55,6 +57,8 @@ export class MySurveyPageComponent extends WxBase implements OnInit {
         }
         else if (userSurvey.status == 2) {
             this.router.navigate(['/survey-detail-initial/', userSurvey.surveyId]);
+        } else if (userSurvey.status == 0) {
+            this.router.navigate(['/pay/', userSurvey.id]);
         }
     }
 }

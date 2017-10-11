@@ -72,13 +72,11 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
             function (res) {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
-                    ng_this.surveyService.getUserSurveyList({
-                        page: null,
-                        params: {'orderId': payInfo.orderId}
-                    }).subscribe(resp => {
-                        ng_this.router.navigate(["/survey-do/", resp.data.list[0].id],
-                            {queryParams: {'surveyId': ng_this.surveyId}});
-                    });
+                    ng_this.surveyService.confirmOrder(payInfo.orderId)
+                        .subscribe(resp => {
+                            ng_this.router.navigate(["/survey-do/", resp.data],
+                                {queryParams: {'surveyId': ng_this.surveyId}});
+                        });
                 }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
             }
         );

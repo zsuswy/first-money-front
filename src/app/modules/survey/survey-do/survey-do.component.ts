@@ -64,34 +64,36 @@ export class SurveyDoComponent extends WxBase implements OnInit {
             .subscribe(params => {
                 // 获取参数
                 this.userSurveyId = Number(params[0].get("userSurveyId"));
-                this.surveyId = Number(params[1].get("surveyId"));
+                this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
+                    this.userSurvey = resp.data;
+                    this.userSurveyId = this.userSurvey.id;
 
+                    Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
+                        this.surveyService.getSurveyQuestionList({                  // Survey的问题列表
+                            page: null,
+                            params: {'surveyId': this.userSurvey.surveyId}
+                        }),
+                        this.surveyService.getUserSurvey(this.userSurveyId)                     // UserSurvey
+                    ).subscribe(paramList => {
+                        this.survey = paramList[0].data;
+                        this.surveyQuestionList = paramList[1].data.list;
+                        this.userSurvey = paramList[2].data;
 
-                Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
-                    this.surveyService.getSurveyQuestionList({                  // Survey的问题列表
-                        page: null,
-                        params: {'surveyId': this.userSurvey.surveyId}
-                    }),
-                    this.surveyService.getUserSurvey(this.userSurveyId)                     // UserSurvey
-                ).subscribe(paramList => {
-                    this.survey = paramList[0].data;
-                    this.surveyQuestionList = paramList[1].data.list;
-                    this.userSurvey = paramList[2].data;
+                        this.isNeedSex = this.survey.isNeedSex;
+                        this.userSelectedSex = this.userSurvey.selectedSex;
 
-                    this.isNeedSex = this.survey.isNeedSex;
-                    this.userSelectedSex = this.userSurvey.selectedSex;
+                        if (this.userSurvey.answer != null) {
+                            this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
+                        } else {
+                            this.surveyAnswerList = [];
+                        }
 
-                    if (this.userSurvey.answer != null) {
-                        this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
-                    } else {
-                        this.surveyAnswerList = [];
-                    }
-
-                    // 如果区分性别，需要选择性别后才开始
-                    if (!this.isNeedSex || this.userSelectedSex > 0) {
-                        // 初始化数据
-                        this.start();
-                    }
+                        // 如果区分性别，需要选择性别后才开始
+                        if (!this.isNeedSex || this.userSelectedSex > 0) {
+                            // 初始化数据
+                            this.start();
+                        }
+                    });
                 });
             });
     }
@@ -199,7 +201,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
         if (nextQuestion != null) {
             this.activeQuestionList.push(nextQuestion);
             this.scrollTo(nextQuestion.id);
-        } else {
+        } else if (this.activeQuestionList.length == this.surveyAnswerList.length) {
             // 结束
             this.userFinished = true;
             this.scrollTo('end');

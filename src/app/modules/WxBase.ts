@@ -38,7 +38,7 @@ export class WxBase {
 
             // 注册微信分享配置
             if (sessionStorage.getItem('wx_config_' + router.url) == null) {
-                this.configWxShare();
+                this.configWxShare(window.location.href);
                 sessionStorage.setItem('wx_config_' + router.url, '1');
             }
         }
@@ -47,8 +47,8 @@ export class WxBase {
     /**
      * 通过config接口注入权限验证配置
      * */
-    private configWxShare() {
-        this.wxService.createJsapiSignature(window.location.href).subscribe(resp => {
+    private configWxShare(url) {
+        this.wxService.createJsapiSignature(url).subscribe(resp => {
             wx.config({
                 // debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 appId: resp.data.appId, // 必填，公众号的唯一标识
