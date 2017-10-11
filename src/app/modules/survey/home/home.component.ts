@@ -4,6 +4,7 @@ import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 declare var auiSlide: any;
 declare var Swiper: any;
@@ -20,6 +21,9 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     @ViewChild('swipercontainer1')
     slider1: ElementRef;
 
+    @ViewChild("toast")
+    toast: ElementRef;
+
     // 最热列表
     hotList: Array<Survey>;
 
@@ -30,23 +34,7 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     superList: Array<Survey>;
 
     constructor(private surveyService: SurveyService, lc: NgZone, private router: Router, private route: ActivatedRoute) {
-        this.surveyService.getSurveyHotList().subscribe(resp => {
-            if (resp.success) {
-                this.hotList = resp.data.list;
-            }
-            this.createHorizonalSwiper('.hot-swiper-container');
-        });
-        this.surveyService.getSurveyNewList().subscribe(resp => {
-            if (resp.success) {
-                this.newList = resp.data.list;
-            }
-            this.createHorizonalSwiper('.new-swiper-container');
-        });
-        this.surveyService.getSurveySuperList().subscribe(resp => {
-            if (resp.success) {
-                this.superList = resp.data.list;
-            }
-        });
+
         // 检测是否滚动到底部
         // window.onscroll = () => {
         //     let status = "not reached";
@@ -82,14 +70,19 @@ export class HomePageComponent implements AfterViewInit, OnInit {
         prevButton: '.swiper-button-prev'
     };
 
-    public editorOptions = {
-        imageUploadURL: "http://quiz.ronmob.com/qz/file/upload"
-    };
-
     ngOnInit() {
-        console.log(this.router.url);
-        console.log(window.location.href)
+        Observable.zip(this.surveyService.getSurveyHotList(),
+            this.surveyService.getSurveyNewList(),
+            this.surveyService.getSurveySuperList())
+            .subscribe(respList => {
+                this.hotList = respList[0].data.list;
+                this.newList = respList[1].data.list;
+                this.superList = respList[2].data.list;
 
+                this.createHorizonalSwiper('.hot-swiper-container');
+                this.createHorizonalSwiper('.new-swiper-container');
+                this.toast.nativeElement.style.display = 'none';
+            });
     }
 
     createHorizonalSwiper(selector: string) {

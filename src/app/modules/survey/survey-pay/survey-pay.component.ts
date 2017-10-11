@@ -9,6 +9,8 @@ import {Observable} from 'rxjs/Observable';
 import {WxBase} from '../../WxBase';
 import {WxService} from '../../../services/wx-service.service';
 
+declare let WeixinJSBridge: any;
+
 @Component({
     selector: 'app-survey-pay',
     templateUrl: './survey-pay.component.html',
@@ -20,12 +22,6 @@ export class SurveyPayComponent extends WxBase implements OnInit {
      * */
     surveyId: number;
 
-
-    /**
-     * 当前用户测评id
-     * */
-    userSurveyId: number;
-
     /**
      * 已有订单号
      * */
@@ -36,6 +32,8 @@ export class SurveyPayComponent extends WxBase implements OnInit {
      * */
     survey: Survey;
 
+    order: Order;
+
     userSurvey: UserSurvey;
 
     /**
@@ -43,72 +41,91 @@ export class SurveyPayComponent extends WxBase implements OnInit {
      * */
     user: User;
 
-    /**
-     * 余额抵扣金额
-     * */
-    balancePay: number;
-
-    /**
-     * 支付金额
-     * */
-    payAmount: number;
-
-
     constructor(private surveyService: SurveyService,
                 private route: ActivatedRoute,
                 protected router: Router,
                 protected wxService: WxService) {
-        super(wxService, router)
+        super(wxService, router);
         this.survey = new Survey();
-        this.user = new User();
+        this.order = new Order();
     }
 
     ngOnInit() {
         // 获取参数
-        this.route.paramMap.subscribe(params => {
-            this.userSurveyId = Number(params.get('userSurveyId'));
+        Observable.zip(this.route.paramMap, this.route.queryParamMap)
+            .subscribe(paramsArr => {
+                this.surveyId = Number(paramsArr[0].get('surveyId'));
 
-            this.surveyService.getUserSurveyList({
-                params: {'userSurveyId': this.userSurveyId, 'status': 0},
-                page: null
-            }).subscribe(resp => {
-                // TODO:异常处理
-
-                this.userSurvey = resp.data.list[0];
-                this.surveyId = this.userSurvey.surveyId;
-                this.orderId = this.userSurvey.orderId;
-
-                if (this.userSurvey.status > 0) {
-                    this.router.navigate(['/survey-do', this.userSurvey.id]);
-                }
-
-                console.log('this.userSurvey: ');
-                console.log(resp.data.list[0]);
-
-                Observable.forkJoin(this.surveyService.getSurvey(this.surveyId),
-                    this.surveyService.getUser(this.userId))
+                Observable.forkJoin(this.surveyService.getSurvey(this.surveyId),    // 获取 Survey
+                    this.surveyService.getOrderList({
+                        page: null,
+                        params: {'userId': this.userId, 'status': 0, 'surveyId': this.surveyId}
+                    }))
                     .subscribe(respList => {
                         this.survey = respList[0].data;
-                        this.user = respList[1].data;
-
-                        this.balancePay = this.survey.price > this.user.balance ? this.user.balance : this.survey.price;
-                        this.payAmount = this.survey.price - this.balancePay;
+                        this.order = respList[1].data.list[0];
+                        if (this.order == null) {
+                            // TODO: 没有相关订单，跳转到其它页面
+                        }
                     });
             });
-        });
     }
 
     /**
      * 确定支付
      * */
-    payConfirmed() {
-        this.surveyService.confirmOrder({'orderId': this.orderId}).subscribe(resp => {
-            if (resp.success) {
-                let userSurvey = resp.data;
-                console.log(['/survey-do', userSurvey.id]);
-                this.router.navigate(['/survey-do', userSurvey.id]);
+    pay() {
+        let order = new Order();
+        order.surveyId = this.surveyId;
+        order.userId = this.userId;
+
+        this.surveyService.createOrGetOrderPayInfo(order).subscribe(resp => {
+            if (resp.data.wxpPayType == "all" || resp.data.wxpPayType == "partial") {
+                let payInfo = resp.data;
+                this.wxPay(payInfo);
+            } else if (resp.data.wxpPayType == "none") {
+                order = resp.data.order;
+                this.surveyService.confirmOrder(order.id).subscribe(resp => {
+                    if (resp.success) {
+                        this.router.navigate(['/survey-do', resp.data],
+                            {queryParams: {'surveyId': this.surveyId}});
+                    }
+                });
             }
         });
+    }
+
+    /**
+     * 微信支付
+     * */
+    wxPay(payInfo) {
+        let ng_this = this;
+
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                "appId": payInfo.appId,             // "wx2421b1c4370ec43b",     //公众号名称，由商户传入
+                "timeStamp": payInfo.timeStamp,     // "1395712654",         //时间戳，自1970年以来的秒数
+                "nonceStr": payInfo.nonceStr,       // "e61463f8efa94090b1f366cccfbbb444", //随机串
+                "package": payInfo.package,         // "prepay_id=u802345jgfjsdfgsdg888",
+                "signType": "MD5",                  // 微信签名方式：
+                "paySign": payInfo.paySign          // "70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+            },
+            function (res) {
+                // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    // 支付成功，跳转
+                    this.surveyService.getUserSurveyList({
+                        page: null,
+                        params: {
+                            'orderId': this.orderId
+                        }
+                    }).subscribe(resp => {
+                        ng_this.router.navigate(['/survey-do', resp.data.list[0].id],
+                            {queryParams: {'surveyId': ng_this.surveyId}});
+                    });
+                }
+            }
+        );
     }
 
 }

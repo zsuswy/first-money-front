@@ -21,24 +21,24 @@
         <li class="aui-list-item">
             <div class="aui-list-item-inner">
                 <div class="aui-list-item-title aui-text-info">余额抵扣</div>
-                <div class="aui-list-item-right aui-text-danger"> -{{balancePay}}</div>
+                <div class="aui-list-item-right aui-text-danger"> -{{order.balancePayAmount}}</div>
             </div>
         </li>
         <li class="aui-list-item">
             <div class="aui-list-item-inner">
                 <div class="aui-list-item-title aui-text-info">积分抵扣</div>
-                <div class="aui-list-item-right aui-text-danger"> -{{balancePay}}</div>
+                <div class="aui-list-item-right aui-text-danger"> -{{order.scorePayAmount}}</div>
             </div>
         </li>
         <li class="aui-list-item">
             <div class="aui-list-item-inner">
                 <div class="aui-list-item-title aui-text-info">支付金额</div>
-                <div class="aui-list-item-right">{{payAmount}} (元)</div>
+                <div class="aui-list-item-right">{{order.payAmount}} (元)</div>
             </div>
         </li>
     </ul>
 </section>
 <p></p>
 <div style="padding: 5px 5px">
-    <div class="aui-btn aui-btn-info aui-btn-block" (click)="payConfirmed()">确定支付</div>
+    <div class="aui-btn aui-btn-info aui-btn-block" (click)="pay()">确定支付</div>
 </div>

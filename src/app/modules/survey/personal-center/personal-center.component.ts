@@ -1,5 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {slideInDownAnimation} from '../../../animations';
+import {Component, OnInit} from '@angular/core';
 import {WxService} from '../../../services/wx-service.service';
 import {Router} from '@angular/router';
 import {WxBase} from '../../WxBase';
@@ -7,8 +6,7 @@ import {SurveyService} from '../../../services/survey-service.service';
 import {User} from '../../../model/User';
 
 @Component({
-    templateUrl: './personal-center.component.html',
-    animations: [slideInDownAnimation],
+    templateUrl: './personal-center.component.html'
 })
 
 export class PersonalCenterPageComponent extends WxBase implements OnInit {

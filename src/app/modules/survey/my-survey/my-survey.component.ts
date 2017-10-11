@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {slideInDownAnimation} from '../../../animations';
 import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
@@ -9,20 +9,9 @@ import {WxBase} from '../../WxBase';
 
 @Component({
     templateUrl: './my-survey.component.html',
-    animations: [slideInDownAnimation],
     styleUrls: ['./my-survey.component.css']
 })
 export class MySurveyPageComponent extends WxBase implements OnInit {
-    @HostBinding('@routeAnimation')
-    routeAnimation = true;
-    @HostBinding('style.display')
-    display = 'block';
-    @HostBinding('style.position')
-    position = 'absolute';
-
-    @ViewChild('tabContainer')
-    tabContainer: ElementRef;
-
     currentTab: number = 1;
 
     userSurveyList: UserSurvey[] = [];

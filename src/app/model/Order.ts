@@ -8,7 +8,7 @@ export class Order {
                 public payAmount?: number,
                 public wxOpenId?: string,
                 public scorePayAmount?: number,
-                public orderStatus?: number,
+                public status?: number,
                 public creatTime?: Date,
                 public finishTime?: Date,
                 public userId?: number,

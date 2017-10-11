@@ -34,6 +34,8 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     // 从参数获取
     userSurveyId: number;
 
+    surveyId: number;
+
     // 当前的 用户测评
     userSurvey: UserSurvey;
 
@@ -57,42 +59,43 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 protected router: Router,
                 protected wxService: WxService) {
         super(wxService, router);
-        // 获取 UserSurvey
-        route.paramMap.subscribe(params => {
-                this.userSurveyId = Number(params.get('userSurveyId'));
-                this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
-                    // 获取答题数据
-                    this.userSurvey = resp.data;
+
+        Observable.zip(this.route.paramMap, this.route.queryParamMap)
+            .subscribe(params => {
+                // 获取参数
+                this.userSurveyId = Number(params[0].get("userSurveyId"));
+                this.surveyId = Number(params[1].get("surveyId"));
+
+
+                Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
+                    this.surveyService.getSurveyQuestionList({                  // Survey的问题列表
+                        page: null,
+                        params: {'surveyId': this.userSurvey.surveyId}
+                    }),
+                    this.surveyService.getUserSurvey(this.userSurveyId)                     // UserSurvey
+                ).subscribe(paramList => {
+                    this.survey = paramList[0].data;
+                    this.surveyQuestionList = paramList[1].data.list;
+                    this.userSurvey = paramList[2].data;
+
+                    this.isNeedSex = this.survey.isNeedSex;
                     this.userSelectedSex = this.userSurvey.selectedSex;
+
                     if (this.userSurvey.answer != null) {
                         this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
                     } else {
                         this.surveyAnswerList = [];
                     }
-                    console.log('this.surveyAnswerList: ------>');
-                    console.log(this.surveyAnswerList);
 
-                    this.surveyService.getSurvey(this.userSurvey.surveyId).subscribe(resp => {
-                        this.survey = resp.data;
-                        this.isNeedSex = this.survey.isNeedSex;
-                        // 获取问题列表数据
-                        this.surveyService.getSurveyQuestionList({
-                            page: null,
-                            params: {'surveyId': this.userSurvey.surveyId}
-                        }).subscribe(resp => {
-                            this.surveyQuestionList = resp.data.list;
-
-                            // 如果区分性别，需要选择性别后才开始
-                            if (!this.isNeedSex || this.userSelectedSex > 0) {
-                                // 初始化数据
-                                this.start();
-                            }
-                        });
-                    });
+                    // 如果区分性别，需要选择性别后才开始
+                    if (!this.isNeedSex || this.userSelectedSex > 0) {
+                        // 初始化数据
+                        this.start();
+                    }
                 });
-            }
-        );
+            });
     }
+
 
     /**
      * 初始化数据，开始进入测试
@@ -119,7 +122,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     /**
      * 计算下一个问题
      * */
-    calculateNextQuestion(questionId?: number, selectOption?: SurveyQuestionOption): SurveyQuestion {
+    calculateNextQuestion(questionId ?: number, selectOption ?: SurveyQuestionOption): SurveyQuestion {
         let nextQuestionSeq = -1;
 
         // 获取下一题的 Seq
@@ -156,7 +159,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     /**
      * 保存做题结果，并进入下一题目
      * */
-    goToNext(questionId?: number, option?: string) {
+    goToNext(questionId ?: number, option ?: string) {
         // 第一次答题
         if (questionId == null && option == null) {
             this.activeQuestionList.push(this.calculateNextQuestion());
