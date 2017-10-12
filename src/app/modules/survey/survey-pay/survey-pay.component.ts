@@ -22,10 +22,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
      * */
     surveyId: number;
 
-    /**
-     * 已有订单号
-     * */
-    orderId: number;
+    msg: string;
 
     /**
      * 当前问卷
@@ -81,6 +78,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
         // all——全微信支付  partial——部分余额、积分支付，部分微信支付   none——全部积分、余额支付，不需要微信支付
         this.surveyService.createOrGetOrderPayInfo(order).subscribe(resp => {
             this.userSurveyId = resp.data.userSurveyId;
+            sessionStorage.setItem('SURVEY-PAY-USERSURVEYID', String(this.userSurveyId));
 
             if (resp.data.wxpPayType == "all" || resp.data.wxpPayType == "partial") {
                 let payInfo = resp.data.payInfo;
@@ -116,7 +114,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
-                    ng_this.router.navigate(['/survey-do', this.userSurveyId]);
+                    ng_this.router.navigate(['/survey-do', sessionStorage.getItem('SURVEY-PAY-USERSURVEYID')]);
                 }
             }
         );

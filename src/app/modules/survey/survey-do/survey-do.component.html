@@ -1,5 +1,7 @@
 <section class="aui-chat">
-    <div class="aui-chat-header">2016年7月13日</div>
+    <div class="aui-chat-header">{{userSurveyId}}</div>
+
+    <div class="aui-chat-header"><span *ngIf="!loadComplete">正在加载</span></div>
     <div *ngIf="isNeedSex == 1">
         <div class="aui-chat-item aui-chat-left" id="question_sex">
             <div class="aui-chat-media">

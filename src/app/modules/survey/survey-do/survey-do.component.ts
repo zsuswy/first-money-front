@@ -28,6 +28,9 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     // 当前用户的性别
     userSelectedSex = 0;
 
+    // 数据是否加载完毕（等待支付的回调）
+    loadComplete = false;
+
     // 是否区分性别
     isNeedSex = 0;
 
@@ -60,44 +63,56 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 protected wxService: WxService) {
         super(wxService, router);
 
-        Observable.zip(this.route.paramMap, this.route.queryParamMap)
-            .subscribe(params => {
-                // 获取参数
-                this.userSurveyId = Number(params[0].get("userSurveyId"));
-                this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
-                    this.userSurvey = resp.data;
-                    this.userSurveyId = this.userSurvey.id;
-
-                    Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
-                        this.surveyService.getSurveyQuestionList({                  // Survey的问题列表
-                            page: null,
-                            params: {'surveyId': this.userSurvey.surveyId}
-                        }),
-                        this.surveyService.getUserSurvey(this.userSurveyId)                     // UserSurvey
-                    ).subscribe(paramList => {
-                        this.survey = paramList[0].data;
-                        this.surveyQuestionList = paramList[1].data.list;
-                        this.userSurvey = paramList[2].data;
-
-                        this.isNeedSex = this.survey.isNeedSex;
-                        this.userSelectedSex = this.userSurvey.selectedSex;
-
-                        if (this.userSurvey.answer != null) {
-                            this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
-                        } else {
-                            this.surveyAnswerList = [];
-                        }
-
-                        // 如果区分性别，需要选择性别后才开始
-                        if (!this.isNeedSex || this.userSelectedSex > 0) {
-                            // 初始化数据
-                            this.start();
-                        }
-                    });
-                });
-            });
+        this.route.paramMap.subscribe(params => {
+            // 获取参数
+            this.userSurveyId = Number(params.get("userSurveyId"));
+            this.initData();
+        });
     }
 
+    /**
+     * 加载初始化数据
+     * */
+    initData() {
+        this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
+            this.userSurvey = resp.data;
+
+            if (resp.success && this.userSurvey == null) {
+                // 等待支付结果确认（有可能跳转的时候支付宝的支付回调结果还没有返回）
+                // TODO: 可以优化，如果长时间没有支付回调。
+                setTimeout(() => this.initData(), 1000);
+                return;
+            }
+
+            this.loadComplete = true;
+            this.surveyId = this.userSurvey.surveyId;
+
+            Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
+                this.surveyService.getSurveyQuestionList({                  // Survey的问题列表
+                    page: null,
+                    params: {'surveyId': this.userSurvey.surveyId}
+                })
+            ).subscribe(paramList => {
+                this.survey = paramList[0].data;
+                this.surveyQuestionList = paramList[1].data.list;
+
+                this.isNeedSex = this.survey.isNeedSex;
+                this.userSelectedSex = this.userSurvey.selectedSex;
+
+                if (this.userSurvey.answer != null) {
+                    this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
+                } else {
+                    this.surveyAnswerList = [];
+                }
+
+                // 如果区分性别，需要选择性别后才开始
+                if (!this.isNeedSex || this.userSelectedSex > 0) {
+                    // 初始化数据
+                    this.start();
+                }
+            });
+        });
+    }
 
     /**
      * 初始化数据，开始进入测试
@@ -284,7 +299,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 });
                 console.log(resultList);
             });
-
     }
 
 

@@ -23,6 +23,10 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
 
     user: User;
 
+    msg: string;
+
+    userSurveyId: number;
+
     surveyId: number;
 
     fromUserId: number;
@@ -72,11 +76,8 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
             function (res) {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
-                    ng_this.surveyService.confirmOrder(payInfo.orderId)
-                        .subscribe(resp => {
-                            ng_this.router.navigate(["/survey-do/", resp.data],
-                                {queryParams: {'surveyId': ng_this.surveyId}});
-                        });
+                    ng_this.msg = ng_this.userSurveyId.toString();
+                    ng_this.router.navigate(["/survey-do", ng_this.userSurveyId]);
                 }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
             }
         );
@@ -90,6 +91,7 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
         // 之前没有创建订单，那么创建新的订单，创建订单后跳转到支付页面；
         this.createOrGetOrderPayInfo().subscribe(resp => {
             if (resp.success) {
+                this.userSurveyId = resp.data.userSurveyId;
                 if (resp.data.wxpPayType != "all") {
                     this.navigateToPayPage();
                 } else { // 如果没有积分和余额，就直接支付
