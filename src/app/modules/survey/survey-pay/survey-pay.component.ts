@@ -34,8 +34,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
 
     order: Order;
 
-    userSurvey: UserSurvey;
-
+    userSurveyId: number;
     /**
      * 当前用户
      * */
@@ -79,16 +78,19 @@ export class SurveyPayComponent extends WxBase implements OnInit {
         order.surveyId = this.surveyId;
         order.userId = this.userId;
 
+        // all——全微信支付  partial——部分余额、积分支付，部分微信支付   none——全部积分、余额支付，不需要微信支付
         this.surveyService.createOrGetOrderPayInfo(order).subscribe(resp => {
+            this.userSurveyId = resp.data.userSurveyId;
+
             if (resp.data.wxpPayType == "all" || resp.data.wxpPayType == "partial") {
-                let payInfo = resp.data;
+                let payInfo = resp.data.payInfo;
+
                 this.wxPay(payInfo);
             } else if (resp.data.wxpPayType == "none") {
                 order = resp.data.order;
                 this.surveyService.confirmOrder(order.id).subscribe(resp => {
                     if (resp.success) {
-                        this.router.navigate(['/survey-do', resp.data],
-                            {queryParams: {'surveyId': this.surveyId}});
+                        this.router.navigate(['/survey-do', this.userSurveyId]);
                     }
                 });
             }
@@ -114,15 +116,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
-                    this.surveyService.getUserSurveyList({
-                        page: null,
-                        params: {
-                            'orderId': this.orderId
-                        }
-                    }).subscribe(resp => {
-                        ng_this.router.navigate(['/survey-do', resp.data.list[0].id],
-                            {queryParams: {'surveyId': ng_this.surveyId}});
-                    });
+                    ng_this.router.navigate(['/survey-do', this.userSurveyId]);
                 }
             }
         );

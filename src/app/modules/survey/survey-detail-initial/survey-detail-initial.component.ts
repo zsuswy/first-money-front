@@ -91,7 +91,6 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
         this.createOrGetOrderPayInfo().subscribe(resp => {
             if (resp.success) {
                 if (resp.data.wxpPayType != "all") {
-                    console.log('navigate');
                     this.navigateToPayPage();
                 } else { // 如果没有积分和余额，就直接支付
                     this.wxPay(resp.data.payInfo);

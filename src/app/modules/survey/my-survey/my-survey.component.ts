@@ -58,7 +58,7 @@ export class MySurveyPageComponent extends WxBase implements OnInit {
         else if (userSurvey.status == 2) {
             this.router.navigate(['/survey-detail-initial/', userSurvey.surveyId]);
         } else if (userSurvey.status == 0) {
-            this.router.navigate(['/pay/', userSurvey.id]);
+            this.router.navigate(['/pay/', userSurvey.surveyId]);
         }
     }
 }
