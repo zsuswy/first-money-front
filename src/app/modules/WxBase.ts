@@ -7,7 +7,7 @@ declare let wx: any;
 export class WxBase {
     public userId: number;
     public wxOpenId: string;
-    public debug = true;
+    public debug = false;
 
     constructor(protected wxService: WxService, protected router: Router) {
         if (this.debug) {
