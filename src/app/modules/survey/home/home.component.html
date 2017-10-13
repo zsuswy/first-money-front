@@ -2,14 +2,14 @@
     <div class="aui-slide-wrap">
         <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
             <div class="aui-content" style="width:100%;height:100%">
-                <a routerLink="/survey-detail-initial">
+                <a routerLink="/survey-detail-initial/2">
                     <img src="assets/image/s-1.jpg" style="width: 100%;height:auto">
                 </a>
             </div>
         </div>
         <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
             <div class="aui-content">
-                <a routerLink="/survey-detail-initial">
+                <a routerLink="/survey-detail-initial/3">
                     <img src="assets/image/s-2.jpg" style="width: 100%;height:auto">
                 </a>
             </div>
@@ -22,20 +22,28 @@
     <div class="aui-grid">
         <div class="aui-row">
             <div class="aui-col-xs-3">
-                <i class="aui-iconfont aui-icon-recovery aui-text-info"></i>
-                <div class="aui-grid-label">性格</div>
+                <a routerLink="/surveyClasses/1">
+                    <i class="aui-iconfont aui-icon-recovery aui-text-info"></i>
+                    <div class="aui-grid-label">性格</div>
+                </a>
             </div>
             <div class="aui-col-xs-3">
-                <i class="aui-iconfont aui-icon-mobile aui-text-warning"></i>
-                <div class="aui-grid-label">情感</div>
+                <a routerLink="/surveyClasses/2">
+                    <i class="aui-iconfont aui-icon-mobile aui-text-warning"></i>
+                    <div class="aui-grid-label">情感</div>
+                </a>
             </div>
             <div class="aui-col-xs-3">
-                <i class="aui-iconfont aui-icon-cert aui-text-warning"></i>
-                <div class="aui-grid-label">职场</div>
+                <a routerLink="/surveyClasses/3">
+                    <i class="aui-iconfont aui-icon-cert aui-text-warning"></i>
+                    <div class="aui-grid-label">职场</div>
+                </a>
             </div>
             <div class="aui-col-xs-3">
-                <i class="aui-iconfont aui-icon-map aui-text-info"></i>
-                <div class="aui-grid-label">健康</div>
+                <a routerLink="/surveyClasses/4">
+                    <i class="aui-iconfont aui-icon-map aui-text-info"></i>
+                    <div class="aui-grid-label">健康</div>
+                </a>
             </div>
             <!--<div class="aui-hr aui-clearfix"></div>-->
             <!--<div class="aui-col-xs-3">-->
@@ -164,7 +172,7 @@
 
     </ul>
 </div>
-<div class="aui-toast" style="display: block; margin-top: -61px;" #toast>
+<div class="aui-toast" style="display: block; margin-top: -61px;" #loading>
     <div class="aui-toast-loading"></div>
     <div class="aui-toast-content">加载中</div>
 </div>

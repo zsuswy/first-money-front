@@ -5,6 +5,7 @@ import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
+import {LoadingBase} from '../../LoadingBase';
 
 declare var auiSlide: any;
 declare var Swiper: any;
@@ -14,15 +15,12 @@ declare var Swiper: any;
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomePageComponent implements AfterViewInit, OnInit {
+export class HomePageComponent extends LoadingBase implements AfterViewInit, OnInit {
     @ViewChild('auislide2')
     aui_slide: ElementRef;
 
     @ViewChild('swipercontainer1')
     slider1: ElementRef;
-
-    @ViewChild("toast")
-    toast: ElementRef;
 
     // 最热列表
     hotList: Array<Survey>;
@@ -34,7 +32,7 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     superList: Array<Survey>;
 
     constructor(private surveyService: SurveyService, lc: NgZone, private router: Router, private route: ActivatedRoute) {
-
+        super();
         // 检测是否滚动到底部
         // window.onscroll = () => {
         //     let status = "not reached";
@@ -52,7 +50,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
         //         console.log(status);
         //     });
         // };
-
     }
 
     public config: SwiperConfigInterface = {
@@ -81,7 +78,8 @@ export class HomePageComponent implements AfterViewInit, OnInit {
 
                 this.createHorizonalSwiper('.hot-swiper-container');
                 this.createHorizonalSwiper('.new-swiper-container');
-                this.toast.nativeElement.style.display = 'none';
+
+                this.loadComplete();
             });
     }
 
@@ -103,7 +101,7 @@ export class HomePageComponent implements AfterViewInit, OnInit {
             'height': '8rem',
             'speed': 200,
             //'autoPlay': 3000,
-            'loop': true,
+            'loop': false,
             'pageShow': true,
             'pageStyle': 'line',
             'dotPosition': 'center'

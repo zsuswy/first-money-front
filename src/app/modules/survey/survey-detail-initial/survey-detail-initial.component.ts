@@ -54,6 +54,8 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
 
                     // 设置微信分享的标题、连接、图片
                     this.registerWxShare(this.survey.title, this.survey.shortDescription, this.survey.image);
+
+                    this.loadComplete();
                 });
         });
     }
@@ -79,6 +81,9 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
                     ng_this.msg = ng_this.userSurveyId.toString();
                     ng_this.router.navigate(["/survey-do", ng_this.userSurveyId]);
                 }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                else {
+                    // window.location.href =
+                }
             }
         );
 

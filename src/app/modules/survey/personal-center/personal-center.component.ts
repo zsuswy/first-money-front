@@ -22,6 +22,7 @@ export class PersonalCenterPageComponent extends WxBase implements OnInit {
     ngOnInit(): void {
         this.surveyService.getUser(this.userId).subscribe(resp => {
             this.userInfo = resp.data;
+            this.loadComplete();
         });
     }
 

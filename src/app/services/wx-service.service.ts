@@ -10,7 +10,7 @@ import {JsApiSignature} from '../model/JsApiSignature';
 
 @Injectable()
 export class WxService {
-    SERVICE_HOST_PREFIX = 'http://quiz.ronmob.com/qz';
+    SERVICE_HOST_PREFIX = 'https://quiz.ronmob.com/qz';
 
     // SERVICE_HOST_PREFIX = 'http://localhost:9999';
 
@@ -19,9 +19,5 @@ export class WxService {
 
     createJsapiSignature(url: String): Observable<ResponseResult> {
         return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/wx/createJsapiSignature?url=' + url);
-    }
-
-    getPayInfo(surveyId: number): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/wx/createOrder', {"surveyId": surveyId});
     }
 }

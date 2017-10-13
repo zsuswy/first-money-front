@@ -1,7 +1,5 @@
 <section class="aui-chat">
-    <div class="aui-chat-header">{{userSurveyId}}</div>
-
-    <div class="aui-chat-header"><span *ngIf="!loadComplete">正在加载</span></div>
+    <div class="aui-chat-header">{{survey.title}}</div>
     <div *ngIf="isNeedSex == 1">
         <div class="aui-chat-item aui-chat-left" id="question_sex">
             <div class="aui-chat-media">
@@ -97,3 +95,7 @@
         <div style="height: 30rem;">&nbsp;</div>
     </div>
 </section>
+<div class="aui-toast" style="display: block; margin-top: -61px;" #loading>
+    <div class="aui-toast-loading"></div>
+    <div class="aui-toast-content">加载中</div>
+</div>

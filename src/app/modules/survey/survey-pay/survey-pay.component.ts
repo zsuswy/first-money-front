@@ -22,8 +22,6 @@ export class SurveyPayComponent extends WxBase implements OnInit {
      * */
     surveyId: number;
 
-    msg: string;
-
     /**
      * 当前问卷
      * */
@@ -63,6 +61,8 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                         if (this.order == null) {
                             // TODO: 没有相关订单，跳转到其它页面
                         }
+
+                        this.loadComplete();
                     });
             });
     }

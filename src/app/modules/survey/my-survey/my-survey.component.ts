@@ -32,6 +32,7 @@ export class MySurveyPageComponent extends WxBase implements OnInit {
                     this.userSurveyList = resp.data.list;
                     this.toDoCnt = this.userSurveyList.filter(s => s.status == 1).length;
                 }
+                this.loadComplete();
             });
     }
 

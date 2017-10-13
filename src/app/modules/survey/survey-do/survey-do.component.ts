@@ -28,9 +28,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     // 当前用户的性别
     userSelectedSex = 0;
 
-    // 数据是否加载完毕（等待支付的回调）
-    loadComplete = false;
-
     // 是否区分性别
     isNeedSex = 0;
 
@@ -84,7 +81,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 return;
             }
 
-            this.loadComplete = true;
             this.surveyId = this.userSurvey.surveyId;
 
             Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
@@ -110,6 +106,8 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                     // 初始化数据
                     this.start();
                 }
+
+                this.loadComplete();
             });
         });
     }

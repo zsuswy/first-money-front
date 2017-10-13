@@ -1,15 +1,17 @@
 import {Router} from '@angular/router';
 import {WxService} from '../services/wx-service.service';
 import {Cookie} from '../util/Cookie';
+import {LoadingBase} from './LoadingBase';
 
 declare let wx: any;
 
-export class WxBase {
+export class WxBase extends LoadingBase {
     public userId: number;
     public wxOpenId: string;
     public debug = false;
 
     constructor(protected wxService: WxService, protected router: Router) {
+        super();
         if (this.debug) {
             localStorage.setItem('userId', '11');
             localStorage.setItem('wxOpenId', 'oBCXTsiLb08hNJoc3Zi6vwFGQLoo');
@@ -48,6 +50,7 @@ export class WxBase {
      * 通过config接口注入权限验证配置
      * */
     private configWxShare(url) {
+        url = url.replace("#", "?#"); // 加问号，解决微信支付目录问题
         this.wxService.createJsapiSignature(url).subscribe(resp => {
             wx.config({
                 // debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -64,8 +67,8 @@ export class WxBase {
      * 绑定分享事件
      * */
     public registerWxShare(title?: string, desc?: string, imgUrl?: string) {
-        let _this = this;
-        let link = 'http://quiz.ronmob.com/qz/mobile/#' + this.router.url + '/' + this.userId;
+        let ng_this = this;
+        let link = 'https://quiz.ronmob.com/qz/mobile/?#' + this.router.url + '/' + this.userId;
         wx.onMenuShareAppMessage({
             title: title || '', // 分享标题
             desc: desc || '', // 分享描述
@@ -74,11 +77,11 @@ export class WxBase {
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
-                _this.OnWxShareSuccess();
+                ng_this.OnWxShareSuccess();
                 // 用户确认分享后执行的回调函数
             },
             cancel: function () {
-                _this.OnWxShareCancel();
+                ng_this.OnWxShareCancel();
                 // 用户取消分享后执行的回调函数
             }
         });

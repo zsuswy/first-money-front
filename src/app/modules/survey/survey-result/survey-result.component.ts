@@ -156,6 +156,9 @@ export class SurveyResultComponent extends WxBase {
 
             this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
                 this.userSurvey = resp.data;
+
+                this.loadComplete();
+
             });
         });
     }
