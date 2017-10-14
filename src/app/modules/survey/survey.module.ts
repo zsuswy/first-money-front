@@ -16,6 +16,9 @@ import {SurveysByClassPageComponent} from '../survey/survey-by-class/survey-by-c
 import {SurveyDetailInitialComponent} from '../survey/survey-detail-initial/survey-detail-initial.component';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {SurveyPayComponent} from '../survey/survey-pay/survey-pay.component';
+import {TipMessageComponent} from '../common/tip-message/tip-message.component';
+import {LoadingComponent} from '../common/loading/loading.component';
+import {DialogueComponent} from '../common/dialogue/dialogue.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +30,9 @@ import {SurveyPayComponent} from '../survey/survey-pay/survey-pay.component';
         SurveysByClassPageComponent,
         SurveyDetailInitialComponent,
         SurveyPayComponent,
+        TipMessageComponent,
+        LoadingComponent,
+        DialogueComponent,
         SurveyResult1Component,
         SurveyResult2Component,
         SurveyResult3Component,

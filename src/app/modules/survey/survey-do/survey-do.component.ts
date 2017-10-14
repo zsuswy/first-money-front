@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
@@ -17,6 +17,8 @@ import 'rxjs/add/observable/forkJoin';
 import {SurveyDimension} from '../../../model/SurveyDimension';
 import {WxService} from '../../../services/wx-service.service';
 import {WxBase} from '../../WxBase';
+import {LoadingComponent} from '../../common/loading/loading.component';
+import {Config} from '../../Config';
 
 declare var _j_scrollTo: any;
 
@@ -25,6 +27,9 @@ declare var _j_scrollTo: any;
     styleUrls: ['./survey-do.component.css']
 })
 export class SurveyDoComponent extends WxBase implements OnInit {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
     // 当前用户的性别
     userSelectedSex = 0;
 
@@ -37,10 +42,10 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     surveyId: number;
 
     // 当前的 用户测评
-    userSurvey: UserSurvey;
+    userSurvey: UserSurvey = new UserSurvey();
 
     // 当前的测评信息
-    survey: Survey;
+    survey: Survey = new Survey();
 
     // 当前测评的问题列表
     surveyQuestionList: SurveyQuestion[] = [];
@@ -73,15 +78,19 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     initData() {
         this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
             this.userSurvey = resp.data;
-
+            Config.log('Survey-Do-Component:    ' + 'initData:1');
             if (resp.success && this.userSurvey == null) {
                 // 等待支付结果确认（有可能跳转的时候支付宝的支付回调结果还没有返回）
                 // TODO: 可以优化，如果长时间没有支付回调。
+                Config.log('Survey-Do-Component:    ' + 'initData:------');
+
                 setTimeout(() => this.initData(), 1000);
                 return;
             }
+            Config.log('Survey-Do-Component:    ' + 'initData:2');
 
             this.surveyId = this.userSurvey.surveyId;
+            Config.log('Survey-Do-Component:    ' + 'initData:3');
 
             Observable.zip(this.surveyService.getSurvey(this.userSurvey.surveyId),      // Survey 对象
                 this.surveyService.getSurveyQuestionList({                  // Survey的问题列表
@@ -89,11 +98,14 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                     params: {'surveyId': this.userSurvey.surveyId}
                 })
             ).subscribe(paramList => {
+                Config.log('Survey-Do-Component:    ' + 'initData:4');
+
                 this.survey = paramList[0].data;
                 this.surveyQuestionList = paramList[1].data.list;
 
                 this.isNeedSex = this.survey.isNeedSex;
                 this.userSelectedSex = this.userSurvey.selectedSex;
+                Config.log('Survey-Do-Component:    ' + 'initData:5');
 
                 if (this.userSurvey.answer != null) {
                     this.surveyAnswerList = JSON.parse(this.userSurvey.answer);
@@ -104,10 +116,13 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 // 如果区分性别，需要选择性别后才开始
                 if (!this.isNeedSex || this.userSelectedSex > 0) {
                     // 初始化数据
+                    Config.log('Survey-Do-Component:    ' + 'initData:6');
+
                     this.start();
                 }
+                Config.log('Survey-Do-Component:    ' + 'initData:7');
 
-                this.loadComplete();
+                this.loadComponent.loadComplete();
             });
         });
     }
@@ -121,6 +136,8 @@ export class SurveyDoComponent extends WxBase implements OnInit {
             this.activeQuestionList.push(this.surveyQuestionList.find(item => item.seq == this.surveyAnswerList[i].questionSeq &&
                 item.id == this.surveyAnswerList[i].questionId));
         }
+        Config.log(this.surveyAnswerList.length);
+        Config.log(this.surveyAnswerList);
 
         // 如果是第一次进入，默认进行第一题
         if (this.activeQuestionList.length == 0) {

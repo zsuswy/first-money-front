@@ -13,18 +13,15 @@ import {SurveyDimension} from '../model/SurveyDimension';
 import {SurveyDimensionScoreText} from '../model/SurveyDimensionScoreText';
 import {Order} from '../model/Order';
 import {UserSurvey} from '../model/UserSurvey';
+import {Config} from '../modules/Config';
 
 @Injectable()
 export class SurveyService {
-    SERVICE_HOST_PREFIX = 'https://quiz.ronmob.com/qz';
-
-    // SERVICE_HOST_PREFIX = 'http://localhost:9999';
-
     constructor(private http: HttpClient) {
     };
 
     getSurveyList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/list', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/survey/list', listSearchVo);
     }
 
     getSurveyHotList(): Observable<ListResponseResult> {
@@ -49,114 +46,114 @@ export class SurveyService {
     }
 
     getSurvey(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/get?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/survey/get?id=' + id);
     }
 
     createSurvey(survey: Survey): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/create', survey);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/survey/create', survey);
     }
 
     updateSurvey(survey: Survey): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/survey/update', survey);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/survey/update', survey);
     }
 
     getSurveyQuestionList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/list', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/surveyQuestion/list', listSearchVo);
     }
 
     getSurveyQuestion(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/get?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyQuestion/get?id=' + id);
     }
 
     createSurveyQuestion(surveyQuestion: SurveyQuestion): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/create', surveyQuestion);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/surveyQuestion/create', surveyQuestion);
     }
 
     updateSurveyQuestion(surveyQuestion: SurveyQuestion): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/update', surveyQuestion);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/surveyQuestion/update', surveyQuestion);
     }
 
     deleteSurveyQuestion(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyQuestion/delete?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyQuestion/delete?id=' + id);
     }
 
     getSurveyClassList(enabled: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyClass/list?enabled=' + enabled);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyClass/list?enabled=' + enabled);
     }
 
     getSurveyDimensionList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/list', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/surveyDimension/list', listSearchVo);
     }
 
     getSurveyDimension(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/get?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyDimension/get?id=' + id);
     }
 
     createSurveyDimension(surveyDimension: SurveyDimension): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/create', surveyDimension);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/surveyDimension/create', surveyDimension);
     }
 
     updateSurveyDimension(surveyDimension: SurveyDimension): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/update', surveyDimension);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/surveyDimension/update', surveyDimension);
     }
 
     deleteSurveyDimension(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimension/delete?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyDimension/delete?id=' + id);
     }
 
     getSurveyDimensionScoreTextList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/list', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/surveyDimensionScoreText/list', listSearchVo);
     }
 
     getSurveyDimensionScoreText(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/get?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyDimensionScoreText/get?id=' + id);
     }
 
     createSurveyDimensionScoreText(surveyDimensionScoreText: SurveyDimensionScoreText): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/create', surveyDimensionScoreText);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/surveyDimensionScoreText/create', surveyDimensionScoreText);
     }
 
     updateSurveyDimensionScoreText(surveyDimensionScoreText: SurveyDimensionScoreText): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/update', surveyDimensionScoreText);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/surveyDimensionScoreText/update', surveyDimensionScoreText);
     }
 
     deleteSurveyDimensionScoreText(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/surveyDimensionScoreText/delete?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/surveyDimensionScoreText/delete?id=' + id);
     }
 
     createOrGetOrderPayInfo(order: Order): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/pay', order);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/order/pay', order);
     }
 
     getOrderList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/order/list', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/order/list', listSearchVo);
     }
 
     getUserSurveyList(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/list', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/userSurvey/list', listSearchVo);
     }
 
     getUserSurveyListWithDetail(listSearchVo: ListSearchVo): Observable<ListResponseResult> {
-        return this.http.post<ListResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/detailList', listSearchVo);
+        return this.http.post<ListResponseResult>(Config.WEB_APP_URL + '/userSurvey/detailList', listSearchVo);
     }
 
     getUserSurvey(id: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/get?id=' + id);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/userSurvey/get?id=' + id);
     }
 
     updateUserSurvey(userSurvey: UserSurvey): Observable<ResponseResult> {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/userSurvey/update', userSurvey);
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/userSurvey/update', userSurvey);
     }
 
     getUser(userId: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/user/get?id=' + userId);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/user/get?id=' + userId);
     }
 
     confirmOrder(orderId: number): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/order/confirm?orderId=' + orderId);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/order/confirm?orderId=' + orderId);
     }
 
     shareSurvey(surveyId: number) {
-        return this.http.post<ResponseResult>(this.SERVICE_HOST_PREFIX + '/user/share', {'surveyId': surveyId});
+        return this.http.post<ResponseResult>(Config.WEB_APP_URL + '/user/share', {'surveyId': surveyId});
     }
 }

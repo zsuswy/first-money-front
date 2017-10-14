@@ -1,26 +1,30 @@
 import {Component, HostBinding, AfterViewInit, ElementRef, ViewChild, OnInit, NgZone} from '@angular/core';
-import {slideInDownAnimation} from '../../../animations';
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
-import {LoadingBase} from '../../LoadingBase';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
-declare var auiSlide: any;
-declare var Swiper: any;
+declare let auiSlide: any;
+declare let Swiper: any;
+declare let auiDialog: any;
 
 
 @Component({
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomePageComponent extends LoadingBase implements AfterViewInit, OnInit {
+export class HomePageComponent implements AfterViewInit, OnInit {
     @ViewChild('auislide2')
     aui_slide: ElementRef;
 
     @ViewChild('swipercontainer1')
     slider1: ElementRef;
+
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
 
     // 最热列表
     hotList: Array<Survey>;
@@ -31,8 +35,11 @@ export class HomePageComponent extends LoadingBase implements AfterViewInit, OnI
     // 精选列表
     superList: Array<Survey>;
 
+    isShowMessage: boolean = false;
+    errorMessage: string = '';
+
     constructor(private surveyService: SurveyService, lc: NgZone, private router: Router, private route: ActivatedRoute) {
-        super();
+        this.isShowMessage = true;
         // 检测是否滚动到底部
         // window.onscroll = () => {
         //     let status = "not reached";
@@ -68,6 +75,7 @@ export class HomePageComponent extends LoadingBase implements AfterViewInit, OnI
     };
 
     ngOnInit() {
+        let ng_this = this;
         Observable.zip(this.surveyService.getSurveyHotList(),
             this.surveyService.getSurveyNewList(),
             this.surveyService.getSurveySuperList())
@@ -79,8 +87,24 @@ export class HomePageComponent extends LoadingBase implements AfterViewInit, OnI
                 this.createHorizonalSwiper('.hot-swiper-container');
                 this.createHorizonalSwiper('.new-swiper-container');
 
-                this.loadComplete();
+                this.loadComponent.loadComplete();
+                //
+                // let dialog = new auiDialog();
+                //
+                // dialog.alert({
+                //     title: "弹出提示",
+                //     msg: '这里是内容',
+                //     buttons: ['取消', '确定'],
+                //     input: true // 是否有输入框
+                // }, function (ret) {
+                //     ng_this.alertReturn(ret);
+                // })
+
             });
+    }
+
+    alertReturn(ret) {
+        console.log(ret);
     }
 
     createHorizonalSwiper(selector: string) {

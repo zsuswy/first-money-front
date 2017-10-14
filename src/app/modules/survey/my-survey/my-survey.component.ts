@@ -5,6 +5,7 @@ import {UserSurvey} from '../../../model/UserSurvey';
 import {Router} from '@angular/router';
 import {WxService} from '../../../services/wx-service.service';
 import {WxBase} from '../../WxBase';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
 
 @Component({
@@ -12,6 +13,9 @@ import {WxBase} from '../../WxBase';
     styleUrls: ['./my-survey.component.css']
 })
 export class MySurveyPageComponent extends WxBase implements OnInit {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
     currentTab: number = 1;
 
     userSurveyList: UserSurvey[] = [];
@@ -32,7 +36,7 @@ export class MySurveyPageComponent extends WxBase implements OnInit {
                     this.userSurveyList = resp.data.list;
                     this.toDoCnt = this.userSurveyList.filter(s => s.status == 1).length;
                 }
-                this.loadComplete();
+                this.loadComponent.loadComplete();
             });
     }
 

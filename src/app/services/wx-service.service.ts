@@ -5,19 +5,14 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {ResponseResult} from '../model/common/ResponseResult';
-import {ListResponseResult} from '../model/common/ListResponseResult';
-import {JsApiSignature} from '../model/JsApiSignature';
+import {Config} from '../modules/Config';
 
 @Injectable()
 export class WxService {
-    SERVICE_HOST_PREFIX = 'https://quiz.ronmob.com/qz';
-
-    // SERVICE_HOST_PREFIX = 'http://localhost:9999';
-
     constructor(private http: HttpClient) {
     }
 
     createJsapiSignature(url: String): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(this.SERVICE_HOST_PREFIX + '/wx/createJsapiSignature?url=' + url);
+        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/wx/createJsapiSignature?url=' + url);
     }
 }

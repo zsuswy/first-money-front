@@ -1,18 +1,16 @@
 import {Router} from '@angular/router';
 import {WxService} from '../services/wx-service.service';
 import {Cookie} from '../util/Cookie';
-import {LoadingBase} from './LoadingBase';
+import {Config} from './Config';
 
 declare let wx: any;
 
-export class WxBase extends LoadingBase {
-    public userId: number;
-    public wxOpenId: string;
-    public debug = false;
+export class WxBase {
+    protected userId: number;
+    protected wxOpenId: string;
 
     constructor(protected wxService: WxService, protected router: Router) {
-        super();
-        if (this.debug) {
+        if (Config.DEBUG) {
             localStorage.setItem('userId', '11');
             localStorage.setItem('wxOpenId', 'oBCXTsiLb08hNJoc3Zi6vwFGQLoo');
             this.userId = Number(localStorage.getItem('userId'));
@@ -32,7 +30,7 @@ export class WxBase extends LoadingBase {
             else if (localStorage.getItem('userId') == null) {
                 localStorage.setItem('userId', '-1');
 
-                window.location.href = `http://quiz.ronmob.com/qz/wx/getUserInfo?retUrl=${encodeURI(router.url)}`;
+                window.location.href = Config.WEB_APP_URL + `/wx/getUserInfo?retUrl=${encodeURI(router.url)}`;
             }
 
             this.userId = Number(localStorage.getItem('userId'));
@@ -68,7 +66,7 @@ export class WxBase extends LoadingBase {
      * */
     public registerWxShare(title?: string, desc?: string, imgUrl?: string) {
         let ng_this = this;
-        let link = 'https://quiz.ronmob.com/qz/mobile/?#' + this.router.url + '/' + this.userId;
+        let link = Config.WEB_APP_URL + '/mobile/?#' + this.router.url + '/' + this.userId;
         wx.onMenuShareAppMessage({
             title: title || '', // 分享标题
             desc: desc || '', // 分享描述

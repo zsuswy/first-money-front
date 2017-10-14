@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SurveyService} from '../../../services/survey-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Survey} from '../../../model/Survey';
@@ -8,6 +8,7 @@ import {UserSurvey} from '../../../model/UserSurvey';
 import {Observable} from 'rxjs/Observable';
 import {WxBase} from '../../WxBase';
 import {WxService} from '../../../services/wx-service.service';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
 declare let WeixinJSBridge: any;
 
@@ -17,6 +18,9 @@ declare let WeixinJSBridge: any;
     styleUrls: ['./survey-pay.component.css']
 })
 export class SurveyPayComponent extends WxBase implements OnInit {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
     /**
      * 当前测评id
      * */
@@ -62,7 +66,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                             // TODO: 没有相关订单，跳转到其它页面
                         }
 
-                        this.loadComplete();
+                        this.loadComponent.loadComplete();
                     });
             });
     }
@@ -115,6 +119,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
                     ng_this.router.navigate(['/survey-do', sessionStorage.getItem('SURVEY-PAY-USERSURVEYID')]);
+                }else{
                 }
             }
         );

@@ -1,4 +1,4 @@
-import {Component, HostBinding} from '@angular/core';
+import {Component, HostBinding, ViewChild} from '@angular/core';
 import {slideInDownAnimation} from '../../../animations';
 import * as shape from 'd3-shape';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -7,16 +7,22 @@ import {UserSurvey} from '../../../model/UserSurvey';
 import {WxService} from '../../../services/wx-service.service';
 import {WxBase} from '../../WxBase';
 import {Cookie} from '../../../util/Cookie';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
 @Component({
     templateUrl: './survey-result.component.html',
     animations: [slideInDownAnimation]
 })
 export class SurveyResultComponent extends WxBase {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
     @HostBinding('@routeAnimation')
     routeAnimation = true;
+
     @HostBinding('style.display')
     display = 'block';
+
     @HostBinding('style.position')
     position = 'absolute';
 
@@ -157,7 +163,7 @@ export class SurveyResultComponent extends WxBase {
             this.surveyService.getUserSurvey(this.userSurveyId).subscribe(resp => {
                 this.userSurvey = resp.data;
 
-                this.loadComplete();
+                this.loadComponent.loadComplete();
 
             });
         });

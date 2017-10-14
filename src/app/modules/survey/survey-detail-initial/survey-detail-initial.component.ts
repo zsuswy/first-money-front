@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +11,7 @@ import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/zip';
 import {User} from '../../../model/User';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
 declare let WeixinJSBridge: any;
 
@@ -19,11 +20,12 @@ declare let WeixinJSBridge: any;
     templateUrl: './survey-detail-initial.component.html'
 })
 export class SurveyDetailInitialComponent extends WxBase implements OnInit {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
     survey: Survey;
 
     user: User;
-
-    msg: string;
 
     userSurveyId: number;
 
@@ -55,7 +57,7 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
                     // 设置微信分享的标题、连接、图片
                     this.registerWxShare(this.survey.title, this.survey.shortDescription, this.survey.image);
 
-                    this.loadComplete();
+                    this.loadComponent.loadComplete();
                 });
         });
     }
@@ -78,7 +80,6 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
             function (res) {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
-                    ng_this.msg = ng_this.userSurveyId.toString();
                     ng_this.router.navigate(["/survey-do", ng_this.userSurveyId]);
                 }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 else {

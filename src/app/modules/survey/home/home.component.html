@@ -1,3 +1,4 @@
+<app-tip-message [isShow]="isShowMessage" [message]="errorMessage"></app-tip-message>
 <div id="aui-slide2" #auislide2>
     <div class="aui-slide-wrap">
         <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center">
@@ -172,7 +173,4 @@
 
     </ul>
 </div>
-<div class="aui-toast" style="display: block; margin-top: -61px;" #loading>
-    <div class="aui-toast-loading"></div>
-    <div class="aui-toast-content">加载中</div>
-</div>
+<app-loading></app-loading>

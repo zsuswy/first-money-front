@@ -1,15 +1,18 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SurveyService} from '../../../services/survey-service.service';
 import {SurveyClass} from '../../../model/SurveyClass';
 import {Survey} from '../../../model/Survey';
-import {LoadingBase} from '../../LoadingBase';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
 @Component({
     templateUrl: './survey-by-class.component.html',
     styleUrls: ['./survey-by-class.component.css']
 })
-export class SurveysByClassPageComponent extends LoadingBase implements OnInit {
+export class SurveysByClassPageComponent implements OnInit {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
+
     selectedClassId: number = -1;
 
     surveyClassList: SurveyClass[];
@@ -18,7 +21,6 @@ export class SurveysByClassPageComponent extends LoadingBase implements OnInit {
     constructor(protected surveyService: SurveyService,
                 protected route: ActivatedRoute,
                 protected router: Router) {
-        super();
         route.paramMap.subscribe(params => {
             if (params.has('classId')) {
                 this.selectedClassId = Number(params.get('classId'));
@@ -28,7 +30,7 @@ export class SurveysByClassPageComponent extends LoadingBase implements OnInit {
                 this.surveyClassList = resp.data;
                 this.ShowTab(this.selectedClassId);
 
-                this.loadComplete();
+                this.loadComponent.loadComplete();
             });
         });
     }
@@ -40,11 +42,11 @@ export class SurveysByClassPageComponent extends LoadingBase implements OnInit {
             params = {'classId': classId};
         }
 
-        this.loadStart();
+        this.loadComponent.loadStart();
 
         this.surveyService.getSurveyList({page: null, params: params}).subscribe(resp => {
             this.surveyList = resp.data.list;
-            this.loadComplete();
+            this.loadComponent.loadComplete();
 
         });
     }

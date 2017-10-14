@@ -1,15 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {WxService} from '../../../services/wx-service.service';
 import {Router} from '@angular/router';
 import {WxBase} from '../../WxBase';
 import {SurveyService} from '../../../services/survey-service.service';
 import {User} from '../../../model/User';
+import {LoadingComponent} from '../../common/loading/loading.component';
 
 @Component({
     templateUrl: './personal-center.component.html'
 })
 
 export class PersonalCenterPageComponent extends WxBase implements OnInit {
+    @ViewChild(LoadingComponent)
+    private loadComponent: LoadingComponent;
 
     userInfo: User = new User();
 
@@ -22,7 +25,7 @@ export class PersonalCenterPageComponent extends WxBase implements OnInit {
     ngOnInit(): void {
         this.surveyService.getUser(this.userId).subscribe(resp => {
             this.userInfo = resp.data;
-            this.loadComplete();
+            this.loadComponent.loadComplete();
         });
     }
 
