@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import {WxBase} from '../../WxBase';
 import {WxService} from '../../../services/wx-service.service';
 import {LoadingComponent} from '../../common/loading/loading.component';
+import {Config} from '../../Config';
 
 declare let WeixinJSBridge: any;
 
@@ -92,7 +93,7 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                 order = resp.data.order;
                 this.surveyService.confirmOrder(order.id).subscribe(resp => {
                     if (resp.success) {
-                        this.router.navigate(['/survey-do', this.userSurveyId]);
+                        this.router.navigate(['/survey-do', sessionStorage.getItem('SURVEY-PAY-USERSURVEYID')]);
                     }
                 });
             }
@@ -118,8 +119,9 @@ export class SurveyPayComponent extends WxBase implements OnInit {
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
                     // 支付成功，跳转
-                    ng_this.router.navigate(['/survey-do', sessionStorage.getItem('SURVEY-PAY-USERSURVEYID')]);
-                }else{
+                    window.location.href = Config.WEB_MOBILE_APP_URL + '/?#/survey-do/' + sessionStorage.getItem('SURVEY-PAY-USERSURVEYID');
+                    // ng_this.router.navigate(['/survey-do', sessionStorage.getItem('SURVEY-PAY-USERSURVEYID')]);
+                } else {
                 }
             }
         );

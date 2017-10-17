@@ -9,11 +9,18 @@ export class Config {
 
     static showLog = true;
 
-    static get WEB_APP_URL(): string {
+    static get WEB_SERVICE_APP_URL(): string {
         if (Config.DEBUG) {
             return 'http://localhost:9999';
         }
         return 'https://quiz.ronmob.com/qz';
+    }
+
+    static get WEB_MOBILE_APP_URL(): string {
+        if (Config.DEBUG) {
+            return 'http://localhost:9999';
+        }
+        return 'https://quiz.ronmob.com/qz/mobile';
     }
 
     static log(msg: any): void {

@@ -13,6 +13,6 @@ export class WxService {
     }
 
     createJsapiSignature(url: String): Observable<ResponseResult> {
-        return this.http.get<ResponseResult>(Config.WEB_APP_URL + '/wx/createJsapiSignature?url=' + url);
+        return this.http.get<ResponseResult>(Config.WEB_SERVICE_APP_URL + '/wx/createJsapiSignature?url=' + url);
     }
 }

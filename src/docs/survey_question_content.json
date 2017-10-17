@@ -1,0 +1,35 @@
+[
+  {
+    "option": "心知肚明即可，多一事不如少一事",
+    "jumpTo": "3",
+    "sex": 1,
+    "optionScoreList": [
+      {
+        "score": null,
+        "dimensionId": 13,
+        "dimensionName": "得分"
+      },
+      {
+        "score": "20",
+        "dimension_id": 1,
+        "dimension_name": "得分2"
+      }
+    ]
+  },
+  {
+    "option": "当然会，这种事义不容辞",
+    "jumpTo": "4",
+    "optionScoreList": [
+      {
+        "score": null,
+        "dimensionId": 13,
+        "dimensionName": "得分"
+      },
+      {
+        "score": "20",
+        "dimension_id": 1,
+        "dimension_name": "得分2"
+      }
+    ]
+  }
+]

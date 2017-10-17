@@ -39,7 +39,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     errorMessage: string = '';
 
     constructor(private surveyService: SurveyService, lc: NgZone, private router: Router, private route: ActivatedRoute) {
-        this.isShowMessage = true;
         // 检测是否滚动到底部
         // window.onscroll = () => {
         //     let status = "not reached";

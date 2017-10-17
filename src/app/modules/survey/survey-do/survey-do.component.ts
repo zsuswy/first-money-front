@@ -65,6 +65,9 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 protected wxService: WxService) {
         super(wxService, router);
 
+    }
+
+    ngOnInit() {
         this.route.paramMap.subscribe(params => {
             // 获取参数
             this.userSurveyId = Number(params.get("userSurveyId"));
@@ -83,8 +86,10 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 // 等待支付结果确认（有可能跳转的时候支付宝的支付回调结果还没有返回）
                 // TODO: 可以优化，如果长时间没有支付回调。
                 Config.log('Survey-Do-Component:    ' + 'initData:------');
-
-                setTimeout(() => this.initData(), 1000);
+                let ng_this = this;
+                setTimeout(() => {
+                    ng_this.initData();
+                }, 1000);
                 return;
             }
             Config.log('Survey-Do-Component:    ' + 'initData:2');
@@ -112,7 +117,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 } else {
                     this.surveyAnswerList = [];
                 }
-
                 // 如果区分性别，需要选择性别后才开始
                 if (!this.isNeedSex || this.userSelectedSex > 0) {
                     // 初始化数据
@@ -136,8 +140,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
             this.activeQuestionList.push(this.surveyQuestionList.find(item => item.seq == this.surveyAnswerList[i].questionSeq &&
                 item.id == this.surveyAnswerList[i].questionId));
         }
-        Config.log(this.surveyAnswerList.length);
-        Config.log(this.surveyAnswerList);
 
         // 如果是第一次进入，默认进行第一题
         if (this.activeQuestionList.length == 0) {
@@ -156,7 +158,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
      * */
     calculateNextQuestion(questionId ?: number, selectOption ?: SurveyQuestionOption): SurveyQuestion {
         let nextQuestionSeq = -1;
-
         // 获取下一题的 Seq
         if (selectOption == null) {
             nextQuestionSeq = 1; // TODO:优化-可以选取最小的SEQ，不写死
@@ -173,10 +174,12 @@ export class SurveyDoComponent extends WxBase implements OnInit {
 
         // 如果下一题已经存在，那么返回空
         if (this.activeQuestionList.find(q => q.seq == nextQuestionSeq) != null) {
+
             return null;
         }
 
         let nextQuestion = null;
+
         // 如果有重复序号的题目存在，根据性别筛选
         if (this.surveyQuestionList.filter(item => item.seq == nextQuestionSeq).length > 1) {
             nextQuestion = this.surveyQuestionList.find(item => item.seq == nextQuestionSeq && item.sex == this.userSelectedSex);
@@ -184,7 +187,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
         else {
             nextQuestion = this.surveyQuestionList.find(item => item.seq == nextQuestionSeq);
         }
-
         return nextQuestion;
     }
 
@@ -331,12 +333,6 @@ export class SurveyDoComponent extends WxBase implements OnInit {
     scrollTo(num) {
         Observable.of(0).delay(1).subscribe(idx => {
             _j_scrollTo(num);
-        });
-    }
-
-    ngOnInit() {
-        this.route.paramMap.subscribe(params => {
-            this.userSurveyId = Number(params.get("userSurveyId"));
         });
     }
 

@@ -1,0 +1,244 @@
+[
+  {
+    "questionId": 73,
+    "questionSeq": 1,
+    "userSelection": "结识新朋友，尤其是特别的朋友",
+    "scoreList": [
+      {
+        "score": "1",
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": null,
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 74,
+    "questionSeq": 2,
+    "userSelection": "四驱吉普车，一边假日能与一帮好友到郊外游乐",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": "1",
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 75,
+    "questionSeq": 3,
+    "userSelection": "非常兴奋地大肆布置一番，并亲自下厨准备食物",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": null,
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": "1",
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 76,
+    "questionSeq": 4,
+    "userSelection": "认为出师不利，考虑取消行程",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": null,
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": "1",
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 77,
+    "questionSeq": 5,
+    "userSelection": "约他外出庆祝兼欢送，并表示你将会十分怀念他",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": "1",
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 78,
+    "questionSeq": 6,
+    "userSelection": "为避免有人欢喜有人怨，点三种不同的主菜一起吃",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": "1",
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 79,
+    "questionSeq": 7,
+    "userSelection": "只会看你所需要买的东西的货架，购物数量尽量少",
+    "scoreList": [
+      {
+        "score": "1",
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": null,
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 80,
+    "questionSeq": 8,
+    "userSelection": "计划认识新朋友，挑选在看似有趣的人旁边坐下",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": "1",
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 81,
+    "questionSeq": 9,
+    "userSelection": "超级浪漫感性的爱情故事",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": "1",
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 82,
+    "questionSeq": 10,
+    "userSelection": "坦白说出你的想法，指出她与恋人之间的问题症结所在，并可能提出好的建议",
+    "scoreList": [
+      {
+        "score": "1",
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": null,
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  },
+  {
+    "questionId": 83,
+    "questionSeq": 11,
+    "userSelection": "确定它是否是一个可以拉出来当床用的梳妆台，以便让更多朋友留宿",
+    "scoreList": [
+      {
+        "score": null,
+        "dimensionId": 16,
+        "dimensionName": "领导者"
+      },
+      {
+        "score": "1",
+        "dimensionId": 17,
+        "dimensionName": "社交家"
+      },
+      {
+        "score": null,
+        "dimensionId": 18,
+        "dimensionName": "理想家"
+      }
+    ]
+  }
+]

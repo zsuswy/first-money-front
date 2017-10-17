@@ -1,0 +1,19 @@
+[
+  {
+    "dimensionId": 16,
+    "dimensionName": "领导者",
+    "score": 3
+  },
+  {
+    "dimensionId": 17,
+    "dimensionName": "社交家",
+    "score": 6,
+    "title": "社交家",
+    "comment": "<p>你适合社交这一类的工作。在你看来，建立稳固的人机基础极为重要。你看重美学多余功用，并会以对方给你的赞美来判断自己的成就。</p><p>理想职业：公关、演说家、儿科医生、外交官、零售营业员、娱乐刊物编辑、编剧。</p>"
+  },
+  {
+    "dimensionId": 18,
+    "dimensionName": "理想家",
+    "score": 2
+  }
+]

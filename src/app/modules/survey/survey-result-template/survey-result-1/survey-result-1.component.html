@@ -1,6 +1,22 @@
-<div *ngIf="result">
-    <div *ngFor="let scoreText of result">
+<div *ngIf="surveyResult">
+    <div *ngFor="let scoreText of surveyResult">
         <h1>{{scoreText.title}}</h1>
         <div [innerHTML]="scoreText.comment"></div>
     </div>
 </div>
+<section class="aui-grid">
+    <div class="aui-content-padded" style="height:10rem">
+        <ngx-charts-bar-vertical
+                [results]="barChartData"
+                [barPadding]="70"
+                [gradient]="false"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="false"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="false"
+                [xAxisLabel]="'x坐标'"
+                [yAxisLabel]="'y坐标'">
+        </ngx-charts-bar-vertical>
+    </div>
+</section>

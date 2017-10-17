@@ -9,7 +9,7 @@
         <li>如对报告有不理解的地方，建议向专业人士咨询；</li>
     </ul>
 </section>
-<app-survey-result-1 [result]="getResult()">
+<app-survey-result-1 [surveyResult]="resultData" [dimensionList]="dimensionList">
 
 </app-survey-result-1>
 <section class="aui-grid">
@@ -20,14 +20,14 @@
 <section class="aui-grid">
     <div class="aui-content-padded" style="height:10rem">
         <ngx-charts-bar-vertical
-                [results]="single"
+                [results]="barChartData"
                 [barPadding]="50"
                 [gradient]="false"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
+                [xAxis]="true"
+                [yAxis]="true"
                 [legend]="false"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
                 [xAxisLabel]="'x坐标'"
                 [yAxisLabel]="'y坐标'"
                 (select)="onSelect($event)">
@@ -37,7 +37,7 @@
     <div class="aui-content-padded" style="height:10rem">
         <ngx-charts-pie-chart
                 [scheme]="pieColors"
-                [results]="single2"
+                [results]="pieChartData"
                 [arcWidth]="0.2"
                 [doughnut]="true"
                 (select)="onSelect($event)">

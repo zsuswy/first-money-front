@@ -11,14 +11,13 @@ import {SurveyResult2Component} from './survey-result-template/survey-result-2/s
 import {SurveyResult3Component} from './survey-result-template/survey-result-3/survey-result-3.component';
 import {SurveyResult4Component} from './survey-result-template/survey-result-4/survey-result-4.component';
 import {SurveyResult5Component} from './survey-result-template/survey-result-5/survey-result-5.component';
-import {HomePageComponent} from '../survey/home/home.component';
-import {SurveysByClassPageComponent} from '../survey/survey-by-class/survey-by-class.component';
-import {SurveyDetailInitialComponent} from '../survey/survey-detail-initial/survey-detail-initial.component';
+import {HomePageComponent} from './home/home.component';
+import {SurveysByClassPageComponent} from './survey-by-class/survey-by-class.component';
+import {SurveyDetailInitialComponent} from './survey-detail-initial/survey-detail-initial.component';
 import {SwiperModule} from 'ngx-swiper-wrapper';
-import {SurveyPayComponent} from '../survey/survey-pay/survey-pay.component';
+import {SurveyPayComponent} from './survey-pay/survey-pay.component';
 import {TipMessageComponent} from '../common/tip-message/tip-message.component';
 import {LoadingComponent} from '../common/loading/loading.component';
-import {DialogueComponent} from '../common/dialogue/dialogue.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +31,6 @@ import {DialogueComponent} from '../common/dialogue/dialogue.component';
         SurveyPayComponent,
         TipMessageComponent,
         LoadingComponent,
-        DialogueComponent,
         SurveyResult1Component,
         SurveyResult2Component,
         SurveyResult3Component,

@@ -12,6 +12,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/zip';
 import {User} from '../../../model/User';
 import {LoadingComponent} from '../../common/loading/loading.component';
+import {Config} from '../../Config';
 
 declare let WeixinJSBridge: any;
 
@@ -78,16 +79,14 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
                 "paySign": payInfo.paySign          // "70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
             },
             function (res) {
-                if (res.err_msg == "get_brand_wcpay_request:ok") {
-                    // 支付成功，跳转
-                    ng_this.router.navigate(["/survey-do", ng_this.userSurveyId]);
+                if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                    window.location.href = Config.WEB_MOBILE_APP_URL + '/?#/survey-do/' + sessionStorage.getItem('SURVEY-PAY-USERSURVEYID');
                 }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 else {
                     // window.location.href =
                 }
             }
         );
-
     }
 
     /**
@@ -98,6 +97,8 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
         this.createOrGetOrderPayInfo().subscribe(resp => {
             if (resp.success) {
                 this.userSurveyId = resp.data.userSurveyId;
+                sessionStorage.setItem('SURVEY-PAY-USERSURVEYID', String(this.userSurveyId));
+
                 if (resp.data.wxpPayType != "all") {
                     this.navigateToPayPage();
                 } else { // 如果没有积分和余额，就直接支付

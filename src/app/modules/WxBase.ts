@@ -30,7 +30,7 @@ export class WxBase {
             else if (localStorage.getItem('userId') == null) {
                 localStorage.setItem('userId', '-1');
 
-                window.location.href = Config.WEB_APP_URL + `/wx/getUserInfo?retUrl=${encodeURI(router.url)}`;
+                window.location.href = Config.WEB_SERVICE_APP_URL + `/wx/getUserInfo?retUrl=${encodeURI(router.url)}`;
             }
 
             this.userId = Number(localStorage.getItem('userId'));
@@ -66,7 +66,7 @@ export class WxBase {
      * */
     public registerWxShare(title?: string, desc?: string, imgUrl?: string) {
         let ng_this = this;
-        let link = Config.WEB_APP_URL + '/mobile/?#' + this.router.url + '/' + this.userId;
+        let link = Config.WEB_SERVICE_APP_URL + '/mobile/?#' + this.router.url + '/' + this.userId;
         wx.onMenuShareAppMessage({
             title: title || '', // 分享标题
             desc: desc || '', // 分享描述
