@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensionScore';
 import {SurveyDimension} from '../../../../model/SurveyDimension';
 import {ChartDataItem} from '../../../../model/ChartDataItem';
+import * as shape from 'd3-shape';
 
 @Component({
     selector: 'app-survey-result-1',
@@ -18,6 +19,35 @@ export class SurveyResult1Component implements OnInit, OnChanges {
 
 
     barChartData: ChartDataItem[] = [];
+    curveLinearClosed = shape.curveLinearClosed;
+
+    radarData = [
+        {
+            "name": "France",
+            "series": [
+                {
+                    "name": "能力",
+                    "value": 77
+                },
+                {
+                    "name": "态度",
+                    "value": 52
+                },
+                {
+                    "name": "运气",
+                    "value": 87
+                },
+                {
+                    "name": "勇气",
+                    "value": 75
+                },
+                {
+                    "name": "智慧",
+                    "value": 45
+                }
+            ]
+        }
+    ];
 
     constructor() {
     }

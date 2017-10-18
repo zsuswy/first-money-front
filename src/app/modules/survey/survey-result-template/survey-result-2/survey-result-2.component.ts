@@ -7,7 +7,23 @@ import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensio
     styleUrls: ['./survey-result-2.component.css']
 })
 export class SurveyResult2Component implements OnInit {
-    @Input() result: SurveyResultDimensionScore[];
+    @Input()
+    result: SurveyResultDimensionScore[];
+
+    pieColors = {
+        domain: ['#ffc107', '#eefb3f', '#ffc107', '#eefb3f']
+    };
+
+    pieChartData = [
+        {
+            "name": "Germany",
+            "value": 46
+        },
+        {
+            "name": "USA",
+            "value": 20
+        }
+    ];
 
     constructor() {
     }

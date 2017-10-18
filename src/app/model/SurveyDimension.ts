@@ -11,7 +11,11 @@ export class SurveyDimension {
                 public seq?: number,
                 public dimensionName?: string,
                 public autoCalculateType?: number,
-                public proxySubDimensionId?: number) {
+                public proxySubDimensionId?: number,
+                public description?: string) {
+        if (this.description == null) {
+            this.description = '';
+        }
 
     }
 }

@@ -1,3 +1,10 @@
-<p>
-  survey-result-2 works!
-</p>
+<section class="aui-grid">
+    <div class="aui-content-padded" style="height:10rem">
+        <ngx-charts-pie-chart
+                [scheme]="pieColors"
+                [results]="pieChartData"
+                [arcWidth]="0.2"
+                [doughnut]="true">
+        </ngx-charts-pie-chart>
+    </div>
+</section>

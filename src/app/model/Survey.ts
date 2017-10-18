@@ -21,7 +21,7 @@ export class Survey {
                 public isHot?: number,
                 public isNew?: number,
                 public isSuper?: number,
-                public resultTemplateParam?: string,
+                public params?: string,
                 public surveyType?: number) {
     }
 }

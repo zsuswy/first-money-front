@@ -15,8 +15,20 @@
                 [legend]="false"
                 [showXAxisLabel]="false"
                 [showYAxisLabel]="false"
-                [xAxisLabel]="'x坐标'"
-                [yAxisLabel]="'y坐标'">
+                [xAxisLabel]="''"
+                [yAxisLabel]="''">
         </ngx-charts-bar-vertical>
+    </div>
+
+    <div class="aui-content-padded" *ngIf="false" style="height:15rem">
+        <ngx-charts-polar-chart
+                [results]="radarData"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [roundDomains]="true"
+                [curve]="curveLinearClosed">
+        </ngx-charts-polar-chart>
     </div>
 </section>

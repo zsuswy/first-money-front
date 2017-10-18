@@ -1,4 +1,9 @@
 <section class="aui-grid">
+    <div class="aui-row">
+        <img style="width: 100%;" src="assets/image/apicloud-bg.png">
+    </div>
+</section>
+<section class="aui-grid">
     <h6 class="aui-content aui-text-center aui-padded-t-10">
         阅读说明
     </h6>
@@ -10,53 +15,8 @@
     </ul>
 </section>
 <app-survey-result-1 [surveyResult]="resultData" [dimensionList]="dimensionList">
-
 </app-survey-result-1>
-<section class="aui-grid">
-    <div class="aui-row">
-        <img style="width: 100%;" src="assets/image/apicloud-bg.png">
-    </div>
-</section>
-<section class="aui-grid">
-    <div class="aui-content-padded" style="height:10rem">
-        <ngx-charts-bar-vertical
-                [results]="barChartData"
-                [barPadding]="50"
-                [gradient]="false"
-                [xAxis]="true"
-                [yAxis]="true"
-                [legend]="false"
-                [showXAxisLabel]="true"
-                [showYAxisLabel]="true"
-                [xAxisLabel]="'x坐标'"
-                [yAxisLabel]="'y坐标'"
-                (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
-    </div>
 
-    <div class="aui-content-padded" style="height:10rem">
-        <ngx-charts-pie-chart
-                [scheme]="pieColors"
-                [results]="pieChartData"
-                [arcWidth]="0.2"
-                [doughnut]="true"
-                (select)="onSelect($event)">
-        </ngx-charts-pie-chart>
-    </div>
-    <div class="aui-content-padded" style="height:15rem">
-        <ngx-charts-polar-chart
-                [results]="radarData"
-                [showXAxisLabel]="true"
-                [showYAxisLabel]="true"
-                [xAxis]="true"
-                [yAxis]="true"
-                [roundDomains]="true"
-                [curve]="curveLinearClosed"
-                (select)="onSelect($event)">
-        </ngx-charts-polar-chart>
-    </div>
-
-</section>
 <div style="height: 10px;">&nbsp;</div>
 <section class="aui-grid">
     <h2>相关推荐</h2>
