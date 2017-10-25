@@ -137,7 +137,6 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
      * */
     protected OnWxShareSuccess() {
         this.surveyService.shareSurvey(this.surveyId).subscribe(resp => {
-
         });
     }
 

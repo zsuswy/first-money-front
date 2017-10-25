@@ -8,12 +8,13 @@ import {HomePageComponent} from './home/home.component';
 import {SurveysByClassPageComponent} from './survey-by-class/survey-by-class.component';
 import {SurveyDetailInitialComponent} from './survey-detail-initial/survey-detail-initial.component';
 import {SurveyPayComponent} from './survey-pay/survey-pay.component';
+import {EntryComponent} from './entry/entry.component';
 
 export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home'
+        component: EntryComponent,
     },
     {
         path: 'home',

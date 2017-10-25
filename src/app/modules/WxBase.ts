@@ -48,7 +48,6 @@ export class WxBase {
      * 通过config接口注入权限验证配置
      * */
     private configWxShare(url) {
-        url = url.replace("#", "?#"); // 加问号，解决微信支付目录问题
         this.wxService.createJsapiSignature(url).subscribe(resp => {
             wx.config({
                 // debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -66,23 +65,26 @@ export class WxBase {
      * */
     public registerWxShare(title?: string, desc?: string, imgUrl?: string) {
         let ng_this = this;
-        let link = Config.WEB_SERVICE_APP_URL + '/mobile/?#' + this.router.url + '/' + this.userId;
-        wx.onMenuShareAppMessage({
-            title: title || '', // 分享标题
-            desc: desc || '', // 分享描述
-            link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: imgUrl || '', // 分享图标
-            type: '', // 分享类型,music、video或link，不填默认为link
-            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-            success: function () {
-                ng_this.OnWxShareSuccess();
-                // 用户确认分享后执行的回调函数
-            },
-            cancel: function () {
-                ng_this.OnWxShareCancel();
-                // 用户取消分享后执行的回调函数
-            }
-        });
+
+        setTimeout(() => {
+            let link = Config.WEB_MOBILE_APP_URL + '/?#/?path=' + ng_this.router.url + '&fromUserId=' + ng_this.userId;
+            wx.onMenuShareAppMessage({
+                title: title || '', // 分享标题
+                desc: desc || '', // 分享描述
+                link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: imgUrl || '', // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    ng_this.OnWxShareSuccess();
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    ng_this.OnWxShareCancel();
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        }, 500);
     }
 
     protected OnWxShareSuccess() {

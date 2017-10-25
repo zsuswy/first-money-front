@@ -18,6 +18,7 @@ import {SwiperModule} from 'ngx-swiper-wrapper';
 import {SurveyPayComponent} from './survey-pay/survey-pay.component';
 import {TipMessageComponent} from '../common/tip-message/tip-message.component';
 import {LoadingComponent} from '../common/loading/loading.component';
+import { EntryComponent } from './entry/entry.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {LoadingComponent} from '../common/loading/loading.component';
         SurveyResult2Component,
         SurveyResult3Component,
         SurveyResult4Component,
-        SurveyResult5Component
+        SurveyResult5Component,
+        EntryComponent
     ],
     imports: [
         SurveyRoutingModule,

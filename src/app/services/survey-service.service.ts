@@ -153,7 +153,7 @@ export class SurveyService {
         return this.http.get<ResponseResult>(Config.WEB_SERVICE_APP_URL + '/order/confirm?orderId=' + orderId);
     }
 
-    shareSurvey(surveyId: number) {
-        return this.http.post<ResponseResult>(Config.WEB_SERVICE_APP_URL + '/user/share', {'surveyId': surveyId});
+    shareSurvey(surveyId: number): Observable<ResponseResult> {
+        return this.http.get<ResponseResult>(Config.WEB_SERVICE_APP_URL + '/user/shareSurvey?surveyId=' + surveyId);
     }
 }

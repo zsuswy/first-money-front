@@ -17,6 +17,9 @@ export class SurveyResult1Component implements OnInit, OnChanges {
     @Input()
     dimensionList: SurveyDimension[] = [];
 
+    defaultDimension: SurveyDimension;
+
+    subDimensionList: SurveyDimension[] = [];
 
     barChartData: ChartDataItem[] = [];
     curveLinearClosed = shape.curveLinearClosed;
@@ -60,6 +63,14 @@ export class SurveyResult1Component implements OnInit, OnChanges {
         if (this.surveyResult == null || this.dimensionList == null) {
             return;
         }
+
+        // 解析 isFirstLevel 属性
+        for (let i = 0; i < this.dimensionList.length; i++) {
+            this.dimensionList[i].isFirstLevel = this.dimensionList.find(item => item.parentId == this.dimensionList[i].id) == null;
+        }
+
+        this.subDimensionList = this.dimensionList.filter(item => !item.isFirstLevel);
+        this.defaultDimension = this.dimensionList.find(item => item.isFirstLevel);
 
         this.barChartData = this.surveyResult.map(item => {
             return {name: item.title || item.dimensionName, value: item.score};
