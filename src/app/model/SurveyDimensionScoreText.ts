@@ -8,7 +8,8 @@ export class SurveyDimensionScoreText {
                 public scoreMin?: number,
                 public surveyId?: number,
                 public resultTitle?: string,
-                public resultComment?: string) {
+                public resultComment?: string,
+                public params?: string) {
 
     }
 }

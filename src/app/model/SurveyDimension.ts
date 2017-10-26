@@ -13,7 +13,8 @@ export class SurveyDimension {
                 public autoCalculateType?: number,
                 public proxySubDimensionId?: number,
                 public description?: string,
-                public isFirstLevel?: boolean) {
+                public isFirstLevel?: boolean,
+                public params?: string) {
         if (this.description == null) {
             this.description = '';
         }
