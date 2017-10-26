@@ -38,3 +38,57 @@ a {
 .swiper-slide {
     width: 5.5rem;
 }
+
+/* =========== START 测评结果相关页面使用的样式 START =========== */
+.result-block {
+    border: solid 1px lightgrey;
+    border-radius: .5rem;
+    padding: 1rem;
+    margin-top: .5rem;
+    background-color: white;
+}
+
+.result-block-title {
+    margin-bottom: .5rem;
+}
+
+.result-container {
+    padding: 1rem;
+    background-color: white;
+    background-image: linear-gradient(#eeeeee 1px, transparent 0),
+    linear-gradient(90deg, #eeeeee 1px, transparent 0);
+    background-size: .7rem .7rem;
+    font-size: .7rem;
+}
+
+ol.cp-ol-list {
+    list-style-type: none;
+    margin: 0 0 0 3em;
+    padding: 0;
+    counter-reset: li-counter;
+}
+
+ol.cp-ol-list > li {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 0.5rem;
+    min-height: 2rem;
+    border-left: 2px solid #CCCCCC;
+    font-size: .7rem;
+}
+
+ol.cp-ol-list > li:before {
+    position: absolute;
+    top: 0;
+    left: -1em;
+    width: 0.8rem;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: bold;
+    text-align: right;
+    color: #464646;
+    content: counter(li-counter);
+    counter-increment: li-counter;
+}
+
+/* =========== END 测评结果相关页面使用的样式 END =========== */

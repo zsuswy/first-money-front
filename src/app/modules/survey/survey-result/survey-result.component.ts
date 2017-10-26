@@ -1,45 +1,32 @@
 import {Component, HostBinding, ViewChild} from '@angular/core';
 import {slideInDownAnimation} from '../../../animations';
-import * as shape from 'd3-shape';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SurveyService} from '../../../services/survey-service.service';
 import {UserSurvey} from '../../../model/UserSurvey';
 import {WxService} from '../../../services/wx-service.service';
 import {WxBase} from '../../WxBase';
-import {Cookie} from '../../../util/Cookie';
 import {LoadingComponent} from '../../common/loading/loading.component';
 import {SurveyResultDimensionScore} from '../../../model/SurveyResultDimensionScore';
 import {ListSearchVo} from '../../../model/common/ListSearchVo';
 import {SurveyDimension} from '../../../model/SurveyDimension';
+import {Observable} from 'rxjs/Observable';
+import {Survey} from '../../../model/Survey';
+import {TemplateType} from '../../../model/Enum/TemplateType';
 
 @Component({
     templateUrl: './survey-result.component.html',
-    animations: [slideInDownAnimation]
+    styleUrls: ['./survey-result.component.css']
 })
 export class SurveyResultComponent extends WxBase {
     @ViewChild(LoadingComponent)
     private loadComponent: LoadingComponent;
 
-    @HostBinding('@routeAnimation')
-    routeAnimation = true;
-
-    @HostBinding('style.display')
-    display = 'block';
-
-    @HostBinding('style.position')
-    position = 'absolute';
-
     userSurveyId: number;
-    userSurvey: UserSurvey;
+    survey: Survey = new Survey();
+    userSurvey: UserSurvey = new UserSurvey();
     resultData: SurveyResultDimensionScore[];
     dimensionList: SurveyDimension[];
-
-    view: any[] = [700, 400];
-
-    // options
-    curveLinearClosed = shape.curveLinearClosed;
-
-
+    templateType: number = 0;
 
 
     constructor(protected surveyService: SurveyService,
@@ -63,15 +50,43 @@ export class SurveyResultComponent extends WxBase {
                 dimensionSearch.page = null;
                 dimensionSearch.params = {'surveyId': this.userSurvey.surveyId};
 
-                this.surveyService.getSurveyDimensionList(dimensionSearch).subscribe(surveyResp => {
-                    this.dimensionList = surveyResp.data.list;
-                    console.log(this.resultData);
-                    console.log(this.dimensionList);
+                Observable.zip(this.surveyService.getSurveyDimensionList(dimensionSearch),
+                    this.surveyService.getSurvey(this.userSurvey.surveyId))
+                    .subscribe(surveyRespList => {
+                        this.dimensionList = surveyRespList[0].data.list;
+                        this.survey = surveyRespList[1].data;
 
-                    this.prepareData();
-                });
+                        this.setTemplate();
+                        this.prepareData();
+                    });
             });
         });
+    }
+
+    /**
+     * 设置模版类型
+     * */
+    setTemplate() {
+        console.log(this.dimensionList);
+        let totalDimensionCount = this.dimensionList.length;
+        let firstLevelDimension = this.dimensionList.filter(item => item.parentId == null || item.parentId < 1);
+
+        // 只有一个维度
+        if (totalDimensionCount == 1) {
+            this.templateType = TemplateType.SINGLE_DIMENSION;
+        }
+
+        // 都是子维度，没有默认维度
+        else if (firstLevelDimension.length == 0) {
+            this.templateType = TemplateType.MULTIPLE_WITH_NO_FIRST_LEVEL;
+        }
+
+        // 有一个默认维度，其它都是子维度
+        else if (firstLevelDimension.length == 0) {
+            this.templateType = TemplateType.MULTIPLE_WITH_SINGLE_FIRST_LEVEL;
+        }
+        console.log(this.templateType);
+
     }
 
     prepareData() {
@@ -79,6 +94,5 @@ export class SurveyResultComponent extends WxBase {
     }
 
     onSelect(event) {
-        console.log(event);
     }
 }

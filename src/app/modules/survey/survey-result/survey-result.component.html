@@ -1,26 +1,45 @@
 <app-loading></app-loading>
-<section class="aui-grid">
-    <div class="aui-row">
-        <img style="width: 100%;" src="assets/image/apicloud-bg.png">
+<div class="result-container">
+    <div>
+        <h1 class="result-block-title aui-text-center">{{survey.title}}</h1>
+        <p class="aui-text-center">测试完成时间：{{userSurvey.finishTime}}</p>
     </div>
-</section>
-<section class="aui-grid">
-    <h6 class="aui-content aui-text-center aui-padded-t-10">
-        阅读说明
-    </h6>
-    <div>感谢您的参与，阅读报告时请注意以下事项：</div>
-    <ul>
-        <li>阅读时可以先看图表快速掌握报告内容，然后有针对性地阅读对应文字；</li>
-        <li>报告不作为临床诊断的依据；</li>
-        <li>如对报告有不理解的地方，建议向专业人士咨询；</li>
-    </ul>
-</section>
-<app-survey-result-1 [surveyResult]="resultData" [dimensionList]="dimensionList">
-</app-survey-result-1>
 
-<div style="height: 10px;">&nbsp;</div>
-<section class="aui-content">
-    <h2>相关推荐</h2>
-</section>
+    <section class="result-block">
+        <div class="aui-content" style="text-align: center">
+            <h2 class="result-block-title aui-text-center">测评内容</h2>
+        </div>
+        <p>
+            {{survey.shortDescription}}
+        </p>
+    </section>
 
+    <app-survey-result-1 *ngIf="templateType == 1" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    </app-survey-result-1>
+    <app-survey-result-2 *ngIf="templateType == 2" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    </app-survey-result-2>
+    <app-survey-result-3 *ngIf="templateType == 3" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    </app-survey-result-3>
+    <app-survey-result-4 *ngIf="templateType == 4" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    </app-survey-result-4>
+    <app-survey-result-5 *ngIf="templateType == 5" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    </app-survey-result-5>
+
+    <section class="result-block">
+        <h2 class="result-block-title aui-text-center">
+            阅读说明
+        </h2>
+        <ol class="cp-ol-list">
+            <li>感谢您的参与，阅读报告时请注意相关事项；</li>
+            <li>阅读时可以先看图表快速掌握报告内容，然后有针对性地阅读对应文字；</li>
+            <li>报告不作为临床诊断的依据；</li>
+            <li>如对报告有不理解的地方，建议向专业人士咨询；</li>
+        </ol>
+    </section>
+
+    <div style="height: 10px;">&nbsp;</div>
+    <section class="result-block">
+        <h2 class="aui-text-center">相关推荐</h2>
+    </section>
+</div>
 <div style="height: 1.3rem;"></div>

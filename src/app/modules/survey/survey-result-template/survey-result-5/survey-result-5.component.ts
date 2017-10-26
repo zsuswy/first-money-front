@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensionScore';
+import {SurveyDimension} from '../../../../model/SurveyDimension';
 
 @Component({
     selector: 'app-survey-result-5',
@@ -7,7 +8,12 @@ import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensio
     styleUrls: ['./survey-result-5.component.css']
 })
 export class SurveyResult5Component implements OnInit {
-    @Input() result: SurveyResultDimensionScore[];
+    @Input()
+    surveyResult: SurveyResultDimensionScore[] = [];
+
+    @Input()
+    dimensionList: SurveyDimension[] = [];
+
 
     constructor() {
     }

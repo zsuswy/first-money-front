@@ -1,34 +1,20 @@
-<div *ngIf="surveyResult">
-    <div *ngFor="let scoreText of surveyResult">
-        <h1>{{scoreText.title}}</h1>
-        <div [innerHTML]="scoreText.comment"></div>
+<section class="result-block">
+    <h2 class="aui-text-center">
+        标题
+    </h2>
+    <div class="" style="height:7rem">
+        <ngx-charts-pie-chart
+                [scheme]="pieColors"
+                [results]="pieChartData"
+                [arcWidth]="1"
+                [doughnut]="true">
+        </ngx-charts-pie-chart>
     </div>
-</div>
-<section class="aui-grid">
-    <div class="aui-content-padded" style="height:10rem">
-        <ngx-charts-bar-vertical
-                [results]="barChartData"
-                [barPadding]="70"
-                [gradient]="false"
-                [xAxis]="true"
-                [yAxis]="true"
-                [legend]="false"
-                [showXAxisLabel]="false"
-                [showYAxisLabel]="false"
-                [xAxisLabel]="''"
-                [yAxisLabel]="''">
-        </ngx-charts-bar-vertical>
-    </div>
-
-    <div class="aui-content-padded" *ngIf="false" style="height:15rem">
-        <ngx-charts-polar-chart
-                [results]="radarData"
-                [showXAxisLabel]="true"
-                [showYAxisLabel]="true"
-                [xAxis]="true"
-                [yAxis]="true"
-                [roundDomains]="true"
-                [curve]="curveLinearClosed">
-        </ngx-charts-polar-chart>
+    <div *ngIf="surveyResult">
+        <div *ngFor="let scoreText of surveyResult">
+            <h2 class="aui-text-center">{{scoreText.title || scoreText.dimensionName}}</h2>
+            <div [innerHTML]="scoreText.comment"></div>
+        </div>
     </div>
 </section>
+

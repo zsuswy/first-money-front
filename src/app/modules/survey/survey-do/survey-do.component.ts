@@ -260,9 +260,9 @@ export class SurveyDoComponent extends WxBase implements OnInit {
             .subscribe(respList => {
                 let dimensionScoreTextList: SurveyDimensionScoreText[] = respList[0].data.list;
                 let dimensionList: SurveyDimension[] = respList[1].data.list;
-                console.log(dimensionScoreTextList);
-                console.log(dimensionList);
-                console.log(this.surveyAnswerList);
+                Config.log(dimensionScoreTextList);
+                Config.log(dimensionList);
+                Config.log(this.surveyAnswerList);
                 // 计算的结果
                 let resultList: SurveyResultDimensionScore[] = [];
 
@@ -308,13 +308,14 @@ export class SurveyDoComponent extends WxBase implements OnInit {
 
                 this.userSurvey.result = JSON.stringify(resultList);
                 this.userSurvey.status = 2;
+                this.userSurvey.finishTime = new Date();
 
                 // 保存
                 this.surveyService.updateUserSurvey(this.userSurvey).subscribe(resp => {
                     this.router.navigate(['/survey-result', this.userSurvey.id]);
-                    console.log(resp);
+                    Config.log(resp);
                 });
-                console.log(resultList);
+                Config.log(resultList);
             });
     }
 
