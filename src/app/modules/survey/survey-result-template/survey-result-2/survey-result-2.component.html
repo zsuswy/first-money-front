@@ -1,36 +1,40 @@
-<section class="result-block">
-    <h2 class="aui-text-center">结果分析</h2>
-    <div class="" style="height:10rem; margin:1rem">
-        <ngx-charts-bar-vertical
-                [results]="barChartData"
-                [barPadding]="70"
-                [gradient]="false"
-                [xAxis]="true"
-                [yAxis]="true"
-                [legend]="false"
-                [showXAxisLabel]="false"
-                [showYAxisLabel]="false"
-                [xAxisLabel]="''"
-                [yAxisLabel]="''">
-        </ngx-charts-bar-vertical>
-    </div>
+<div *ngFor="let dimension of firstLevelDimensionList">
+    <section class="result-block">
+        <h2 class="aui-text-center">
 
-    <div *ngIf="surveyResult">
-        <div *ngFor="let scoreText of surveyResult">
-            <h2 class="aui-text-center">{{scoreText.title || scoreText.dimensionName}}</h2>
-            <div [innerHTML]="scoreText.comment"></div>
+        </h2>
+        <div class="" style="height:10rem; margin:1rem">
+            <ngx-charts-bar-vertical
+                    [results]="barChartData"
+                    [barPadding]="70"
+                    [gradient]="false"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [legend]="false"
+                    [showXAxisLabel]="false"
+                    [showYAxisLabel]="false"
+                    [xAxisLabel]="''"
+                    [yAxisLabel]="''">
+            </ngx-charts-bar-vertical>
         </div>
-    </div>
 
-    <div class="aui-content-padded" *ngIf="false" style="height:15rem">
-        <ngx-charts-polar-chart
-                [results]="radarData"
-                [showXAxisLabel]="true"
-                [showYAxisLabel]="true"
-                [xAxis]="true"
-                [yAxis]="true"
-                [roundDomains]="true"
-                [curve]="curveLinearClosed">
-        </ngx-charts-polar-chart>
-    </div>
-</section>
+        <div *ngIf="surveyResult">
+            <div *ngFor="let scoreText of surveyResult">
+                <h2 class="aui-text-center aui-margin-b-15">{{scoreText.title || scoreText.dimensionName}}</h2>
+                <div [innerHTML]="scoreText.comment"></div>
+            </div>
+        </div>
+
+        <div class="aui-content-padded" *ngIf="false" style="height:15rem">
+            <ngx-charts-polar-chart
+                    [results]="radarData"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [roundDomains]="true"
+                    [curve]="curveLinearClosed">
+            </ngx-charts-polar-chart>
+        </div>
+    </section>
+</div>

@@ -16,6 +16,7 @@ export class SurveyResult1Component implements OnInit, OnChanges {
     ngOnInit() {
     }
 
+    showChart: Boolean = true;
 
     // options
     xAxisLabel = 'Country';
@@ -65,6 +66,11 @@ export class SurveyResult1Component implements OnInit, OnChanges {
         this.chartType = this.dimension.extraSettings.sumChartType;
 
         this.dimensionResult = this.surveyResult[0];
+
+        // 是否需要显示图表
+        this.showChart = !(this.dimension.extraSettings.isShowSumChart == 2);
+
+        console.log(this.dimensionResult);
 
         this.pieChartData.push({'name': this.dimensionResult.dimensionName, 'value': this.dimensionResult.score});
 

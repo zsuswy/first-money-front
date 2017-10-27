@@ -20,9 +20,7 @@ export class SurveyResult2Component implements OnInit, OnChanges {
     @Input()
     survey: Survey = new Survey();
 
-    defaultDimension: SurveyDimension;
-
-    subDimensionList: SurveyDimension[] = [];
+    firstLevelDimensionList: SurveyDimension[] = [];
 
     barChartData: ChartDataItem[] = [];
 
@@ -59,7 +57,6 @@ export class SurveyResult2Component implements OnInit, OnChanges {
     constructor() {
     }
 
-
     ngOnInit() {
     }
 
@@ -78,8 +75,8 @@ export class SurveyResult2Component implements OnInit, OnChanges {
             this.dimensionList[i].isFirstLevel = this.dimensionList.find(item => item.parentId == this.dimensionList[i].id) == null;
         }
 
-        this.subDimensionList = this.dimensionList.filter(item => !item.isFirstLevel);
-        this.defaultDimension = this.dimensionList.find(item => item.isFirstLevel);
+        let subDimensionList = this.dimensionList.filter(item => !item.isFirstLevel);
+        let defaultDimension = this.dimensionList.find(item => item.isFirstLevel);
 
         this.barChartData = this.surveyResult.map(item => {
             return {name: item.title || item.dimensionName, value: item.score};

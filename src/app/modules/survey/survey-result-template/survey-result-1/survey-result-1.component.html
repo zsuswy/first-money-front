@@ -1,4 +1,4 @@
-<section class="result-block">
+<section class="result-block" *ngIf="showChart">
     <h2 class="aui-text-center">
         {{dimension.extraSettings.sumChartTitle}}
     </h2>
@@ -18,10 +18,16 @@
     </div>
 
     <h5 class="aui-text-center aui-margin-b-15">
-        {{dimension.dimensionName}}{{dimensionResult.score}},{{dimension.extraSettings.sumChartFootScript}}</h5>
+        {{dimension.dimensionName}}{{dimensionResult.score}}，{{dimension.extraSettings.sumChartFootScript}}</h5>
+</section>
+
+<section class="result-block">
+    <h2 class="aui-text-center aui-margin-b-15">
+        测评详解
+    </h2>
     <div *ngIf="surveyResult">
         <div *ngFor="let scoreText of surveyResult">
-            <h3 class="aui-text-center" style="margin-top: 2rem">{{scoreText.title || scoreText.dimensionName}}</h3>
+            <h3 class="aui-text-center aui-margin-b-10">{{scoreText.title || scoreText.dimensionName}}</h3>
             <div [innerHTML]="scoreText.comment"></div>
         </div>
     </div>

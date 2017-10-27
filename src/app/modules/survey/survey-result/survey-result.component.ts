@@ -12,6 +12,7 @@ import {SurveyDimension} from '../../../model/SurveyDimension';
 import {Observable} from 'rxjs/Observable';
 import {Survey} from '../../../model/Survey';
 import {TemplateType} from '../../../model/Enum/TemplateType';
+import {Config} from '../../Config';
 
 @Component({
     templateUrl: './survey-result.component.html',
@@ -92,6 +93,8 @@ export class SurveyResultComponent extends WxBase {
     inferTemplate() {
         let totalDimensionCount = this.dimensionList.length;
         let firstLevelDimension = this.dimensionList.filter(item => item.parentId == null || item.parentId < 1);
+        Config.log('总维度数： ' + totalDimensionCount);
+        Config.log('第一层维度数： ' + firstLevelDimension);
 
         // 只有一个维度
         if (totalDimensionCount == 1) {
@@ -99,14 +102,16 @@ export class SurveyResultComponent extends WxBase {
         }
 
         // 都是子维度，没有默认维度
-        else if (firstLevelDimension.length == 0) {
+        else if (firstLevelDimension.length == totalDimensionCount) {
             this.templateType = TemplateType.MULTIPLE_WITH_NO_FIRST_LEVEL;
         }
 
         // 有一个默认维度，其它都是子维度
-        else if (firstLevelDimension.length == 0) {
+        else if (firstLevelDimension.length == 1) {
             this.templateType = TemplateType.MULTIPLE_WITH_SINGLE_FIRST_LEVEL;
         }
+
+        Config.log('模版类型： ' + this.templateType);
     }
 
     prepareData() {
