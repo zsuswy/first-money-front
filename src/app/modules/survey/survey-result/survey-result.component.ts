@@ -22,10 +22,19 @@ export class SurveyResultComponent extends WxBase {
     private loadComponent: LoadingComponent;
 
     userSurveyId: number;
+
+    // 测评信息
     survey: Survey = new Survey();
+
+    // 用户测评
     userSurvey: UserSurvey = new UserSurvey();
+
+    // 测试结果
     resultData: SurveyResultDimensionScore[];
+
+    // 维度信息
     dimensionList: SurveyDimension[];
+
     templateType: number = 0;
 
 
@@ -54,7 +63,7 @@ export class SurveyResultComponent extends WxBase {
                     this.surveyService.getSurvey(this.userSurvey.surveyId))
                     .subscribe(surveyRespList => {
                         this.dimensionList = surveyRespList[0].data.list;
-                        this.survey = surveyRespList[1].data;
+                        this.survey.assignToSelf(surveyRespList[1].data);
 
                         this.setTemplate();
                         this.prepareData();
@@ -67,7 +76,20 @@ export class SurveyResultComponent extends WxBase {
      * 设置模版类型
      * */
     setTemplate() {
-        console.log(this.dimensionList);
+        // 如果有设置模版设置，那么使用用户设置的模版
+        if (this.survey.extraSettings.templateType > 0) {
+            this.templateType = this.survey.extraSettings.templateType;
+            return;
+        } else {
+            this.inferTemplate();
+        }
+
+    }
+
+    /**
+     * 根据维度数据计算模版
+     * */
+    inferTemplate() {
         let totalDimensionCount = this.dimensionList.length;
         let firstLevelDimension = this.dimensionList.filter(item => item.parentId == null || item.parentId < 1);
 
@@ -85,8 +107,6 @@ export class SurveyResultComponent extends WxBase {
         else if (firstLevelDimension.length == 0) {
             this.templateType = TemplateType.MULTIPLE_WITH_SINGLE_FIRST_LEVEL;
         }
-        console.log(this.templateType);
-
     }
 
     prepareData() {

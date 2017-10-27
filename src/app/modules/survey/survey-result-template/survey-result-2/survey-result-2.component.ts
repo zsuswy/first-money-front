@@ -3,6 +3,7 @@ import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensio
 import {SurveyDimension} from '../../../../model/SurveyDimension';
 import {ChartDataItem} from '../../../../model/ChartDataItem';
 import * as shape from 'd3-shape';
+import {Survey} from '../../../../model/Survey';
 
 @Component({
     selector: 'app-survey-result-2',
@@ -16,11 +17,15 @@ export class SurveyResult2Component implements OnInit, OnChanges {
     @Input()
     dimensionList: SurveyDimension[] = [];
 
+    @Input()
+    survey: Survey = new Survey();
+
     defaultDimension: SurveyDimension;
 
     subDimensionList: SurveyDimension[] = [];
 
     barChartData: ChartDataItem[] = [];
+
     curveLinearClosed = shape.curveLinearClosed;
 
     radarData = [

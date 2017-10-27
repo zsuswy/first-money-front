@@ -260,6 +260,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
             .subscribe(respList => {
                 let dimensionScoreTextList: SurveyDimensionScoreText[] = respList[0].data.list;
                 let dimensionList: SurveyDimension[] = respList[1].data.list;
+
                 Config.log(dimensionScoreTextList);
                 Config.log(dimensionList);
                 Config.log(this.surveyAnswerList);

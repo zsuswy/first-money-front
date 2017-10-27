@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "4.4.2",
     "@angular/common": "4.4.2",
     "@angular/compiler": "4.4.2",
     "@angular/core": "4.4.2",
@@ -25,7 +26,6 @@
     "@angular/platform-browser-dynamic": "4.4.2",
     "@angular/router": "4.4.2",
     "@angular/upgrade": "4.4.2",
-    "@angular/animations": "4.4.2",
     "@swimlane/ngx-charts": "^6.0.2",
     "angular-froala-wysiwyg": "^2.7.0",
     "chart.js": "2.6.0",
@@ -33,6 +33,7 @@
     "d3": "^4.10.2",
     "ngx-bootstrap": "^1.9.0",
     "ngx-swiper-wrapper": "^4.6.0",
+    "reflect-metadata": "^0.1.10",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
@@ -54,6 +55,6 @@
     "protractor": "~5.1.2",
     "ts-node": "3.3.0",
     "tslint": "5.7.0",
-    "typescript": "2.2.0"
+    "typescript": "2.2.3"
   }
 }

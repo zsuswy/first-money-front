@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensionScore';
 import {SurveyDimension} from '../../../../model/SurveyDimension';
+import {Survey} from '../../../../model/Survey';
 
 @Component({
     selector: 'app-survey-result-5',
@@ -14,6 +15,8 @@ export class SurveyResult5Component implements OnInit {
     @Input()
     dimensionList: SurveyDimension[] = [];
 
+    @Input()
+    survey: Survey = new Survey();
 
     constructor() {
     }

@@ -10,20 +10,24 @@
             <h2 class="result-block-title aui-text-center">测评内容</h2>
         </div>
         <p>
-            {{survey.shortDescription}}
+            {{survey.extraSettings.description || survey.shortDescription}}
         </p>
     </section>
 
-    <app-survey-result-1 *ngIf="templateType == 1" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    <app-survey-result-1 *ngIf="templateType == 1" [surveyResult]="resultData" [dimensionList]="dimensionList"
+                         [survey]="survey">
     </app-survey-result-1>
-    <app-survey-result-2 *ngIf="templateType == 2" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    <app-survey-result-2 *ngIf="templateType == 2" [surveyResult]="resultData" [dimensionList]="dimensionList"
+                         [survey]="survey">
     </app-survey-result-2>
-    <app-survey-result-3 *ngIf="templateType == 3" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    <app-survey-result-3 *ngIf="templateType == 3" [surveyResult]="resultData" [dimensionList]="dimensionList"
+                         [survey]="survey">
     </app-survey-result-3>
-    <app-survey-result-4 *ngIf="templateType == 4" [surveyResult]="resultData" [dimensionList]="dimensionList">
+    <app-survey-result-4 *ngIf="templateType == 4" [surveyResult]="resultData" [dimensionList]="dimensionList"
+                         [survey]="survey">
     </app-survey-result-4>
-    <app-survey-result-5 *ngIf="templateType == 5" [surveyResult]="resultData" [dimensionList]="dimensionList">
-    </app-survey-result-5>
+    <app-survey-result-5 *ngIf="templateType == 5" [surveyResult]="resultData" [dimensionList]="dimensionList"
+                         [survey]="survey"></app-survey-result-5>
 
     <section class="result-block">
         <h2 class="result-block-title aui-text-center">

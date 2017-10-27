@@ -1,18 +1,27 @@
 <section class="result-block">
     <h2 class="aui-text-center">
-        标题
+        {{dimension.extraSettings.sumChartTitle}}
     </h2>
-    <div class="" style="height:7rem">
+
+    <div style="height:7rem">
         <ngx-charts-pie-chart
-                [scheme]="pieColors"
-                [results]="pieChartData"
-                [arcWidth]="1"
+                *ngIf="chartType == 1" [scheme]="pieColors" [results]="pieChartData" [arcWidth]="1"
                 [doughnut]="true">
         </ngx-charts-pie-chart>
+
+        <ngx-charts-bar-vertical-stacked
+                *ngIf="chartType == 2" [scheme]="pieColors" [results]="stackChartData"
+                [gradient]="true" [xAxis]="false" [yAxis]="true" [barPadding]="200"
+                [legend]="false" [showXAxisLabel]="false" [showYAxisLabel]="false"
+                [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical-stacked>
     </div>
+
+    <h5 class="aui-text-center aui-margin-b-15">
+        {{dimension.dimensionName}}{{dimensionResult.score}},{{dimension.extraSettings.sumChartFootScript}}</h5>
     <div *ngIf="surveyResult">
         <div *ngFor="let scoreText of surveyResult">
-            <h2 class="aui-text-center">{{scoreText.title || scoreText.dimensionName}}</h2>
+            <h3 class="aui-text-center" style="margin-top: 2rem">{{scoreText.title || scoreText.dimensionName}}</h3>
             <div [innerHTML]="scoreText.comment"></div>
         </div>
     </div>
