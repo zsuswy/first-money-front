@@ -1,40 +1,59 @@
-<div *ngFor="let dimension of firstLevelDimensionList">
+<div *ngFor="let dimensionData of templateDimensionDataList">
+    <!--汇总内容-->
     <section class="result-block">
-        <h2 class="aui-text-center">
-
+        <h2 class="aui-text-center result-block-title">
+            {{dimensionData.dimension.extraSettings.sumChartTitle || dimensionData.dimension.dimensionName}}
         </h2>
-        <div class="" style="height:10rem; margin:1rem">
-            <ngx-charts-bar-vertical
-                    [results]="barChartData"
-                    [barPadding]="70"
-                    [gradient]="false"
-                    [xAxis]="true"
-                    [yAxis]="true"
-                    [legend]="false"
-                    [showXAxisLabel]="false"
-                    [showYAxisLabel]="false"
-                    [xAxisLabel]="''"
-                    [yAxisLabel]="''">
-            </ngx-charts-bar-vertical>
-        </div>
+        <div style="height:7rem">
+            <ngx-charts-pie-chart
+                    *ngIf="dimensionData.dimension.extraSettings.sumChartType == 1" [scheme]="colorSchema"
+                    [results]="dimensionData.sumData" [arcWidth]="1"
+                    [doughnut]="true">
+            </ngx-charts-pie-chart>
 
-        <div *ngIf="surveyResult">
-            <div *ngFor="let scoreText of surveyResult">
-                <h2 class="aui-text-center aui-margin-b-15">{{scoreText.title || scoreText.dimensionName}}</h2>
-                <div [innerHTML]="scoreText.comment"></div>
+            <ngx-charts-bar-vertical-stacked
+                    *ngIf="dimensionData.dimension.extraSettings.sumChartType == 2" [scheme]="colorSchema"
+                    [results]="dimensionData.sumData"
+                    [gradient]="true" [xAxis]="false" [yAxis]="false" [barPadding]="300"
+                    [legend]="false" [showXAxisLabel]="false" [showYAxisLabel]="false"
+                    [xAxisLabel]="" [yAxisLabel]="">
+            </ngx-charts-bar-vertical-stacked>
+        </div>
+        <h5 class="aui-text-center aui-margin-b-15">
+            {{dimensionData.dimension.dimensionName}}{{dimensionData.dimensionScore.score}}，{{dimensionData.dimension.extraSettings.sumChartFootScript}}</h5>
+        <div>
+            <p [innerHTML]="domSanitizer.bypassSecurityTrustHtml(dimensionData.dimensionScore.comment)"></p>
+        </div>
+    </section>
+
+    <!--详解-->
+    <section class="result-block">
+        <h2 class="aui-text-center result-block-title">
+            {{dimensionData.dimension.dimensionName}}详解
+        </h2>
+        <div>
+            <div style="height:7rem" *ngIf="dimensionData.dimension.extraSettings.subChartType == 1">
+                <ngx-charts-bar-vertical
+                        [results]="dimensionData.subData" [barPadding]="10" [gradient]="false"
+                        [xAxis]="true" [yAxis]="true" [legend]="false" [showXAxisLabel]="false"
+                        [showYAxisLabel]="false" [xAxisLabel]="''" [yAxisLabel]="''">
+                </ngx-charts-bar-vertical>
+            </div>
+            <div style="height:14rem" *ngIf="dimensionData.dimension.extraSettings.subChartType == 2">
+
+                <ngx-charts-polar-chart
+                        [results]="dimensionData.subData" [showXAxisLabel]="true"
+                        [showYAxisLabel]="false"
+                        [xAxis]="true" [yAxis]="true" [roundDomains]="true" [curve]="curveLinearClosed">
+                </ngx-charts-polar-chart>
             </div>
         </div>
-
-        <div class="aui-content-padded" *ngIf="false" style="height:15rem">
-            <ngx-charts-polar-chart
-                    [results]="radarData"
-                    [showXAxisLabel]="true"
-                    [showYAxisLabel]="true"
-                    [xAxis]="true"
-                    [yAxis]="true"
-                    [roundDomains]="true"
-                    [curve]="curveLinearClosed">
-            </ngx-charts-polar-chart>
+        <div *ngFor="let scoreText of dimensionData.subDimensionScoreList">
+            <div *ngIf="scoreText.comment">
+                <h2 class="aui-text-center aui-margin-b-15 aui-margin-t-15">{{scoreText.title ||
+                    scoreText.dimensionName}}</h2>
+                <div [innerHTML]="scoreText.comment"></div>
+            </div>
         </div>
     </section>
 </div>

@@ -8,6 +8,7 @@ export class SurveyDimensionExtraSettings {
                 public subChartTitle?: string,          // 子维度图标题
                 public subChartFootScript?: string,     // 子维度图注脚
                 public subDimensionLimitCnt?: number,   // 显示几个子维度
+                public subDimensionLimitType?: number,  // 显示得分最高还是得分最低的子维度
                 public dimensionMaxValue?: number) {    // 维度最大值
     }
 }

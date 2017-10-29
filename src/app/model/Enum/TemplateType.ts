@@ -5,12 +5,14 @@ export enum TemplateType {
     SINGLE_DIMENSION = 1,
 
     /**
-     * 没有默认维度，全部都是子维度
-     * */
-    MULTIPLE_WITH_NO_FIRST_LEVEL = 2,
-
-    /**
      * 有一个默认维度，全部都是子维度
      * */
-    MULTIPLE_WITH_SINGLE_FIRST_LEVEL = 3,
+    MULTIPLE_WITH_SINGLE_FIRST_LEVEL = 2,
+
+
+    /**
+     * 没有默认维度，全部都是子维度
+     * */
+    MULTIPLE_WITH_NO_FIRST_LEVEL = 3,
+
 }

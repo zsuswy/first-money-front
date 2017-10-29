@@ -224,6 +224,7 @@ export class SurveyDoComponent extends WxBase implements OnInit {
 
             selectedQuestion.selectedOption = option;
             this.surveyAnswerList.push(selectedAnswer);
+            console.log(selectedAnswer);
         }
 
         // 计算下一题
@@ -277,21 +278,19 @@ export class SurveyDoComponent extends WxBase implements OnInit {
                 }
 
                 // 进行计算
-                for (let i = 0; i < this.surveyAnswerList.length; i++) {
-                    for (let j = 0; j < this.surveyAnswerList[i].scoreList.length; j++) {
+                for (let i = 0; i < this.surveyAnswerList.length; i++) {    // 遍历所有题目的答案
+                    for (let j = 0; j < this.surveyAnswerList[i].scoreList.length; j++) {   // 遍历每一个答案的维度得分卡
                         let scoreInfo = this.surveyAnswerList[i].scoreList[j];
+                        console.log('scoreInfo');
+                        console.log(scoreInfo);
 
                         if (scoreInfo.score != null) {
-                            // 如果选项得分落在得分卡的范围
-                            if (dimensionScoreTextList.find(item => item.dimensionId == scoreInfo.dimensionId) != null) {
-
-                                let resultItem = resultList.find(item => item.dimensionId == scoreInfo.dimensionId);
-                                if (resultItem.score == null) {
-                                    resultItem.score = 0;
-                                }
-
-                                resultItem.score += Number(scoreInfo.score);
+                            let resultItem = resultList.find(item => item.dimensionId == scoreInfo.dimensionId);
+                            if (resultItem.score == null) {
+                                resultItem.score = 0;
                             }
+
+                            resultItem.score += Number(scoreInfo.score);
                         }
                     }
                 }

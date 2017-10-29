@@ -4,6 +4,8 @@ import {SurveyDimension} from '../../../../model/SurveyDimension';
 import {ChartDataItem} from '../../../../model/ChartDataItem';
 import * as shape from 'd3-shape';
 import {Survey} from '../../../../model/Survey';
+import {TemplateDimensionData} from '../../../../model/SurveyResult/TemplateDimensionData';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-survey-result-2',
@@ -20,11 +22,20 @@ export class SurveyResult2Component implements OnInit, OnChanges {
     @Input()
     survey: Survey = new Survey();
 
-    firstLevelDimensionList: SurveyDimension[] = [];
+    colorSchema = {
+        domain: ['#7ffbb1', '#e2e2e2']
+    };
 
+    /***/
     barChartData: ChartDataItem[] = [];
 
+    /***/
     curveLinearClosed = shape.curveLinearClosed;
+
+    /**
+     * 把数据组织好，传递给模版
+     * */
+    templateDimensionDataList: TemplateDimensionData[] = [];
 
     radarData = [
         {
@@ -54,35 +65,109 @@ export class SurveyResult2Component implements OnInit, OnChanges {
         }
     ];
 
-    constructor() {
+    constructor(private domSanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
     }
 
-
     ngOnChanges(changes: SimpleChanges): void {
+        console.log(this.surveyResult);
         this.parseData();
     }
 
+    /**
+     * 解析图表数据
+     * */
     parseData() {
         if (this.surveyResult == null || this.dimensionList == null) {
             return;
         }
 
-        // 解析 isFirstLevel 属性
-        for (let i = 0; i < this.dimensionList.length; i++) {
-            this.dimensionList[i].isFirstLevel = this.dimensionList.find(item => item.parentId == this.dimensionList[i].id) == null;
+        // 第一层维度
+        let firstLevelDimension = this.dimensionList.filter(item => item.parentId == null || item.parentId < 1);
+
+        // 遍历
+        for (let i = 0; i < firstLevelDimension.length; i++) {
+            let templateData = new TemplateDimensionData();
+            templateData.dimension = (new SurveyDimension()).assignToSelf(firstLevelDimension[i]);
+            templateData.dimensionScore = this.surveyResult.find(item => item.dimensionId == firstLevelDimension[i].id);
+            templateData.sumData = [];
+
+            console.log('-----');
+            console.log(templateData.dimension);
+            console.log(templateData.dimension.extraSettings);
+            // 如果显示汇总图
+            if (!(templateData.dimension.extraSettings.isShowSumChart == 2)) {
+                let pieData = [];
+                pieData.push({
+                    'name': templateData.dimension.dimensionName,
+                    'value': templateData.dimensionScore.score
+                });
+
+                pieData.push({
+                    'name': '-',
+                    'value': templateData.dimension.extraSettings.dimensionMaxValue - templateData.dimensionScore.score
+                });
+
+                console.log(templateData.dimension.extraSettings.sumChartType == 2);
+
+                switch (Number(templateData.dimension.extraSettings.sumChartType)) {
+                    case 1:
+                        templateData.sumData = pieData;
+                        break;
+                    case 2: // 2-柱状图
+                        let stackChartData = [{
+                            "name": "",
+                            "series": pieData
+                        }];
+
+                        templateData.sumData = stackChartData;
+                        break;
+                    default:
+                        templateData.sumData = pieData;
+
+                        break;
+                }
+            }
+
+            // 如果显示子维度的图
+            if (!(templateData.dimension.extraSettings.isShowSubChart == 2)) {
+                templateData.subData = [];
+                templateData.subDimensionList = this.dimensionList.filter(item => item.parentId == firstLevelDimension[i].id);
+                templateData.subDimensionScoreList = this.surveyResult.filter(dimensionScore => templateData.subDimensionList.some(dimension => dimension.id == dimensionScore.dimensionId));
+
+                let subBarChartData = [];
+                for (let j = 0; j < templateData.subDimensionScoreList.length; j++) {
+                    subBarChartData.push({
+                        'name': templateData.subDimensionScoreList[j].dimensionName,
+                        'value': templateData.subDimensionScoreList[j].score
+                    });
+                }
+
+                switch (Number(templateData.dimension.extraSettings.subChartType)) {
+                    case 1:
+                        templateData.subData = subBarChartData;
+                        break;
+                    case 2:
+                        let subRadarChartData = [{
+                            "name": "",
+                            "series": subBarChartData
+                        }];
+
+                        templateData.subData = subRadarChartData;
+                        break;
+                    default:
+                        templateData.subData = subBarChartData;
+                        break;
+                }
+            }
+            console.log(templateData.sumData);
+
+            console.log(templateData.subData);
+            this.templateDimensionDataList.push(templateData);
         }
 
-        let subDimensionList = this.dimensionList.filter(item => !item.isFirstLevel);
-        let defaultDimension = this.dimensionList.find(item => item.isFirstLevel);
-
-        this.barChartData = this.surveyResult.map(item => {
-            return {name: item.title || item.dimensionName, value: item.score};
-        });
-
-        console.log(this.barChartData);
 
     }
 }

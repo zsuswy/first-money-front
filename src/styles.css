@@ -40,6 +40,15 @@ a {
 }
 
 /* =========== START 测评结果相关页面使用的样式 START =========== */
+.result-container {
+    padding: 1rem;
+    background-color: white;
+    background-image: linear-gradient(#eeeeee 1px, transparent 0),
+    linear-gradient(90deg, #eeeeee 1px, transparent 0);
+    background-size: .7rem .7rem;
+    font-size: .7rem;
+}
+
 .result-block {
     border: solid 1px lightgrey;
     border-radius: .5rem;
@@ -50,15 +59,12 @@ a {
 
 .result-block-title {
     margin-bottom: .5rem;
+    text-decoration: underline;
 }
 
-.result-container {
-    padding: 1rem;
-    background-color: white;
-    background-image: linear-gradient(#eeeeee 1px, transparent 0),
-    linear-gradient(90deg, #eeeeee 1px, transparent 0);
-    background-size: .7rem .7rem;
-    font-size: .7rem;
+.result-block-sub-title {
+    margin-bottom: .5rem;
+    color: deepskyblue
 }
 
 ol.cp-ol-list {

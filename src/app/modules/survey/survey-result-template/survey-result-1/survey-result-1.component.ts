@@ -3,6 +3,7 @@ import {SurveyResultDimensionScore} from '../../../../model/SurveyResultDimensio
 import {SurveyDimension} from '../../../../model/SurveyDimension';
 import {Survey} from '../../../../model/Survey';
 import {Config} from '../../../Config';
+import {TemplateDimensionData} from '../../../../model/SurveyResult/TemplateDimensionData';
 
 @Component({
     selector: 'app-survey-result-1',
@@ -16,16 +17,6 @@ export class SurveyResult1Component implements OnInit, OnChanges {
     ngOnInit() {
     }
 
-    showChart: Boolean = true;
-
-    // options
-    xAxisLabel = 'Country';
-    yAxisLabel = 'Population';
-
-    colorScheme = {
-        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-    };
-
     @Input()
     surveyResult: SurveyResultDimensionScore[] = [];
 
@@ -35,19 +26,12 @@ export class SurveyResult1Component implements OnInit, OnChanges {
     @Input()
     survey: Survey = new Survey();
 
-    dimension: SurveyDimension = new SurveyDimension();
-    dimensionResult: SurveyResultDimensionScore = new SurveyResultDimensionScore();
-    chartType: number = 0;
+    templateDimensionData: TemplateDimensionData = new TemplateDimensionData();
 
-    pieColors = {
+
+    colorSchema = {
         domain: ['#7ffbb1', '#e2e2e2']
     };
-
-    pieChartData = [];
-    stackChartData = [{
-        "name": "",
-        "series": null
-    }];
 
     ngOnChanges(changes: SimpleChanges): void {
         this.prepareData();
@@ -61,27 +45,33 @@ export class SurveyResult1Component implements OnInit, OnChanges {
         }
 
         // 序列化，继承TypeScript对象的相关操作
-        this.dimension.assignToSelf(defaultDimension);
+        this.templateDimensionData.dimension = (new SurveyDimension()).assignToSelf(defaultDimension);
 
-        this.chartType = this.dimension.extraSettings.sumChartType;
+        // this.chartType = this.dimension.extraSettings.sumChartType;
 
-        this.dimensionResult = this.surveyResult[0];
+        this.templateDimensionData.dimensionScore = this.surveyResult[0];
+        // this.dimensionResult = this.surveyResult[0];
 
-        // 是否需要显示图表
-        this.showChart = !(this.dimension.extraSettings.isShowSumChart == 2);
+        // 饼图和柱图的数据结构有一点不一样
+        let pieChartData = [];
+        let stackChartData = [{
+            "name": "",
+            "series": null
+        }];
 
-        console.log(this.dimensionResult);
-
-        this.pieChartData.push({'name': this.dimensionResult.dimensionName, 'value': this.dimensionResult.score});
-
-        this.pieChartData.push({
-            'name': '-',
-            'value': this.dimension.extraSettings.dimensionMaxValue - this.dimensionResult.score
+        pieChartData.push({
+            'name': this.templateDimensionData.dimension.dimensionName,
+            'value': this.templateDimensionData.dimensionScore.score
         });
 
-        this.stackChartData[0].series = this.pieChartData;
-        console.log(this.pieChartData);
+        pieChartData.push({
+            'name': '-',
+            'value': this.templateDimensionData.dimension.extraSettings.dimensionMaxValue - this.templateDimensionData.dimensionScore.score
+        });
 
+        stackChartData[0].series = pieChartData;
+
+        this.templateDimensionData.sumData = this.templateDimensionData.dimension.extraSettings.sumChartType == 2 ? stackChartData : pieChartData;
     }
 
     constructor() {
