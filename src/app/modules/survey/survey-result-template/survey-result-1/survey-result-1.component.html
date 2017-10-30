@@ -1,4 +1,4 @@
-<section class="result-block" *ngIf="!(templateDimensionData.dimension.extraSettings.isShowSumChart==2)">
+<section class="result-block" *ngIf="templateDimensionData.dimension.extraSettings.isShowSumChart==1">
     <h2 class="aui-text-center">
         {{templateDimensionData.dimension.extraSettings.sumChartTitle}}
     </h2>
@@ -11,7 +11,7 @@
         </ngx-charts-pie-chart>
 
         <ngx-charts-bar-vertical-stacked
-                *ngIf="templateDimensionData.dimension.extraSettings.sumChartType == 2" [scheme]="colorSchema"
+                *ngIf="templateDimensionData.dimension.extraSettings.sumChartType == 0" [scheme]="colorSchema"
                 [results]="templateDimensionData.sumData"
                 [gradient]="true" [xAxis]="false" [yAxis]="true" [barPadding]="200"
                 [legend]="false" [showXAxisLabel]="false" [showYAxisLabel]="false"

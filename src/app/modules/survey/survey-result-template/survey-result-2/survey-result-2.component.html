@@ -1,6 +1,6 @@
 <div *ngFor="let dimensionData of templateDimensionDataList">
     <!--汇总内容-->
-    <section class="result-block">
+    <section class="result-block" *ngIf="dimensionData.dimension.extraSettings.isShowDimension == 1">
         <h2 class="aui-text-center result-block-title">
             {{dimensionData.dimension.extraSettings.sumChartTitle || dimensionData.dimension.dimensionName}}
         </h2>
@@ -20,7 +20,7 @@
             </ngx-charts-bar-vertical-stacked>
         </div>
         <h5 class="aui-text-center aui-margin-b-15">
-            {{dimensionData.dimension.dimensionName}}{{dimensionData.dimensionScore.score}}，{{dimensionData.dimension.extraSettings.sumChartFootScript}}</h5>
+            {{dimensionData.dimension.extraSettings.sumChartFootScript}}</h5>
         <div>
             <p [innerHTML]="domSanitizer.bypassSecurityTrustHtml(dimensionData.dimensionScore.comment)"></p>
         </div>
@@ -29,27 +29,29 @@
     <!--详解-->
     <section class="result-block">
         <h2 class="aui-text-center result-block-title">
-            {{dimensionData.dimension.dimensionName}}详解
+            {{dimensionData.dimension.extraSettings.subChartTitle || dimensionData.dimension.dimensionName}}
         </h2>
         <div>
-            <div style="height:7rem" *ngIf="dimensionData.dimension.extraSettings.subChartType == 1">
+            <div style="height:7rem;border: dashed 1px lightgray"
+                 *ngIf="dimensionData.dimension.extraSettings.subChartType == 1">
                 <ngx-charts-bar-vertical
                         [results]="dimensionData.subData" [barPadding]="10" [gradient]="false"
-                        [xAxis]="true" [yAxis]="true" [legend]="false" [showXAxisLabel]="false"
-                        [showYAxisLabel]="false" [xAxisLabel]="''" [yAxisLabel]="''">
+                        [xAxis]="true" [yAxis]="true" [legend]="false" [showXAxisLabel]="true"
+                        [showYAxisLabel]="false" [xAxisLabel]="dimensionData.dimension.extraSettings.sumChartFootScript"
+                        [yAxisLabel]="''">
                 </ngx-charts-bar-vertical>
             </div>
-            <div style="height:14rem" *ngIf="dimensionData.dimension.extraSettings.subChartType == 2">
-
+            <div style="height:14rem;border: dashed 1px lightgray"
+                 *ngIf="dimensionData.dimension.extraSettings.subChartType == 2">
                 <ngx-charts-polar-chart
-                        [results]="dimensionData.subData" [showXAxisLabel]="true"
-                        [showYAxisLabel]="false"
+                        [results]="dimensionData.subData" [showXAxisLabel]="false"
+                        [showYAxisLabel]="false" [xAxisLabel]="''"
                         [xAxis]="true" [yAxis]="true" [roundDomains]="true" [curve]="curveLinearClosed">
                 </ngx-charts-polar-chart>
             </div>
         </div>
-        <div *ngFor="let scoreText of dimensionData.subDimensionScoreList">
-            <div *ngIf="scoreText.comment">
+        <div *ngFor="let scoreText of dimensionData.subDimensionScoreListForInfo">
+            <div>
                 <h2 class="aui-text-center aui-margin-b-15 aui-margin-t-15">{{scoreText.title ||
                     scoreText.dimensionName}}</h2>
                 <div [innerHTML]="scoreText.comment"></div>
