@@ -68,6 +68,8 @@ export class WxBase {
 
         setTimeout(() => {
             let link = Config.WEB_WX_SHARE_ENTRY + '?path=' + ng_this.router.url + '&fromUserId=' + ng_this.userId;
+
+            // 分享给好友
             wx.onMenuShareAppMessage({
                 title: title || '', // 分享标题
                 desc: desc || '', // 分享描述
@@ -84,6 +86,22 @@ export class WxBase {
                     // 用户取消分享后执行的回调函数
                 }
             });
+
+            // 分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: title || '', // 分享标题
+                link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: imgUrl || '', // 分享图标
+                success: function () {
+                    ng_this.OnWxShareSuccess();
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    ng_this.OnWxShareCancel();
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
         }, 500);
     }
 

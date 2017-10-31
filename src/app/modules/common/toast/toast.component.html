@@ -1,4 +1,4 @@
 <div *ngIf="isShow" class="aui-toast" style="display: block; margin-top: -61px;"><i
         class="aui-iconfont aui-icon-correct"></i>
-    <div class="aui-toast-content">{{message}}</div>
+    <div class="aui-toast-content" [innerHTML]="message"></div>
 </div>

@@ -41,7 +41,7 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
 
     fromUserId: number;
 
-    shareMessage = '分享成功，获得 2 个积分!';
+    shareMessage = '分享成功，<br/>获得 2 个积分!';
 
     constructor(private surveyService: SurveyService,
                 private route: ActivatedRoute,

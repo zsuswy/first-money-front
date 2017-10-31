@@ -4,7 +4,7 @@
 export class UserSurvey {
     constructor(public id?: number,
                 public userId?: number,
-                public pUserId?: number,
+                public fromUserId?: number,
                 public orderId?: number,
                 public status?: number,
                 public surveyId?: number,
