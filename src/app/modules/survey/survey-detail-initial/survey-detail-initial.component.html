@@ -13,7 +13,7 @@
         <span class="list-old-price">¥{{survey.orgPrice}}</span>
     </div>
     <div class="aui-text-center">
-        <a class="aui-btn aui-btn-warning" (click)="buySurvey()">立即购买</a>
+        <a class="aui-btn aui-btn-warning" (click)="buySurvey()">{{buyButtonText}}</a>
     </div>
     <div class="aui-row" style="border-bottom: solid 1px lightgray;">
         <div class="aui-col-xs-6">
@@ -47,3 +47,4 @@
 </section>
 <div style="height: 1.3rem;"></div>
 <app-loading></app-loading>
+<app-toast [message]="shareMessage"></app-toast>

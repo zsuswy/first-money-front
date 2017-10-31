@@ -67,7 +67,7 @@ export class WxBase {
         let ng_this = this;
 
         setTimeout(() => {
-            let link = Config.WEB_MOBILE_APP_URL + '/#?path=' + ng_this.router.url + '&fromUserId=' + ng_this.userId;
+            let link = Config.WEB_WX_SHARE_ENTRY + '?path=' + ng_this.router.url + '&fromUserId=' + ng_this.userId;
             wx.onMenuShareAppMessage({
                 title: title || '', // 分享标题
                 desc: desc || '', // 分享描述

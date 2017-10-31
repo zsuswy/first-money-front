@@ -13,6 +13,7 @@ import 'rxjs/add/observable/zip';
 import {User} from '../../../model/User';
 import {LoadingComponent} from '../../common/loading/loading.component';
 import {Config} from '../../Config';
+import {ToastComponent} from '../../common/toast/toast.component';
 
 declare let WeixinJSBridge: any;
 
@@ -24,6 +25,12 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
     @ViewChild(LoadingComponent)
     private loadComponent: LoadingComponent;
 
+    @ViewChild(ToastComponent)
+    private toastComponent: ToastComponent;
+
+
+    buyButtonText: string = '立即购买';
+
     survey: Survey;
 
     user: User;
@@ -33,6 +40,8 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
     surveyId: number;
 
     fromUserId: number;
+
+    shareMessage = '分享成功，获得 2 个积分!';
 
     constructor(private surveyService: SurveyService,
                 private route: ActivatedRoute,
@@ -93,8 +102,11 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
      * 支付
      * */
     buySurvey() {
+        this.buyButtonText = "正在支付...";
+
         // 之前没有创建订单，那么创建新的订单，创建订单后跳转到支付页面；
         this.createOrGetOrderPayInfo().subscribe(resp => {
+            this.buyButtonText = "立即购买";
             if (resp.success) {
                 this.userSurveyId = resp.data.userSurveyId;
                 sessionStorage.setItem('SURVEY-PAY-USERSURVEYID', String(this.userSurveyId));
@@ -137,6 +149,7 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
      * */
     protected OnWxShareSuccess() {
         this.surveyService.shareSurvey(this.surveyId).subscribe(resp => {
+            this.toastComponent.show();
         });
     }
 

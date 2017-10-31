@@ -16,6 +16,14 @@ export class Config {
         return 'https://quiz.ronmob.com/qz';
     }
 
+    static get WEB_WX_SHARE_ENTRY(): string {
+        if (Config.DEBUG) {
+            return 'http://localhost:9999';
+        }
+        return 'https://quiz.ronmob.com/qz/wx/share';
+    }
+
+
     static get WEB_MOBILE_APP_URL(): string {
         if (Config.DEBUG) {
             return 'http://localhost:9999';

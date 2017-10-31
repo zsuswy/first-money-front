@@ -23,13 +23,11 @@ export class LoadingComponent implements OnInit {
     ngOnInit() {
     }
 
-    @Output()
     public loadStart() {
         this.dt_start = (new Date()).valueOf();
         this.isShowLoading = true;
     }
 
-    @Output()
     public loadComplete() {
         this.dt_finish = (new Date()).valueOf();
 
