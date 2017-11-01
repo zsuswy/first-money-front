@@ -148,8 +148,14 @@ export class SurveyDetailInitialComponent extends WxBase implements OnInit {
      * 分享成功后的接口
      * */
     protected OnWxShareSuccess() {
+        alert('OnWxShareSuccess');
         this.surveyService.shareSurvey(this.surveyId).subscribe(resp => {
-            this.toastComponent.show();
+            console.log(this);
+            console.log(this.toastComponent);
+            if (resp.success) {
+                console.log('abc');
+                this.toastComponent.show();
+            }
         });
     }
 

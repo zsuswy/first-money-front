@@ -45,12 +45,6 @@ import {ToastComponent} from '../common/toast/toast.component';
         SurveyRoutingModule,
         NgxChartsModule,
         HttpClientModule,
-        SwiperModule.forRoot({
-            direction: 'horizontal',
-            slidesPerView: 'auto',
-            keyboardControl: true
-        })
-
     ]
 })
 export class SurveyModule {

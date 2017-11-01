@@ -17,6 +17,7 @@ export class ToastComponent implements OnInit {
     }
 
     public show() {
+        console.log('show()');
         this.isShow = true;
         this.delayClose(2000);
     }

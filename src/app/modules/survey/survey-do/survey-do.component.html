@@ -30,7 +30,7 @@
     </div>
 
     <div *ngFor="let question of activeQuestionList;let i=index">
-        <div class="aui-chat-item aui-chat-left" id="question{{question.id}}">
+        <div class="aui-chat-item aui-chat-left" style="padding-top:1rem" id="question{{question.id}}">
             <div class="aui-chat-media">
                 <img src="assets/image/demo2.png"/>
             </div>
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div *ngIf="userFinished">
-        <div class="aui-chat-item aui-chat-left" id="questionend">
+        <div class="aui-chat-item aui-chat-left" style="padding-top:1rem" id="questionend">
             <div class="aui-chat-media">
                 <img src="assets/image/demo2.png"/>
             </div>

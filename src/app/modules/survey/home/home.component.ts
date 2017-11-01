@@ -1,5 +1,4 @@
 import {Component, HostBinding, AfterViewInit, ElementRef, ViewChild, OnInit, NgZone} from '@angular/core';
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {SurveyService} from '../../../services/survey-service.service';
 import {Survey} from '../../../model/Survey';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,8 +7,6 @@ import {LoadingComponent} from '../../common/loading/loading.component';
 
 declare let auiSlide: any;
 declare let Swiper: any;
-declare let auiDialog: any;
-
 
 @Component({
     templateUrl: './home.component.html',
@@ -19,12 +16,8 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     @ViewChild('auislide2')
     aui_slide: ElementRef;
 
-    @ViewChild('swipercontainer1')
-    slider1: ElementRef;
-
     @ViewChild(LoadingComponent)
     private loadComponent: LoadingComponent;
-
 
     // 最热列表
     hotList: Array<Survey>;
@@ -58,21 +51,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
         // };
     }
 
-    public config: SwiperConfigInterface = {
-        scrollbar: null,
-        direction: 'horizontal',
-        slidesPerView: 1,
-        scrollbarHide: false,
-        keyboardControl: true,
-        mousewheelControl: true,
-        // scrollbarDraggable: true,
-        scrollbarSnapOnRelease: true,
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-    };
-
     ngOnInit() {
         let ng_this = this;
         Observable.zip(this.surveyService.getSurveyHotList(),
@@ -102,18 +80,15 @@ export class HomePageComponent implements AfterViewInit, OnInit {
             });
     }
 
-    alertReturn(ret) {
-        console.log(ret);
-    }
-
     createHorizonalSwiper(selector: string) {
         setTimeout(() => {
             new Swiper(selector, {
                 // pagination: '.swiper-pagination',
-                slidesPerView: 3,
-                paginationClickable: true,
+                direction: 'horizontal',
                 spaceBetween: 10,
-                freeMode: true
+                slidesPerView: 'auto',
+                freeMode: true,
+                mousewheel: true,
             });
         }, 1);
     }
@@ -123,7 +98,7 @@ export class HomePageComponent implements AfterViewInit, OnInit {
             container: this.aui_slide.nativeElement,
             'height': '8rem',
             'speed': 200,
-            //'autoPlay': 3000,
+            'autoPlay': 2000,
             'loop': false,
             'pageShow': true,
             'pageStyle': 'line',
